@@ -12,7 +12,7 @@ namespace LudoNewWorld.Classes
         {
             if (MainPage.gameState == 0)
             {
-                MainPage.background = MainPage.gameBackGround;
+                MainPage.background = MainPage.gameBackground;
             }
             else if (MainPage.gameState == 1)
             {
