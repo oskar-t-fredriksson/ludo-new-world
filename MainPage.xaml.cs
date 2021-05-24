@@ -16,6 +16,7 @@ using Microsoft.Graphics.Canvas.UI.Xaml;
 using Microsoft.Graphics.Canvas.UI;
 using Microsoft.Graphics.Canvas;
 using System.Threading.Tasks;
+using Windows.UI.ViewManagement;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -27,6 +28,10 @@ namespace LudoNewWorld
     public sealed partial class MainPage : Page
     {
         public static CanvasBitmap gameBackGround;
+        public static Rect bounds = ApplicationView.GetForCurrentView().VisibleBounds;
+        public static float DesignWidth = 1280;
+        public static float DesignHeight = 720;
+        public static float scaleWidth, scaleHeight;
         public MainPage()
         {
             this.InitializeComponent();
@@ -43,7 +48,7 @@ namespace LudoNewWorld
 
         private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
-            args.DrawingSession.DrawImage(gameBackGround, 40, 40);
+            args.DrawingSession.DrawImage(gameBackGround);
         }
     }
 }
