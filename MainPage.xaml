@@ -8,11 +8,11 @@
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    
+
     <Grid>
         <canvas:CanvasAnimatedControl x:Name="GameCanvas" CreateResources="GameCanvas_CreateResources" Draw="GameCanvas_Draw"/>
         <Grid x:Name="MenuField" Visibility="Visible">
-            <Button x:Name="btnStart" Click="btnStart_Click" Content="Start Game" Margin="960,540,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="btnStart" Click="btnStart_Click" Content="Start Game" Margin="883,500,0,0" VerticalAlignment="Top" Height="72" Width="166"/>
         </Grid>
     </Grid>
 

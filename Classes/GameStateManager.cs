@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LudoNewWorld.Classes;
 
-namespace LudoNewWorld.Classes
+namespace LudoNewWorld
 {
     class GameStateManager
     {
@@ -12,11 +13,11 @@ namespace LudoNewWorld.Classes
         {
             if (MainPage.gameState == 0)
             {
-                MainPage.background = MainPage.gameBackground;
+                MainPage.background = MainPage.menuBackground;
             }
             else if (MainPage.gameState == 1)
             {
-                MainPage.background = MainPage.menuBackground;
+                MainPage.background = MainPage.gameBackground;
             }
         }
     }

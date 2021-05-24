@@ -63,11 +63,13 @@ namespace LudoNewWorld
         async Task CreateResourceAsync(CanvasAnimatedControl sender)
         {
             gameBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/bg.png"));
+            menuBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/menuBackground.png"));
         }
 
         private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
-            args.DrawingSession.DrawImage(Scaler.Fit(gameBackground));
+            GameStateManager.BackgroundManager();
+            args.DrawingSession.DrawImage(Scaler.Fit(background));
         }
     }
 }
