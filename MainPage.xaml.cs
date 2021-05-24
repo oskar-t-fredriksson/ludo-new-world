@@ -62,7 +62,7 @@ namespace LudoNewWorld
 
         private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
-            args.DrawingSession.DrawImage(Scaler.Fit(gameBackGround));
+            args.DrawingSession.DrawImage(Scaler.Fit(gameBackground));
         }
     }
 }
