@@ -28,11 +28,12 @@ namespace LudoNewWorld
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public static CanvasBitmap gameBackGround;
+        public static CanvasBitmap background, gameBackground, menuBackground;
         public static Rect bounds = ApplicationView.GetForCurrentView().VisibleBounds;
         public static float DesignWidth = 1920;
         public static float DesignHeight = 1080;
         public static float scaleWidth, scaleHeight;
+        public static int gameState = 0;
         public MainPage()
         {
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size { Width = 1280, Height = 720 });
@@ -56,7 +57,7 @@ namespace LudoNewWorld
         }
         async Task CreateResourceAsync(CanvasAnimatedControl sender)
         {
-            gameBackGround = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/bg.png"));
+            gameBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/bg.png"));
         }
 
         private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)

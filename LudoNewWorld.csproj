@@ -122,6 +122,7 @@
     <Compile Include="Classes\Competitor.cs" />
     <Compile Include="Classes\ComputerPlayer.cs" />
     <Compile Include="Classes\GameEngine.cs" />
+    <Compile Include="Classes\GameStateManager.cs" />
     <Compile Include="Classes\GameTiles.cs" />
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\Scaler.cs" />
