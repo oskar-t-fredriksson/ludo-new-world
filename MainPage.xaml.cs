@@ -38,6 +38,11 @@ namespace LudoNewWorld
             this.InitializeComponent();
         }
 
+        private void btnStart_Click(object sender, RoutedEventArgs e)
+        {
+            MenuField.Visibility = Visibility.Collapsed;
+        }
+
         private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
         {
             args.TrackAsyncAction(CreateResourceAsync(sender).AsAsyncAction());
