@@ -10,6 +10,13 @@
 *.userosscache
 *.sln.docstates
 
+# Own ignores
+.vs/
+.vscode/**
+bin/**
+obj/**
+*.exe
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
