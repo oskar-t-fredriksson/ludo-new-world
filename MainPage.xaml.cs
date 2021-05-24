@@ -17,6 +17,7 @@ using Microsoft.Graphics.Canvas.UI;
 using Microsoft.Graphics.Canvas;
 using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
+using Windows.UI.Core;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -29,12 +30,24 @@ namespace LudoNewWorld
     {
         public static CanvasBitmap gameBackGround;
         public static Rect bounds = ApplicationView.GetForCurrentView().VisibleBounds;
-        public static float DesignWidth = 1280;
-        public static float DesignHeight = 720;
+        public static float DesignWidth = 1920;
+        public static float DesignHeight = 1080;
         public static float scaleWidth, scaleHeight;
         public MainPage()
         {
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size { Width = 1280, Height = 720 });
+            ApplicationView.PreferredLaunchViewSize = new Size(1920, 1080);
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+
             this.InitializeComponent();
+            Window.Current.SizeChanged += Current_SizeChanged;
+            Scaler.SetScale();
+        }
+
+        private void Current_SizeChanged(object sender, WindowSizeChangedEventArgs e)
+        {
+            bounds = ApplicationView.GetForCurrentView().VisibleBounds;
+            Scaler.SetScale();
         }
 
         private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
@@ -48,7 +61,7 @@ namespace LudoNewWorld
 
         private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
-            args.DrawingSession.DrawImage(gameBackGround);
+            args.DrawingSession.DrawImage(Scaler.Fit(gameBackGround));
         }
     }
 }

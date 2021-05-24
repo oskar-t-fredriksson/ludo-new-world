@@ -8,8 +8,9 @@
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    
     <Grid>
         <canvas:CanvasAnimatedControl x:Name="GameCanvas" CreateResources="GameCanvas_CreateResources" Draw="GameCanvas_Draw"/>
     </Grid>
+
 </Page>

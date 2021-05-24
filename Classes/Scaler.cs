@@ -6,6 +6,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using LudoNewWorld.Classes;
 
 namespace LudoNewWorld
 {
@@ -16,6 +17,11 @@ namespace LudoNewWorld
             //Display information            
             MainPage.scaleWidth = (float)MainPage.bounds.Width / MainPage.DesignWidth;
             MainPage.scaleHeight = (float)MainPage.bounds.Height / MainPage.DesignHeight;
+        }
+
+        public static Transform2DEffect Img(CanvasBitmap source)
+        {
+            return ScaleImage(source, MainPage.scaleWidth, MainPage.scaleHeight);
         }
 
         public static Transform2DEffect Fit(CanvasBitmap source)
