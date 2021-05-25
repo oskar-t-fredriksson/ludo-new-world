@@ -9,10 +9,66 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <Style x:Key="StartMenuStyle" TargetType="Button">
+            <Setter Property="FontFamily" Value="Georgia"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Opacity" Value="0.65"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+        </Style>
+
+    </Page.Resources>
     <Grid>
         <canvas:CanvasAnimatedControl x:Name="GameCanvas" CreateResources="GameCanvas_CreateResources" Draw="GameCanvas_Draw"/>
         <Grid x:Name="MenuField" Visibility="Visible">
-            <Button x:Name="btnStart" Click="btnStart_Click" Content="Start Game" Margin="883,500,0,0" VerticalAlignment="Top" Height="72" Width="166"/>
+
+            <Button x:Name="btnStart" Click="btnStart_Click" Content="Start Game" Style="{StaticResource StartMenuStyle}" Margin="883,400,0,0" VerticalAlignment="Top" Height="70" Width="140"/>
+            <Button x:Name="btnQuit" Click="btnQuit_Click" Content="Quit Game" Style="{StaticResource StartMenuStyle}" Margin="883,500,0,0" VerticalAlignment="Top" Height="70" Width="140"/>
+            
+
+        </Grid>
+        <Grid x:Name="FactionField" Visibility="Collapsed">
+            <TextBlock Text="PICK A FACTION" FontSize="30" FontFamily="Georgia" Foreground="Black" 
+                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                       Margin="0,-300,0,0"/>
+            <Button x:Name="btnBritain" Click="btnBritain_Click" 
+                    Margin="-200,-100,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                    Height="70" Width="140" 
+                    Background="White" BorderBrush="Black" FontFamily="Georgia">
+                <StackPanel>
+                    <Image Source="Assets/Images/Britain.png" Height="40" Width="120"/>
+                    <TextBlock Text="Britain" Foreground="Black" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="btnFrance" Click="btnFrance_Click" 
+                    Margin="200,-100,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                    Height="70" Width="140"
+                    Background="White" BorderBrush="Black" FontFamily="Georgia">
+                <StackPanel>
+                    <Image Source="Assets/Images/France.png" Height="40" Width="120"/>
+                    <TextBlock Text="France" Foreground="Black" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="btnDutch" Click="btnDutch_Click" 
+                    Margin="-200,100,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                    Height="70" Width="140"
+                    Background="White" BorderBrush="Black" FontFamily="Georgia">
+                <StackPanel>
+                    <Image Source="Assets/Images/Dutch.png" Height="40" Width="120"/>
+                    <TextBlock Text="Dutch" Foreground="Black" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="btnSpain" Click="btnSpain_Click" 
+                    Margin="200,100,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                    Height="70" Width="140"
+                    Background="White" BorderBrush="Black" FontFamily="Georgia">
+                <StackPanel>
+                    <Image Source="Assets/Images/Spain.png" Height="40" Width="120"/>
+                    <TextBlock Text="Spain" Foreground="Black" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
         </Grid>
     </Grid>
 

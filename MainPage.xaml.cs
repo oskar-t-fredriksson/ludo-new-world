@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 using Windows.UI.Core;
 using LudoNewWorld.Classes;
+using System.Threading;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -35,6 +36,8 @@ namespace LudoNewWorld
         public static float DesignHeight = 1080;
         public static float scaleWidth, scaleHeight;
         public static int gameState = 0;
+        public static string playerFaction;
+        
         public MainPage()
         {
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size { Width = 1280, Height = 720 });
@@ -55,7 +58,40 @@ namespace LudoNewWorld
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
             MenuField.Visibility = Visibility.Collapsed;
-            
+            FactionField.Visibility = Visibility.Visible;
+        }
+
+        private void btnQuit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnBritain_Click(object sender, RoutedEventArgs e)
+        {
+            playerFaction = "Britain";
+            FactionField.Visibility = Visibility.Collapsed;
+            gameState = 1;
+        }
+
+        private void btnFrance_Click(object sender, RoutedEventArgs e)
+        {
+            playerFaction = "France";
+            FactionField.Visibility = Visibility.Collapsed;
+            gameState = 1;
+        }
+
+        private void btnDutch_Click(object sender, RoutedEventArgs e)
+        {
+            playerFaction = "Dutch";
+            FactionField.Visibility = Visibility.Collapsed;
+            gameState = 1;
+        }
+
+        private void btnSpain_Click(object sender, RoutedEventArgs e)
+        {
+            playerFaction = "Spain";
+            FactionField.Visibility = Visibility.Collapsed;
+            gameState = 1;
         }
 
         private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
@@ -93,9 +129,6 @@ namespace LudoNewWorld
                 case 6:
                     Dice.dice = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice6.png"));
                     break;
-
-
-
                 default:
                     break;
             }
@@ -109,10 +142,7 @@ namespace LudoNewWorld
             if (gameState==1)
             {
                 args.DrawingSession.DrawImage(Dice.dice);
-
             }
-           
-            
         }
     }
 }

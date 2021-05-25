@@ -145,7 +145,11 @@
     <Content Include="Assets\Images\Dices\dice4.png" />
     <Content Include="Assets\Images\Dices\dice5.png" />
     <Content Include="Assets\Images\Dices\dice6.png" />
+    <Content Include="Assets\Images\Britain.png" />
+    <Content Include="Assets\Images\Dutch.png" />
+    <Content Include="Assets\Images\France.png" />
     <Content Include="Assets\Images\menuBackground.png" />
+    <Content Include="Assets\Images\Spain.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
