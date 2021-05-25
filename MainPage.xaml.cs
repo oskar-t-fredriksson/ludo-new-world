@@ -37,7 +37,7 @@ namespace LudoNewWorld
         public static float scaleWidth, scaleHeight;
         public static int gameState = 0;
         public static string playerFaction;
-        
+                
         public MainPage()
         {
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size { Width = 1280, Height = 720 });
@@ -63,7 +63,7 @@ namespace LudoNewWorld
 
         private void btnQuit_Click(object sender, RoutedEventArgs e)
         {
-
+            Application.Current.Exit();
         }
 
         private void btnBritain_Click(object sender, RoutedEventArgs e)
@@ -98,6 +98,7 @@ namespace LudoNewWorld
         {
             args.TrackAsyncAction(CreateResourceAsync(sender).AsAsyncAction());
         }
+
         async Task CreateResourceAsync(CanvasAnimatedControl sender)
         {
             gameBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/bg.png"));

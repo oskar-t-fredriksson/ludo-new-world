@@ -23,11 +23,8 @@
     <Grid>
         <canvas:CanvasAnimatedControl x:Name="GameCanvas" CreateResources="GameCanvas_CreateResources" Draw="GameCanvas_Draw"/>
         <Grid x:Name="MenuField" Visibility="Visible">
-
-            <Button x:Name="btnStart" Click="btnStart_Click" Content="Start Game" Style="{StaticResource StartMenuStyle}" Margin="883,400,0,0" VerticalAlignment="Top" Height="70" Width="140"/>
-            <Button x:Name="btnQuit" Click="btnQuit_Click" Content="Quit Game" Style="{StaticResource StartMenuStyle}" Margin="883,500,0,0" VerticalAlignment="Top" Height="70" Width="140"/>
-            
-
+            <Button x:Name="btnStart" Click="btnStart_Click" Content="Start Game" Style="{StaticResource StartMenuStyle}" Margin="0,400,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="70" Width="140"/>
+            <Button x:Name="btnQuit" Click="btnQuit_Click" Content="Quit Game" Style="{StaticResource StartMenuStyle}" Margin="0,500,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="70" Width="140"/>
         </Grid>
         <Grid x:Name="FactionField" Visibility="Collapsed">
             <TextBlock Text="PICK A FACTION" FontSize="30" FontFamily="Georgia" Foreground="Black" 
