@@ -121,6 +121,7 @@
     </Compile>
     <Compile Include="Classes\Competitor.cs" />
     <Compile Include="Classes\ComputerPlayer.cs" />
+    <Compile Include="Classes\Dice.cs" />
     <Compile Include="Classes\GameEngine.cs" />
     <Compile Include="Classes\GameStateManager.cs" />
     <Compile Include="Classes\GameTiles.cs" />
@@ -138,6 +139,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Images\bg.png" />
+    <Content Include="Assets\Images\Dices\dice1.png" />
+    <Content Include="Assets\Images\Dices\dice2.png" />
+    <Content Include="Assets\Images\Dices\dice3.png" />
+    <Content Include="Assets\Images\Dices\dice4.png" />
+    <Content Include="Assets\Images\Dices\dice5.png" />
+    <Content Include="Assets\Images\Dices\dice6.png" />
     <Content Include="Assets\Images\menuBackground.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

@@ -18,6 +18,7 @@ using Microsoft.Graphics.Canvas;
 using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 using Windows.UI.Core;
+using LudoNewWorld.Classes;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -54,6 +55,7 @@ namespace LudoNewWorld
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
             MenuField.Visibility = Visibility.Collapsed;
+            
         }
 
         private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
@@ -64,12 +66,53 @@ namespace LudoNewWorld
         {
             gameBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/bg.png"));
             menuBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/menuBackground.png"));
+            await DicePics(sender);
+        }
+
+        private static async Task DicePics(CanvasAnimatedControl sender)
+        {
+            Dice.DiceRoll();
+
+            switch (Dice.diceValue)
+            {
+                case 1:
+                    Dice.dice = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice1.png"));
+                    break;
+                case 2:
+                    Dice.dice = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice2.png"));
+                    break;
+                case 3:
+                    Dice.dice = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice3.png"));
+                    break;
+                case 4:
+                    Dice.dice = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice4.png"));
+                    break;
+                case 5:
+                    Dice.dice = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice5.png"));
+                    break;
+                case 6:
+                    Dice.dice = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice6.png"));
+                    break;
+
+
+
+                default:
+                    break;
+            }
         }
 
         private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
             GameStateManager.BackgroundManager();
+
             args.DrawingSession.DrawImage(Scaler.Fit(background));
+            if (gameState==1)
+            {
+                args.DrawingSession.DrawImage(Dice.dice);
+
+            }
+           
+            
         }
     }
 }
