@@ -39,7 +39,7 @@
         </Style>
 
     </Page.Resources>
-    <Grid>
+    <Grid x:Name="mainGrid">
         <canvas:CanvasAnimatedControl x:Name="GameCanvas" CreateResources="GameCanvas_CreateResources" Draw="GameCanvas_Draw"/>
         <Grid x:Name="MenuField" Visibility="Visible">
             <Button x:Name="btnStart" Click="btnStart_Click" Content="Start Game" Style="{StaticResource StartMenuStyle}" Margin="0,-100,0,0" Height="70" Width="140"/>

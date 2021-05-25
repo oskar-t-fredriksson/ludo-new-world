@@ -20,6 +20,7 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Core;
 using LudoNewWorld.Classes;
 using System.Threading;
+using System.Numerics;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -32,6 +33,8 @@ namespace LudoNewWorld
     {
         public static CanvasBitmap background, gameBackground, menuBackground ,dice1,dice2, dice3, dice4, dice5, dice6;
         public static Rect bounds = ApplicationView.GetForCurrentView().VisibleBounds;
+        public Vector3 scaleVector3Variable = new Vector3(DesignWidth, DesignHeight, 1);
+
         public static float DesignWidth = 1920;
         public static float DesignHeight = 1080;
         public static float scaleWidth, scaleHeight;
@@ -48,11 +51,22 @@ namespace LudoNewWorld
             Window.Current.SizeChanged += Current_SizeChanged;
             Scaler.SetScale();
         }
-
         private void Current_SizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
             bounds = ApplicationView.GetForCurrentView().VisibleBounds;
             Scaler.SetScale();
+
+            scaleVector3Variable.X = (float)mainGrid.ActualWidth / DesignWidth;
+            scaleVector3Variable.Y = (float)mainGrid.ActualHeight / DesignHeight;
+
+            // Scale assets based on the true size of the game window
+            MenuField.Scale = scaleVector3Variable;
+            FactionField.Scale = scaleVector3Variable;
+
+            //Scale margin of assets based on the actual window size
+            var xMargin = (mainGrid.ActualWidth - DesignWidth);
+            var yMargin = (mainGrid.ActualHeight - DesignHeight);
+            FactionField.Margin = new Thickness(1, 1, xMargin, yMargin);
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
@@ -151,22 +165,12 @@ namespace LudoNewWorld
             GameStateManager.BackgroundManager();
 
             args.DrawingSession.DrawImage(Scaler.Fit(background));
-            if (gameState==1)
+            if (gameState == 1)
             {
                 for (int i = 0; i < Dice.Dicepictures.Count; i++)
                 {
-                   
-
-                    args.DrawingSession.DrawImage(Dice.Dicepictures[i]);
-                    
-                  
-
-
-
-
-
+                    args.DrawingSession.DrawImage(Scaler.Fit(Dice.Dicepictures[i]));
                 }
-
             }
         }
     }
