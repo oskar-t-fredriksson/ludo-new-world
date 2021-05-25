@@ -138,7 +138,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Images\bg.png" />
+    <Content Include="Assets\Images\Britain.png" />
+    <Content Include="Assets\Images\Dutch.png" />
+    <Content Include="Assets\Images\France.png" />
     <Content Include="Assets\Images\menuBackground.png" />
+    <Content Include="Assets\Images\Spain.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
