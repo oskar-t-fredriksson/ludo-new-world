@@ -124,7 +124,12 @@ namespace LudoNewWorld
             dice4 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice4.png"));
             dice5 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice5.png"));
             dice6 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice6.png"));
-            
+
+            GameTiles.BritainTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/BritainTile.png"));
+            GameTiles.DutchTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/DutchTile.png"));
+            GameTiles.SpainTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/SpainTile.png"));
+            GameTiles.FranceTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/FranceTile.png"));
+
             Dice.Dicepictures.Add(dice1); Dice.Dicepictures.Add(dice2); Dice.Dicepictures.Add(dice3); Dice.Dicepictures.Add(dice4);
             Dice.Dicepictures.Add(dice5); Dice.Dicepictures.Add(dice6);
             await DicePics(sender);
@@ -167,6 +172,11 @@ namespace LudoNewWorld
             args.DrawingSession.DrawImage(Scaler.Fit(background));
             if (gameState == 1)
             {
+                args.DrawingSession.DrawImage(Scaler.Fit(GameTiles.BritainTile), 300, 400);
+                args.DrawingSession.DrawImage(Scaler.Fit(GameTiles.FranceTile), 500, 600);
+                args.DrawingSession.DrawImage(Scaler.Fit(GameTiles.DutchTile), 600, 700);
+                args.DrawingSession.DrawImage(Scaler.Fit(GameTiles.SpainTile), 400, 500);
+
                 for (int i = 0; i < Dice.Dicepictures.Count; i++)
                 {
                     args.DrawingSession.DrawImage(Scaler.Fit(Dice.Dicepictures[i]));
