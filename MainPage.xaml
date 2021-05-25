@@ -54,7 +54,7 @@
                     Margin="-200,-100,0,0"
                     Height="70" Width="140">
                 <StackPanel>
-                    <Image Source="Assets/Images/Britain.png" Height="40" Width="120"/>
+                    <Image Source="Assets/Images/FactionBanners/Britain.png" Height="40" Width="120"/>
                     <TextBlock Text="Britain" Style="{StaticResource TextBlockMenuStyle}"/>
                 </StackPanel>
             </Button>
@@ -63,7 +63,7 @@
                     Margin="200,-100,0,0"
                     Height="70" Width="140">
                 <StackPanel>
-                    <Image Source="Assets/Images/France.png" Height="40" Width="120"/>
+                    <Image Source="Assets/Images/FactionBanners/France.png" Height="40" Width="120"/>
                     <TextBlock Text="France" Style="{StaticResource TextBlockMenuStyle}"/>
                 </StackPanel>
             </Button>
@@ -72,7 +72,7 @@
                     Margin="-200,100,0,0"
                     Height="70" Width="140">
                 <StackPanel>
-                    <Image Source="Assets/Images/Dutch.png" Height="40" Width="120"/>
+                    <Image Source="Assets/Images/FactionBanners/Dutch.png" Height="40" Width="120"/>
                     <TextBlock Text="Dutch" Style="{StaticResource TextBlockMenuStyle}"/>
                 </StackPanel>
             </Button>
@@ -81,7 +81,7 @@
                     Margin="200,100,0,0"
                     Height="70" Width="140">
                 <StackPanel>
-                    <Image Source="Assets/Images/Spain.png" Height="40" Width="120"/>
+                    <Image Source="Assets/Images/FactionBanners/Spain.png" Height="40" Width="120"/>
                     <TextBlock Text="Spain" Style="{StaticResource TextBlockMenuStyle}"/>
                 </StackPanel>
             </Button>
