@@ -30,7 +30,7 @@ namespace LudoNewWorld
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public static CanvasBitmap background, gameBackground, menuBackground;
+        public static CanvasBitmap background, gameBackground, menuBackground ,dice1,dice2, dice3, dice4, dice5, dice6;
         public static Rect bounds = ApplicationView.GetForCurrentView().VisibleBounds;
         public static float DesignWidth = 1920;
         public static float DesignHeight = 1080;
@@ -77,6 +77,7 @@ namespace LudoNewWorld
         {
             playerFaction = "France";
             FactionField.Visibility = Visibility.Collapsed;
+            
             gameState = 1;
         }
 
@@ -102,11 +103,21 @@ namespace LudoNewWorld
         {
             gameBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/bg.png"));
             menuBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/menuBackground.png"));
+            dice1 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice1.png"));
+            dice2 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice2.png"));
+            dice3 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice3.png"));
+            dice4 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice4.png"));
+            dice5 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice5.png"));
+            dice6 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice6.png"));
+            
+            Dice.Dicepictures.Add(dice1); Dice.Dicepictures.Add(dice2); Dice.Dicepictures.Add(dice3); Dice.Dicepictures.Add(dice4);
+            Dice.Dicepictures.Add(dice5); Dice.Dicepictures.Add(dice6);
             await DicePics(sender);
         }
 
         private static async Task DicePics(CanvasAnimatedControl sender)
         {
+            
             Dice.DiceRoll();
 
             switch (Dice.diceValue)
@@ -141,7 +152,20 @@ namespace LudoNewWorld
             args.DrawingSession.DrawImage(Scaler.Fit(background));
             if (gameState==1)
             {
-                args.DrawingSession.DrawImage(Dice.dice);
+                for (int i = 0; i < Dice.Dicepictures.Count; i++)
+                {
+                   
+
+                    args.DrawingSession.DrawImage(Dice.Dicepictures[i]);
+                    
+                  
+
+
+
+
+
+                }
+
             }
         }
     }
