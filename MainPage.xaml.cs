@@ -45,6 +45,7 @@ namespace LudoNewWorld
         public static float scaleWidth, scaleHeight;
         public static int gameState = 0;
         public static string playerFaction;
+        public static int soundState = 0;
                 
         public MainPage()
         {
@@ -56,6 +57,9 @@ namespace LudoNewWorld
             Window.Current.SizeChanged += Current_SizeChanged;
             Scaler.SetScale();
             player = new MediaPlayer();
+            Sound.Playing = true;
+            soundState = 1;
+            Sound.SoundPlay();
             
         }
         private void Current_SizeChanged(object sender, WindowSizeChangedEventArgs e)
@@ -76,10 +80,12 @@ namespace LudoNewWorld
             FactionField.Margin = new Thickness(1, 1, xMargin, yMargin);
         }
 
-        private async void btnStart_Click(object sender, RoutedEventArgs e)
+        private  async void btnStart_Click(object sender, RoutedEventArgs e)
         {
             MenuField.Visibility = Visibility.Collapsed;
             FactionField.Visibility = Visibility.Visible;
+            Sound.Playing = true;
+            soundState = 2;
             await Sound.SoundPlay();
         }
 
@@ -88,11 +94,14 @@ namespace LudoNewWorld
             Application.Current.Exit();
         }
 
-        private void btnBritain_Click(object sender, RoutedEventArgs e)
+        private async void btnBritain_Click(object sender, RoutedEventArgs e)
         {
             playerFaction = "Britain";
             FactionField.Visibility = Visibility.Collapsed;
             gameState = 1;
+            Sound.Playing = false;
+            await Sound.SoundPlay();
+            
         }
 
         private async void btnFrance_Click(object sender, RoutedEventArgs e)
