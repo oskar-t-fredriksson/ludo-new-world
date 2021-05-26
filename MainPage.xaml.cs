@@ -21,6 +21,8 @@ using Windows.UI.Core;
 using LudoNewWorld.Classes;
 using System.Threading;
 using System.Numerics;
+using Windows.Media.Playback;
+using Windows.Media.Core;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -31,6 +33,9 @@ namespace LudoNewWorld
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        public static MediaPlayer player;
+
+
         public static CanvasBitmap background, gameBackground, menuBackground ,dice1,dice2, dice3, dice4, dice5, dice6;
         public static Rect bounds = ApplicationView.GetForCurrentView().VisibleBounds;
         public Vector3 scaleVector3Variable = new Vector3(DesignWidth, DesignHeight, 1);
@@ -40,6 +45,7 @@ namespace LudoNewWorld
         public static float scaleWidth, scaleHeight;
         public static int gameState = 0;
         public static string playerFaction;
+        public static int soundState = 0;
                 
         public MainPage()
         {
@@ -50,6 +56,11 @@ namespace LudoNewWorld
             this.InitializeComponent();
             Window.Current.SizeChanged += Current_SizeChanged;
             Scaler.SetScale();
+            player = new MediaPlayer();
+            Sound.Playing = true;
+            soundState = 1;
+            Sound.SoundPlay();
+            
         }
         private void Current_SizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
@@ -69,10 +80,13 @@ namespace LudoNewWorld
             FactionField.Margin = new Thickness(1, 1, xMargin, yMargin);
         }
 
-        private void btnStart_Click(object sender, RoutedEventArgs e)
+        private  async void btnStart_Click(object sender, RoutedEventArgs e)
         {
             MenuField.Visibility = Visibility.Collapsed;
             FactionField.Visibility = Visibility.Visible;
+            Sound.Playing = true;
+            soundState = 2;
+            await Sound.SoundPlay();
         }
 
         private void btnQuit_Click(object sender, RoutedEventArgs e)
@@ -80,21 +94,28 @@ namespace LudoNewWorld
             Application.Current.Exit();
         }
 
-        private void btnBritain_Click(object sender, RoutedEventArgs e)
+        private async void btnBritain_Click(object sender, RoutedEventArgs e)
         {
             playerFaction = "Britain";
             FactionField.Visibility = Visibility.Collapsed;
             gameState = 1;
+            Sound.Playing = false;
+            await Sound.SoundPlay();
+            
         }
 
-        private void btnFrance_Click(object sender, RoutedEventArgs e)
+        private async void btnFrance_Click(object sender, RoutedEventArgs e)
         {
             playerFaction = "France";
             FactionField.Visibility = Visibility.Collapsed;
-            
+
             gameState = 1;
+
+          
+
         }
 
+      
         private void btnDutch_Click(object sender, RoutedEventArgs e)
         {
             playerFaction = "Dutch";
