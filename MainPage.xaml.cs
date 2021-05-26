@@ -21,6 +21,9 @@ using Windows.UI.Core;
 using LudoNewWorld.Classes;
 using System.Threading;
 using System.Numerics;
+using Newtonsoft.Json;
+using System.Diagnostics;
+using Windows.Storage;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -31,7 +34,9 @@ namespace LudoNewWorld
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public static CanvasBitmap background, gameBackground, menuBackground ,dice1,dice2, dice3, dice4, dice5, dice6;
+        public static CanvasBitmap background, gameBackground, menuBackground,
+            dice1, dice2, dice3, dice4, dice5, dice6, 
+            NeutralTile, BritainTile, SpainTile, DutchTile, FranceTile, NegativeTile, PositiveTile, RandomTile;
         public static Rect bounds = ApplicationView.GetForCurrentView().VisibleBounds;
         public Vector3 scaleVector3Variable = new Vector3(DesignWidth, DesignHeight, 1);
 
@@ -40,7 +45,9 @@ namespace LudoNewWorld
         public static float scaleWidth, scaleHeight;
         public static int gameState = 0;
         public static string playerFaction;
-                
+        List<GameTile> gameTiles = new List<GameTile>();
+        
+        
         public MainPage()
         {
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size { Width = 1280, Height = 720 });
@@ -50,6 +57,16 @@ namespace LudoNewWorld
             this.InitializeComponent();
             Window.Current.SizeChanged += Current_SizeChanged;
             Scaler.SetScale();
+        }
+        public void AddObjectToTileList()
+        {
+            gameTiles.Add(new GameTile(Tile.StartTile, FactionTile.BritainTile, new Vector2(300, 400)));
+            gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(400, 400)));
+            gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(500, 400)));
+            gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(600, 400)));
+            gameTiles.Add(new GameTile(Tile.NegativeTile, new Vector2(600, 500)));
+            gameTiles.Add(new GameTile(Tile.PositiveTile, new Vector2(600, 600)));
+            gameTiles.Add(new GameTile(Tile.RandomTile, new Vector2(600, 700)));
         }
         private void Current_SizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
@@ -116,23 +133,31 @@ namespace LudoNewWorld
 
         async Task CreateResourceAsync(CanvasAnimatedControl sender)
         {
+            //Background
             gameBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/bg.png"));
             menuBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/menuBackground.png"));
+
+            //Dices
             dice1 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice1.png"));
             dice2 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice2.png"));
             dice3 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice3.png"));
             dice4 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice4.png"));
             dice5 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice5.png"));
             dice6 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice6.png"));
-
-            GameTiles.BritainTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/BritainTile.png"));
-            GameTiles.DutchTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/DutchTile.png"));
-            GameTiles.SpainTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/SpainTile.png"));
-            GameTiles.FranceTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/FranceTile.png"));
-
             Dice.Dicepictures.Add(dice1); Dice.Dicepictures.Add(dice2); Dice.Dicepictures.Add(dice3); Dice.Dicepictures.Add(dice4);
             Dice.Dicepictures.Add(dice5); Dice.Dicepictures.Add(dice6);
             await DicePics(sender);
+
+            //Tiles
+            BritainTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/BritainTile.png"));
+            DutchTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/DutchTile.png"));
+            SpainTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/SpainTile.png"));
+            FranceTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/FranceTile.png"));
+            NeutralTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/NeutralTile.png"));
+            NegativeTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/NegativeTile.png"));
+            PositiveTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/PositiveTile.png"));
+            RandomTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/RandomTile.png"));
+
         }
 
         private static async Task DicePics(CanvasAnimatedControl sender)
@@ -168,14 +193,19 @@ namespace LudoNewWorld
         private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
             GameStateManager.BackgroundManager();
-
+            AddObjectToTileList();
             args.DrawingSession.DrawImage(Scaler.Fit(background));
             if (gameState == 1)
             {
-                args.DrawingSession.DrawImage(Scaler.Fit(GameTiles.BritainTile), 300, 400);
-                args.DrawingSession.DrawImage(Scaler.Fit(GameTiles.FranceTile), 500, 600);
-                args.DrawingSession.DrawImage(Scaler.Fit(GameTiles.DutchTile), 600, 700);
-                args.DrawingSession.DrawImage(Scaler.Fit(GameTiles.SpainTile), 400, 500);
+
+                args.DrawingSession.DrawImage(Scaler.Fit(BritainTile), gameTiles[0].GameTileVector);
+                args.DrawingSession.DrawImage(Scaler.Fit(NeutralTile), gameTiles[1].GameTileVector);
+                args.DrawingSession.DrawImage(Scaler.Fit(NeutralTile), gameTiles[2].GameTileVector);
+                args.DrawingSession.DrawImage(Scaler.Fit(NeutralTile), gameTiles[3].GameTileVector);
+                args.DrawingSession.DrawImage(Scaler.Fit(NegativeTile), gameTiles[4].GameTileVector);
+                args.DrawingSession.DrawImage(Scaler.Fit(PositiveTile), gameTiles[5].GameTileVector);
+                args.DrawingSession.DrawImage(Scaler.Fit(RandomTile), gameTiles[6].GameTileVector);
+
 
                 for (int i = 0; i < Dice.Dicepictures.Count; i++)
                 {
