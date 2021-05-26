@@ -127,6 +127,7 @@
     <Compile Include="Classes\GameTiles.cs" />
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\Scaler.cs" />
+    <Compile Include="Classes\Sound.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -138,6 +139,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\01 - Franklin City.mp3" />
     <Content Include="Assets\Images\bg.png" />
     <Content Include="Assets\Images\Dices\dice1.png" />
     <Content Include="Assets\Images\Dices\dice2.png" />
