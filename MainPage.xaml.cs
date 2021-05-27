@@ -46,6 +46,7 @@ namespace LudoNewWorld
         public static string playerFaction;
         public static MediaPlayer mPlayer = new MediaPlayer();
         public static double currentVolume = 0.5;
+        public static int volumeLevel = 5;
         public static bool volumeMute = false;
         public Vector3 scaleVector3Variable = new Vector3(DesignWidth, DesignHeight, 1);
         
@@ -142,36 +143,49 @@ namespace LudoNewWorld
             Dice.Visibility = Visibility.Visible;
             gameState = 1;
         }
-
-        private void BtnRaiseVolume_Click(object sender, RoutedEventArgs e)
-        {
-            currentVolume += 0.1;
-            mPlayer.Volume += 0.1;
-            Debug.WriteLine("Volume: " + mPlayer.Volume);
-        }
-        private void BtnLowerVolume_Click(object sender, RoutedEventArgs e)
-        {
-            currentVolume -= 0.1;
-            mPlayer.Volume -= 0.1;
-            Debug.WriteLine("Volume: " + mPlayer.Volume);
-        }
-
         private void BtnMuteVolume_Click(object sender, RoutedEventArgs e)
         {
-            if(!volumeMute)
+            if (!volumeMute)
             {
                 Debug.WriteLine("Volume muted");
                 mPlayer.Volume = 0;
                 volumeMute = true;
                 muteButtonChange.Source = new BitmapImage(new Uri(base.BaseUri, @"/Assets/Images/Menu/volumemute.png"));
             }
-            else if(volumeMute)
+            else if (volumeMute)
             {
                 Debug.WriteLine("Volume enabled");
                 mPlayer.Volume = currentVolume;
                 volumeMute = false;
                 muteButtonChange.Source = new BitmapImage(new Uri(base.BaseUri, @"/Assets/Images/Menu/volumeunmute.png"));
             }
+        }
+        private void BtnLowerVolume_Click(object sender, RoutedEventArgs e)
+        {
+            currentVolume -= 0.1;
+            mPlayer.Volume -= 0.1;
+            if (volumeLevel > 0)
+            {
+                volumeLevel--;
+                volumeSlider.Source = new BitmapImage(new Uri(base.BaseUri, @"/Assets/Images/Menu/menu" + volumeLevel + ".png"));
+            }
+            Debug.WriteLine("Volume: " + mPlayer.Volume);
+        }
+
+        private void BtnRaiseVolume_Click(object sender, RoutedEventArgs e)
+        {
+            currentVolume += 0.1;
+            mPlayer.Volume += 0.1;
+            if(volumeLevel < 10)
+            {
+                volumeLevel++;
+                volumeSlider.Source = new BitmapImage(new Uri(base.BaseUri, @"/Assets/Images/Menu/menu" + volumeLevel + ".png"));
+            }
+            Debug.WriteLine("Volume: " + mPlayer.Volume);
+        }
+        private void BtnMenuHelp_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

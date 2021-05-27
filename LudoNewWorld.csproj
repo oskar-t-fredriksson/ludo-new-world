@@ -161,6 +161,18 @@
     <Content Include="Assets\Images\GameTiles\SpainTile.png" />
     <Content Include="Assets\Images\menuBackground.png" />
     <Content Include="Assets\Images\FactionBanners\Spain.png" />
+    <Content Include="Assets\Images\Menu\help.png" />
+    <Content Include="Assets\Images\Menu\menu0.png" />
+    <Content Include="Assets\Images\Menu\menu1.png" />
+    <Content Include="Assets\Images\Menu\menu10.png" />
+    <Content Include="Assets\Images\Menu\menu2.png" />
+    <Content Include="Assets\Images\Menu\menu3.png" />
+    <Content Include="Assets\Images\Menu\menu4.png" />
+    <Content Include="Assets\Images\Menu\menu5.png" />
+    <Content Include="Assets\Images\Menu\menu6.png" />
+    <Content Include="Assets\Images\Menu\menu7.png" />
+    <Content Include="Assets\Images\Menu\menu8.png" />
+    <Content Include="Assets\Images\Menu\menu9.png" />
     <Content Include="Assets\Images\Menu\volumelower.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

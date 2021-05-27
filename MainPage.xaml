@@ -10,6 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.Resources>
+
         <Style x:Key="StartMenuStyle" TargetType="Button">
             <Setter Property="FontFamily" Value="Georgia"/>
             <Setter Property="FontSize" Value="20"/>
@@ -37,6 +38,8 @@
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
+
+
         <Style x:Key="OwnButtonStyle" TargetType="Button">
             <Setter Property="Foreground" Value="{ThemeResource AccentButtonForeground}"/>
             <Setter Property="Background" Value="{ThemeResource AccentButtonBackground}"/>
@@ -153,15 +156,27 @@
 
         <Grid x:Name="PlayingMenu" Visibility="Visible">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="79*"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="359*"/>
+                <ColumnDefinition Width="115*"/>
+                <ColumnDefinition Width="6*"/>
             </Grid.ColumnDefinitions>
+            <Image x:Name="volumeSlider" Source="/Assets/Images/Menu/menu5.png" HorizontalAlignment="Left" Height="10" Margin="316,30,0,0" VerticalAlignment="Top" Width="168" Grid.ColumnSpan="2" Grid.Column="1"/>
+            <Button x:Name="BtnMuteVolume" Click="BtnMuteVolume_Click"
+                 Background="#161616"
+                 Style="{StaticResource OwnButtonStyle}"
+                 Height="30" Width="42"
+                 HorizontalAlignment="Right"
+                 VerticalAlignment="Top" Margin="0,0,102,0" Grid.Column="1">
+                <StackPanel>
+                    <Image x:Name="muteButtonChange" Source="Assets/Images/Menu/volumeunmute.png" Height="20" Width="20"/>
+                </StackPanel>
+            </Button>
             <Button x:Name="BtnLowerVolume" Click="BtnLowerVolume_Click"
                  Background="#161616"
                  Style="{StaticResource OwnButtonStyle}"
                  Height="30" Width="42"
                  HorizontalAlignment="Right"
-                 VerticalAlignment="Top" Margin="0,0,19,0">
+                 VerticalAlignment="Top" Margin="0,0,59,0" Grid.Column="1">
                 <StackPanel>
                     <Image Source="Assets/Images/Menu/volumelower.png" Height="20" Width="20"/>
                 </StackPanel>
@@ -171,19 +186,19 @@
                  Style="{StaticResource OwnButtonStyle}"
                  Height="30" Width="42"
                  HorizontalAlignment="Right"
-                 VerticalAlignment="Top" Grid.ColumnSpan="2">
+                 VerticalAlignment="Top" Margin="0,0,16,0" Grid.Column="1">
                 <StackPanel>
                     <Image Source="Assets/Images/Menu/volumeraise.png" Height="20" Width="20"/>
                 </StackPanel>
             </Button>
-            <Button x:Name="BtnMuteVolume" Click="BtnMuteVolume_Click"
-                 Background="#161616"
-                 Style="{StaticResource OwnButtonStyle}"
-                 Height="30" Width="42"
-                 HorizontalAlignment="Right"
-                 VerticalAlignment="Top" Margin="0,0,62,0">
-                <StackPanel>
-                    <Image x:Name="muteButtonChange" Source="Assets/Images/Menu/volumeunmute.png" Height="20" Width="20"/>
+            <Button x:Name="BtnMenuHelp" Click="BtnMenuHelp_Click"
+                Background="#161616"
+                Style="{StaticResource OwnButtonStyle}"
+                Height="30" Width="39"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1">
+                <StackPanel Margin="-18,-16,-17,-16">
+                    <Image Source="/Assets/Images/Menu/help.png" Height="32" Width="30" RenderTransformOrigin="0.215,0.33"/>
                 </StackPanel>
             </Button>
         </Grid>
