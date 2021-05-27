@@ -20,6 +20,7 @@ namespace LudoNewWorld
             MainPage.mPlayer.AutoPlay = false;
             MainPage.mPlayer.Source = MediaSource.CreateFromStorageFile(RequestedMusic);
             MainPage.mPlayer.Volume = MainPage.currentVolume;
+            MainPage.mPlayer.IsLoopingEnabled = true;
             MainPage.mPlayer.Play();
         }
     }
