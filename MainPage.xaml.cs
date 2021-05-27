@@ -162,10 +162,10 @@ namespace LudoNewWorld
         }
         private void BtnLowerVolume_Click(object sender, RoutedEventArgs e)
         {
-            currentVolume -= 0.1;
-            mPlayer.Volume -= 0.1;
-            if (volumeLevel > 0)
+            if (!volumeMute && volumeLevel > 0)
             {
+                currentVolume -= 0.1;
+                mPlayer.Volume -= 0.1;
                 volumeLevel--;
                 volumeSlider.Source = new BitmapImage(new Uri(base.BaseUri, @"/Assets/Images/Menu/menu" + volumeLevel + ".png"));
             }
@@ -174,10 +174,10 @@ namespace LudoNewWorld
 
         private void BtnRaiseVolume_Click(object sender, RoutedEventArgs e)
         {
-            currentVolume += 0.1;
-            mPlayer.Volume += 0.1;
-            if(volumeLevel < 10)
+            if(!volumeMute && volumeLevel < 10)
             {
+                currentVolume += 0.1;
+                mPlayer.Volume += 0.1;
                 volumeLevel++;
                 volumeSlider.Source = new BitmapImage(new Uri(base.BaseUri, @"/Assets/Images/Menu/menu" + volumeLevel + ".png"));
             }
