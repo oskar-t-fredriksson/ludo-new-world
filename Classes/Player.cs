@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LudoNewWorld.Classes
 {
-    class Player:Competitor
+    class Player
     {
     }
 }
