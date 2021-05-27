@@ -141,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Images\bg.png" />
+    <Content Include="Assets\Images\Dices\dice0.png" />
     <Content Include="Assets\Images\Dices\dice1.png" />
     <Content Include="Assets\Images\Dices\dice2.png" />
     <Content Include="Assets\Images\Dices\dice3.png" />

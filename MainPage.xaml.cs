@@ -47,7 +47,6 @@ namespace LudoNewWorld
         public static string playerFaction;                  
         public MainPage()
         {
-
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size { Width = 1280, Height = 720 });
             ApplicationView.PreferredLaunchViewSize = new Size(1920, 1080);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
@@ -86,6 +85,11 @@ namespace LudoNewWorld
             GraphicHandler.Draw(sender, args);
         }
 
+        private void btnRoll_Click(object sender, RoutedEventArgs e)
+        {
+            GraphicHandler.scrambleDice();
+        }
+
         private async void btnStart_Click(object sender, RoutedEventArgs e)
         {
             MenuField.Visibility = Visibility.Collapsed;
@@ -101,6 +105,7 @@ namespace LudoNewWorld
         {
             playerFaction = "Britain";
             FactionField.Visibility = Visibility.Collapsed;
+            Dice.Visibility = Visibility.Visible;
             gameState = 1;
         }
 
@@ -108,6 +113,7 @@ namespace LudoNewWorld
         {
             playerFaction = "France";
             FactionField.Visibility = Visibility.Collapsed;
+            Dice.Visibility = Visibility.Visible;
             gameState = 1;
         }
  
@@ -115,12 +121,14 @@ namespace LudoNewWorld
         {
             playerFaction = "Dutch";
             FactionField.Visibility = Visibility.Collapsed;
+            Dice.Visibility = Visibility.Visible;
             gameState = 1;
         }
         private void btnSpain_Click(object sender, RoutedEventArgs e)
         {
             playerFaction = "Spain";
             FactionField.Visibility = Visibility.Collapsed;
+            Dice.Visibility = Visibility.Visible;
             gameState = 1;
         }
     }

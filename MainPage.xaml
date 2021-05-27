@@ -20,7 +20,7 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
-        
+
         <Style x:Key="FactionMenuStyle" TargetType="Button">
             <Setter Property="FontFamily" Value="Georgia"/>
             <Setter Property="Foreground" Value="Black"/>
@@ -30,7 +30,7 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
-        
+
         <Style x:Key="TextBlockMenuStyle" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Georgia"/>
             <Setter Property="FontSize" Value="14"/>
@@ -40,7 +40,7 @@
 
     </Page.Resources>
     <Grid x:Name="mainGrid">
-        <canvas:CanvasAnimatedControl x:Name="GameCanvas" CreateResources="GameCanvas_CreateResources" Draw="GameCanvas_Draw" IsTapEnabled="True"/>
+        <canvas:CanvasAnimatedControl x:Name="GameCanvas" CreateResources="GameCanvas_CreateResources" Draw="GameCanvas_Draw"/>
         <Grid x:Name="MenuField" Visibility="Visible">
             <Button x:Name="btnStart" Click="btnStart_Click" Content="Start Game" Style="{StaticResource StartMenuStyle}" Margin="0,-100,0,0" Height="70" Width="140"/>
             <Button x:Name="btnQuit" Click="btnQuit_Click" Content="Quit Game" Style="{StaticResource StartMenuStyle}" Margin="0,100,0,0" Height="70" Width="140"/>
@@ -86,7 +86,13 @@
                 </StackPanel>
             </Button>
         </Grid>
-        
+        <Grid x:Name="Dice" Visibility="Collapsed">
+            <Button x:Name="btnRoll" Click="btnRoll_Click" 
+                    Content="Roll"
+                    Style="{StaticResource FactionMenuStyle}"
+                    Margin="217,10,0,0"
+                    Height="42" Width="76" HorizontalAlignment="Left" VerticalAlignment="Top">
+            </Button>
+        </Grid>
     </Grid>
-
 </Page>

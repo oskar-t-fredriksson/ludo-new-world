@@ -14,9 +14,36 @@ namespace LudoNewWorld
     class GraphicHandler
     {
         public static CanvasBitmap background, gameBackground, menuBackground,
-        dice1, dice2, dice3, dice4, dice5, dice6,
+        dice1, dice2, dice3, dice4, dice5, dice6, displayDice,
         NeutralTile, BritainTile, SpainTile, DutchTile, FranceTile, NegativeTile, PositiveTile, RandomTile;
-        public static List<GameTile> gameTiles = new List<GameTile>();
+
+        // List
+        static List<GameTile> gameTiles = new List<GameTile>();
+        static List<CanvasBitmap> diceBitmapList = new List<CanvasBitmap>();
+
+        // Objects
+        private readonly Random _random = new Random();
+
+        public static int scrambleDice()
+        {
+            Dice dice = new Dice();
+            int trueNumber = dice.Roll();
+            for (int i = 0; i < 10000000; i++)
+            {
+                switch (dice.Roll())
+                {
+                    case 1: displayDice = diceBitmapList[1]; break;
+                    case 2: displayDice = diceBitmapList[2]; break;
+                    case 3: displayDice = diceBitmapList[3]; break;
+                    case 4: displayDice = diceBitmapList[4]; break;
+                    case 5: displayDice = diceBitmapList[5]; break;
+                    case 6: displayDice = diceBitmapList[6]; break;
+                    default: break;
+                }
+            }
+            displayDice = diceBitmapList[trueNumber];
+            return trueNumber;
+        }
 
         public static void LoadResources()
         {
@@ -43,6 +70,15 @@ namespace LudoNewWorld
             NegativeTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/NegativeTile.png"));
             PositiveTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/PositiveTile.png"));
             RandomTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/RandomTile.png"));
+
+            // Dice
+            diceBitmapList.Add(displayDice = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice0.png")));
+            diceBitmapList.Add(dice1 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice1.png")));
+            diceBitmapList.Add(dice2 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice2.png")));
+            diceBitmapList.Add(dice3 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice3.png")));
+            diceBitmapList.Add(dice4 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice4.png")));
+            diceBitmapList.Add(dice5 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice5.png")));
+            diceBitmapList.Add(dice6 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice6.png")));
         }
 
         public static void Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
@@ -51,6 +87,7 @@ namespace LudoNewWorld
             args.DrawingSession.DrawImage(Scaler.Fit(background));
             if (MainPage.gameState == 1)
             {
+                args.DrawingSession.DrawImage(Scaler.Fit(GraphicHandler.displayDice), 0, 0);
                 args.DrawingSession.DrawImage(Scaler.Fit(BritainTile), gameTiles[0].GameTileVector);
                 args.DrawingSession.DrawImage(Scaler.Fit(NeutralTile), gameTiles[1].GameTileVector);
                 args.DrawingSession.DrawImage(Scaler.Fit(NeutralTile), gameTiles[2].GameTileVector);
