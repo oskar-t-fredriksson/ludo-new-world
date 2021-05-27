@@ -8,5 +8,20 @@ namespace LudoNewWorld.Classes
 {
     class GameEngine
     {
+        public static bool GoalAchieved;
+        
+
+
+        public static void StartGame()
+        {
+            while (GoalAchieved!=false)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+
+
+                }
+            }
+        }
     }
 }

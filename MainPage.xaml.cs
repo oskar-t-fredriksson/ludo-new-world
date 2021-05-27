@@ -96,7 +96,7 @@ namespace LudoNewWorld
             GraphicHandler.Draw(sender, args);
         }
 
-        private void btnRoll_Click(object sender, RoutedEventArgs e)
+        public  void btnRoll_Click(object sender, RoutedEventArgs e)
         {
             GraphicHandler.scrambleDice();
         }
