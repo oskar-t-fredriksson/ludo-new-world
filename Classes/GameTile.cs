@@ -14,6 +14,7 @@ namespace LudoNewWorld
     {
         NeutralTile,
         GoalTile,
+        BaseTile,
         StartTile,
         NegativeTile,
         PositiveTile,
@@ -24,21 +25,28 @@ namespace LudoNewWorld
         BritainTile,
         SpainTile,
         DutchTile,
-        FranceTile
+        FranceTile,
+        FactionNull
     }
     public class GameTile
     {
         public CanvasBitmap TileImage { get; set; }
         public Vector2 GameTileVector { get; set; }
+        public FactionTile FactionType { get; set; }
+        public Tile TileType { get; set; }
         public bool IsPlayerOnTile = false;
 
         public GameTile(Tile tileType, FactionTile factionType, Vector2 gameTileVector)
         {
+            TileType = tileType;
+            FactionType = factionType;
             GameTileVector = gameTileVector;
         }
         public GameTile(Tile tileType, Vector2 gameTileVector)
         {
+            TileType = tileType;
             GameTileVector = gameTileVector;
+            FactionType = FactionTile.FactionNull;
         }
     }
 }
