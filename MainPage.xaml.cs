@@ -38,13 +38,16 @@ namespace LudoNewWorld
     public sealed partial class MainPage : Page
     {
         public static Rect bounds = ApplicationView.GetForCurrentView().VisibleBounds;
-        public static Vector3 scaleVector3Variable = new Vector3(DesignWidth, DesignHeight, 1);
-        public static MediaPlayer mPlayer = new MediaPlayer();
+        public static float scaleWidth, scaleHeight;
         public static float DesignWidth = 1920;
         public static float DesignHeight = 1080;
-        public static float scaleWidth, scaleHeight;
         public static int gameState = 0;
-        public static string playerFaction;                  
+        public static string playerFaction;
+        public static MediaPlayer mPlayer = new MediaPlayer();
+        public static double currentVolume = 0.5;
+        public static bool volumeMute = false;
+        public Vector3 scaleVector3Variable = new Vector3(DesignWidth, DesignHeight, 1);
+        
         public MainPage()
         {
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size { Width = 1280, Height = 720 });
@@ -65,14 +68,20 @@ namespace LudoNewWorld
             scaleVector3Variable.X = (float)mainGrid.ActualWidth / DesignWidth;
             scaleVector3Variable.Y = (float)mainGrid.ActualHeight / DesignHeight;
 
+            var xMargin = (mainGrid.ActualWidth - DesignWidth);
+            var yMargin = (mainGrid.ActualHeight - DesignHeight);
+
             // Scale assets based on the true size of the game window
             MenuField.Scale = scaleVector3Variable;
             FactionField.Scale = scaleVector3Variable;
+            Dice.Scale = scaleVector3Variable;
+            PlayingMenu.Scale = scaleVector3Variable;
 
             //Scale margin of assets based on the actual window size
-            var xMargin = (mainGrid.ActualWidth - DesignWidth);
-            var yMargin = (mainGrid.ActualHeight - DesignHeight);
+            MenuField.Margin = new Thickness(1, 1, xMargin, yMargin);
             FactionField.Margin = new Thickness(1, 1, xMargin, yMargin);
+            Dice.Margin = new Thickness(1, 1, xMargin, yMargin);
+            PlayingMenu.Margin = new Thickness(1, 1, xMargin, yMargin);
         }
 
         private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
@@ -89,6 +98,7 @@ namespace LudoNewWorld
         {
             GraphicHandler.scrambleDice();
         }
+        private void GameCanvas_Loaded(object sender, RoutedEventArgs e){}
 
         private async void btnStart_Click(object sender, RoutedEventArgs e)
         {
@@ -130,6 +140,35 @@ namespace LudoNewWorld
             FactionField.Visibility = Visibility.Collapsed;
             Dice.Visibility = Visibility.Visible;
             gameState = 1;
+        }
+
+        private void BtnRaiseVolume_Click(object sender, RoutedEventArgs e)
+        {
+            currentVolume += 0.1;
+            mPlayer.Volume += 0.1;
+            Debug.WriteLine("Volume: " + mPlayer.Volume);
+        }
+        private void BtnLowerVolume_Click(object sender, RoutedEventArgs e)
+        {
+            currentVolume -= 0.1;
+            mPlayer.Volume -= 0.1;
+            Debug.WriteLine("Volume: " + mPlayer.Volume);
+        }
+
+        private void BtnMuteVolume_Click(object sender, RoutedEventArgs e)
+        {
+            if(!volumeMute)
+            {
+                Debug.WriteLine("Volume muted");
+                mPlayer.Volume = 0;
+                volumeMute = true;
+            }
+            else if(volumeMute)
+            {
+                Debug.WriteLine("Volume enabled");
+                mPlayer.Volume = currentVolume;
+                volumeMute = false;
+            }
         }
     }
 }

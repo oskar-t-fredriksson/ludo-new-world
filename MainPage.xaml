@@ -40,7 +40,7 @@
 
     </Page.Resources>
     <Grid x:Name="mainGrid">
-        <canvas:CanvasAnimatedControl x:Name="GameCanvas" CreateResources="GameCanvas_CreateResources" Draw="GameCanvas_Draw"/>
+        <canvas:CanvasAnimatedControl x:Name="GameCanvas" CreateResources="GameCanvas_CreateResources" Draw="GameCanvas_Draw" Loaded="GameCanvas_Loaded"/>
         <Grid x:Name="MenuField" Visibility="Visible">
             <Button x:Name="btnStart" Click="btnStart_Click" Content="Start Game" Style="{StaticResource StartMenuStyle}" Margin="0,-100,0,0" Height="70" Width="140"/>
             <Button x:Name="btnQuit" Click="btnQuit_Click" Content="Quit Game" Style="{StaticResource StartMenuStyle}" Margin="0,100,0,0" Height="70" Width="140"/>
@@ -83,6 +83,36 @@
                 <StackPanel>
                     <Image Source="Assets/Images/FactionBanners/Spain.png" Height="40" Width="120"/>
                     <TextBlock Text="Spain" Style="{StaticResource TextBlockMenuStyle}"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+
+        <Grid x:Name="PlayingMenu" Visibility="Visible">
+            <Button x:Name="BtnLowerVolume" Click="BtnLowerVolume_Click"
+                 Style="{StaticResource AccentButtonStyle}"
+                 Height="30" Width="42"
+                 HorizontalAlignment="Right"
+                 VerticalAlignment="Top" Margin="0,0,43,0">
+                <StackPanel>
+                    <Image Source="Assets/Images/Menu/volumelower.png" Height="20" Width="20"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="BtnRaiseVolume" Click="BtnRaiseVolume_Click"
+                 Style="{StaticResource AccentButtonStyle}"
+                 Height="30" Width="42"
+                 HorizontalAlignment="Right"
+                 VerticalAlignment="Top" Margin="0,0,86,0">
+                <StackPanel>
+                    <Image Source="Assets/Images/Menu/volumeraise.png" Height="20" Width="20"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="BtnMuteVolume" Click="BtnMuteVolume_Click"
+                 Style="{StaticResource AccentButtonStyle}"
+                 Height="30" Width="42"
+                 HorizontalAlignment="Right"
+                 VerticalAlignment="Top">
+                <StackPanel>
+                    <Image Source="Assets/Images/Menu/volumemute.png" Height="20" Width="20"/>
                 </StackPanel>
             </Button>
         </Grid>
