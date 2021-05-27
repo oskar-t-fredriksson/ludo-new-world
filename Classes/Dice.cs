@@ -7,36 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using Windows.UI.Xaml.Controls;
+using LudoNewWorld.Classes;
 
-namespace LudoNewWorld.Classes
+namespace LudoNewWorld
 {
-    class Dice
+    public class Dice
     {
-        public static Timer timer;
-        public static List<CanvasBitmap> Dicepictures=new List<CanvasBitmap>();  
-        public static CanvasBitmap[] pics;
-        public static  int diceValue;
-        public static CanvasBitmap dice;
-        public static Random random=new Random();
-        public Dice()
-        {
-
-        }
-
-         public static int DiceRoll()
-        {
-           
-            
-                diceValue = random.Next(1, 7);
-                  return diceValue;
-            
-        }
-      
-      
-
-
-
-
-
+        private readonly Random _random = new Random();
+        public int Roll() => _random.Next(1, 7);
     }
 }

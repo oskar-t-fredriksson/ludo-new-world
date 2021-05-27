@@ -20,7 +20,7 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
-        
+
         <Style x:Key="FactionMenuStyle" TargetType="Button">
             <Setter Property="FontFamily" Value="Georgia"/>
             <Setter Property="Foreground" Value="Black"/>
@@ -30,7 +30,7 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
-        
+
         <Style x:Key="TextBlockMenuStyle" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Georgia"/>
             <Setter Property="FontSize" Value="14"/>
@@ -86,7 +86,13 @@
                 </StackPanel>
             </Button>
         </Grid>
-        
+        <Grid x:Name="Dice" Visibility="Collapsed">
+            <Button x:Name="btnRoll" Click="btnRoll_Click" 
+                    Content="Roll"
+                    Style="{StaticResource FactionMenuStyle}"
+                    Margin="217,10,0,0"
+                    Height="42" Width="76" HorizontalAlignment="Left" VerticalAlignment="Top">
+            </Button>
+        </Grid>
     </Grid>
-
 </Page>
