@@ -88,13 +88,13 @@ namespace LudoNewWorld
             if (MainPage.gameState == 1)
             {
                 args.DrawingSession.DrawImage(Scaler.Fit(GraphicHandler.displayDice), 0, 0);
-                args.DrawingSession.DrawImage(Scaler.Fit(BritainTile), gameTiles[0].GameTileVector);
-                args.DrawingSession.DrawImage(Scaler.Fit(NeutralTile), gameTiles[1].GameTileVector);
-                args.DrawingSession.DrawImage(Scaler.Fit(NeutralTile), gameTiles[2].GameTileVector);
-                args.DrawingSession.DrawImage(Scaler.Fit(NeutralTile), gameTiles[3].GameTileVector);
-                args.DrawingSession.DrawImage(Scaler.Fit(NegativeTile), gameTiles[4].GameTileVector);
-                args.DrawingSession.DrawImage(Scaler.Fit(PositiveTile), gameTiles[5].GameTileVector);
-                args.DrawingSession.DrawImage(Scaler.Fit(RandomTile), gameTiles[6].GameTileVector);
+                args.DrawingSession.DrawImage(Scaler.Fit(BritainTile), Scaler.Cords(gameTiles[0].GameTileVector));
+                args.DrawingSession.DrawImage(Scaler.Fit(NeutralTile), Scaler.Cords(gameTiles[1].GameTileVector));
+                args.DrawingSession.DrawImage(Scaler.Fit(NeutralTile), Scaler.Cords(gameTiles[2].GameTileVector));
+                args.DrawingSession.DrawImage(Scaler.Fit(NeutralTile), Scaler.Cords(gameTiles[3].GameTileVector));
+                args.DrawingSession.DrawImage(Scaler.Fit(NegativeTile), Scaler.Cords(gameTiles[4].GameTileVector));
+                args.DrawingSession.DrawImage(Scaler.Fit(PositiveTile), Scaler.Cords(gameTiles[5].GameTileVector));
+                args.DrawingSession.DrawImage(Scaler.Fit(RandomTile), Scaler.Cords(gameTiles[6].GameTileVector));
             }
         }
         private static void CreateTileObjects()

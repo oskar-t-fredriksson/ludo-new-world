@@ -7,6 +7,8 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using LudoNewWorld.Classes;
+using System.Diagnostics;
+using Windows.UI.Xaml;
 
 namespace LudoNewWorld
 {
@@ -36,6 +38,14 @@ namespace LudoNewWorld
             image = new Transform2DEffect() { Source = source };
             image.TransformMatrix = Matrix3x2.CreateScale(MainPage.scaleWidth, MainPage.scaleHeight);
             return image;
+        }
+
+        // Method to scale the x and y coordinates in the Vector2 value of each object based on a ratio of the windowsize
+        public static Vector2 Cords(Vector2 cords)
+        {
+            var scaleRatioWidth = (float)MainPage.bounds.Width / MainPage.DesignWidth;
+            var scaleRatioheight = (float)MainPage.bounds.Height / MainPage.DesignHeight;
+            return new Vector2(cords.X * scaleRatioWidth, cords.Y * scaleRatioheight);
         }
     }
 }
