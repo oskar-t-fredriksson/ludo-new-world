@@ -13,11 +13,11 @@ namespace LudoNewWorld
         {
             if (MainPage.gameState == 0)
             {
-                MainPage.background = MainPage.menuBackground;
+                GraphicHandler.background = GraphicHandler.menuBackground;
             }
             else if (MainPage.gameState == 1)
             {
-                MainPage.background = MainPage.gameBackground;
+                GraphicHandler.background = GraphicHandler.gameBackground;
             }
         }
     }

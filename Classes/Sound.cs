@@ -15,9 +15,9 @@ namespace LudoNewWorld
         {
             Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets\\Sounds");
             Windows.Storage.StorageFile music1 = await folder.GetFileAsync(@"placeholder.mp3");
-            MainPage.mPlayer.AutoPlay = false;
             RequestedMusic = music1;
 
+            MainPage.mPlayer.AutoPlay = false;
             MainPage.mPlayer.Source = MediaSource.CreateFromStorageFile(RequestedMusic);
             MainPage.mPlayer.Play();
         }
