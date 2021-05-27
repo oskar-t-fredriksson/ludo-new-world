@@ -68,8 +68,8 @@ namespace LudoNewWorld
             scaleVector3Variable.X = (float)mainGrid.ActualWidth / DesignWidth;
             scaleVector3Variable.Y = (float)mainGrid.ActualHeight / DesignHeight;
 
-            var xMargin = (mainGrid.ActualWidth - DesignWidth);
-            var yMargin = (mainGrid.ActualHeight - DesignHeight);
+            var xMargin = mainGrid.ActualWidth - DesignWidth;
+            var yMargin = mainGrid.ActualHeight - DesignHeight;
 
             // Scale assets based on the true size of the game window
             MenuField.Scale = scaleVector3Variable;
