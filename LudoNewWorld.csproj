@@ -139,8 +139,6 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\01 - Franklin City.mp3" />
-    <Content Include="Assets\03 - Court Room.mp3" />
     <Content Include="Assets\Images\bg.png" />
     <Content Include="Assets\Images\Dices\dice1.png" />
     <Content Include="Assets\Images\Dices\dice2.png" />
@@ -162,6 +160,7 @@
     <Content Include="Assets\Images\menuBackground.png" />
     <Content Include="Assets\Images\FactionBanners\Spain.png" />
     <Content Include="Assets\Pirates Of The Caribbean Theme Song.mp3" />
+    <Content Include="Assets\Sounds\placeholder.mp3" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

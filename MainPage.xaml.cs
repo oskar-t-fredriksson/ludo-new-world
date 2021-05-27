@@ -44,6 +44,7 @@ namespace LudoNewWorld
         public static MediaPlayer player;
         public static Rect bounds = ApplicationView.GetForCurrentView().VisibleBounds;
         public Vector3 scaleVector3Variable = new Vector3(DesignWidth, DesignHeight, 1);
+        public static MediaPlayer mPlayer = new MediaPlayer();
 
         public static float DesignWidth = 1920;
         public static float DesignHeight = 1080;
@@ -52,8 +53,6 @@ namespace LudoNewWorld
         public static string playerFaction;
         
         List<GameTile> gameTiles = new List<GameTile>();
-
-        public static int soundState = 0;
                 
         public MainPage()
         {
@@ -64,11 +63,7 @@ namespace LudoNewWorld
             this.InitializeComponent();
             Window.Current.SizeChanged += Current_SizeChanged;
             Scaler.SetScale();
-            player = new MediaPlayer();
-            Sound.Playing = true;
-            soundState = 1;
             Sound.SoundPlay();
-            
         }
         public void AddObjectToTileList()
         {
@@ -98,13 +93,10 @@ namespace LudoNewWorld
             FactionField.Margin = new Thickness(1, 1, xMargin, yMargin);
         }
 
-        private  async void btnStart_Click(object sender, RoutedEventArgs e)
+        private async void btnStart_Click(object sender, RoutedEventArgs e)
         {
             MenuField.Visibility = Visibility.Collapsed;
             FactionField.Visibility = Visibility.Visible;
-            Sound.Playing = true;
-            soundState = 2;
-            await Sound.SoundPlay();
         }
 
         private void btnQuit_Click(object sender, RoutedEventArgs e)
@@ -117,23 +109,16 @@ namespace LudoNewWorld
             playerFaction = "Britain";
             FactionField.Visibility = Visibility.Collapsed;
             gameState = 1;
-            Sound.Playing = false;
-            await Sound.SoundPlay();
-            
         }
 
         private async void btnFrance_Click(object sender, RoutedEventArgs e)
         {
             playerFaction = "France";
             FactionField.Visibility = Visibility.Collapsed;
-
             gameState = 1;
-
-          
-
         }
 
-      
+ 
         private void btnDutch_Click(object sender, RoutedEventArgs e)
         {
             playerFaction = "Dutch";
