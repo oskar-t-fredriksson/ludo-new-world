@@ -26,6 +26,7 @@ using System.Diagnostics;
 using Windows.Storage;
 using Windows.Media.Playback;
 using Windows.Media.Core;
+using Windows.UI.Xaml.Media.Imaging;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -162,12 +163,14 @@ namespace LudoNewWorld
                 Debug.WriteLine("Volume muted");
                 mPlayer.Volume = 0;
                 volumeMute = true;
+                muteButtonChange.Source = new BitmapImage(new Uri(base.BaseUri, @"/Assets/Images/Menu/volumemute.png"));
             }
             else if(volumeMute)
             {
                 Debug.WriteLine("Volume enabled");
                 mPlayer.Volume = currentVolume;
                 volumeMute = false;
+                muteButtonChange.Source = new BitmapImage(new Uri(base.BaseUri, @"/Assets/Images/Menu/volumeunmute.png"));
             }
         }
     }

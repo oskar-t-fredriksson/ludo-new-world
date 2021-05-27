@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -28,6 +29,7 @@ namespace LudoNewWorld
         {
             Dice dice = new Dice();
             int trueNumber = dice.Roll();
+            Debug.WriteLine("Dice rolled: " + trueNumber);
             for (int i = 0; i < 10000000; i++)
             {
                 switch (dice.Roll())
@@ -41,6 +43,7 @@ namespace LudoNewWorld
                     default: break;
                 }
             }
+            // Change the visual dice asset on the canvas too the correct dice number
             displayDice = diceBitmapList[trueNumber];
             return trueNumber;
         }
@@ -99,7 +102,7 @@ namespace LudoNewWorld
         }
         private static void CreateTileObjects()
         {
-            gameTiles.Add(new GameTile(Tile.StartTile, FactionTile.BritainTile, new Vector2(300, 400)));
+            gameTiles.Add(new GameTile(Tile.StartTile, FactionTile.BritainTile, new Vector2(150, 400)));
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(400, 400)));
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(500, 400)));
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(600, 400)));

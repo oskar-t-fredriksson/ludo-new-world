@@ -161,9 +161,18 @@
     <Content Include="Assets\Images\GameTiles\SpainTile.png" />
     <Content Include="Assets\Images\menuBackground.png" />
     <Content Include="Assets\Images\FactionBanners\Spain.png" />
-    <Content Include="Assets\Images\Menu\volumelower.png" />
-    <Content Include="Assets\Images\Menu\volumemute.png" />
-    <Content Include="Assets\Images\Menu\volumeraise.png" />
+    <Content Include="Assets\Images\Menu\volumelower.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\Menu\volumemute.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\Menu\volumeraise.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\Menu\volumeunmute.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Pirates Of The Caribbean Theme Song.mp3" />
     <Content Include="Assets\Sounds\placeholder.mp3" />
     <Content Include="Properties\Default.rd.xml" />
