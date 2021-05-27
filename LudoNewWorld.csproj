@@ -151,13 +151,17 @@
     <Content Include="Assets\Images\FactionBanners\Britain.png" />
     <Content Include="Assets\Images\FactionBanners\Dutch.png" />
     <Content Include="Assets\Images\FactionBanners\France.png" />
+    <Content Include="Assets\Images\GameTiles\BritainGoalTile.png" />
     <Content Include="Assets\Images\GameTiles\BritainTile.png" />
+    <Content Include="Assets\Images\GameTiles\DutchGoalTile.png" />
     <Content Include="Assets\Images\GameTiles\DutchTile.png" />
+    <Content Include="Assets\Images\GameTiles\FranceGoalTile.png" />
     <Content Include="Assets\Images\GameTiles\FranceTile.png" />
     <Content Include="Assets\Images\GameTiles\NegativeTile.png" />
     <Content Include="Assets\Images\GameTiles\NeutralTile.png" />
     <Content Include="Assets\Images\GameTiles\PositiveTile.png" />
     <Content Include="Assets\Images\GameTiles\RandomTile.png" />
+    <Content Include="Assets\Images\GameTiles\SpainGoalTile.png" />
     <Content Include="Assets\Images\GameTiles\SpainTile.png" />
     <Content Include="Assets\Images\menuBackground.png" />
     <Content Include="Assets\Images\FactionBanners\Spain.png" />
