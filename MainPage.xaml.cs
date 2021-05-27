@@ -26,6 +26,7 @@ using System.Diagnostics;
 using Windows.Storage;
 using Windows.Media.Playback;
 using Windows.Media.Core;
+using Windows.UI.Xaml.Media.Imaging;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -45,6 +46,7 @@ namespace LudoNewWorld
         public static string playerFaction;
         public static MediaPlayer mPlayer = new MediaPlayer();
         public static double currentVolume = 0.5;
+        public static int volumeLevel = 5;
         public static bool volumeMute = false;
         public Vector3 scaleVector3Variable = new Vector3(DesignWidth, DesignHeight, 1);
         
@@ -94,7 +96,7 @@ namespace LudoNewWorld
             GraphicHandler.Draw(sender, args);
         }
 
-        private void btnRoll_Click(object sender, RoutedEventArgs e)
+        public  void btnRoll_Click(object sender, RoutedEventArgs e)
         {
             GraphicHandler.scrambleDice();
         }
@@ -141,34 +143,49 @@ namespace LudoNewWorld
             Dice.Visibility = Visibility.Visible;
             gameState = 1;
         }
-
-        private void BtnRaiseVolume_Click(object sender, RoutedEventArgs e)
+        private void BtnMuteVolume_Click(object sender, RoutedEventArgs e)
         {
-            currentVolume += 0.1;
-            mPlayer.Volume += 0.1;
-            Debug.WriteLine("Volume: " + mPlayer.Volume);
+            if (!volumeMute)
+            {
+                Debug.WriteLine("Volume muted");
+                mPlayer.Volume = 0;
+                volumeMute = true;
+                muteButtonChange.Source = new BitmapImage(new Uri(base.BaseUri, @"/Assets/Images/Menu/volumemute.png"));
+            }
+            else if (volumeMute)
+            {
+                Debug.WriteLine("Volume enabled");
+                mPlayer.Volume = currentVolume;
+                volumeMute = false;
+                muteButtonChange.Source = new BitmapImage(new Uri(base.BaseUri, @"/Assets/Images/Menu/volumeunmute.png"));
+            }
         }
         private void BtnLowerVolume_Click(object sender, RoutedEventArgs e)
         {
             currentVolume -= 0.1;
             mPlayer.Volume -= 0.1;
+            if (volumeLevel > 0)
+            {
+                volumeLevel--;
+                volumeSlider.Source = new BitmapImage(new Uri(base.BaseUri, @"/Assets/Images/Menu/menu" + volumeLevel + ".png"));
+            }
             Debug.WriteLine("Volume: " + mPlayer.Volume);
         }
 
-        private void BtnMuteVolume_Click(object sender, RoutedEventArgs e)
+        private void BtnRaiseVolume_Click(object sender, RoutedEventArgs e)
         {
-            if(!volumeMute)
+            currentVolume += 0.1;
+            mPlayer.Volume += 0.1;
+            if(volumeLevel < 10)
             {
-                Debug.WriteLine("Volume muted");
-                mPlayer.Volume = 0;
-                volumeMute = true;
+                volumeLevel++;
+                volumeSlider.Source = new BitmapImage(new Uri(base.BaseUri, @"/Assets/Images/Menu/menu" + volumeLevel + ".png"));
             }
-            else if(volumeMute)
-            {
-                Debug.WriteLine("Volume enabled");
-                mPlayer.Volume = currentVolume;
-                volumeMute = false;
-            }
+            Debug.WriteLine("Volume: " + mPlayer.Volume);
+        }
+        private void BtnMenuHelp_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

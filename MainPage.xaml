@@ -10,6 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.Resources>
+
         <Style x:Key="StartMenuStyle" TargetType="Button">
             <Setter Property="FontFamily" Value="Georgia"/>
             <Setter Property="FontSize" Value="20"/>
@@ -36,6 +37,72 @@
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+
+        <Style x:Key="OwnButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="{ThemeResource AccentButtonForeground}"/>
+            <Setter Property="Background" Value="{ThemeResource AccentButtonBackground}"/>
+            <Setter Property="BackgroundSizing" Value="OuterBorderEdge"/>
+            <Setter Property="BorderBrush" Value="{ThemeResource AccentButtonBorderBrush}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" BackgroundSizing="{TemplateBinding BackgroundSizing}" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" CornerRadius="{TemplateBinding CornerRadius}" ContentTransitions="{TemplateBinding ContentTransitions}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AccentButtonBorderBrushPointerOver}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="BorderBrush">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AccentButtonBorderBrushPointerOver}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AccentButtonForegroundPointerOver}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AccentButtonBackgroundPressed}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="BorderBrush">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AccentButtonBorderBrushPressed}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AccentButtonForegroundPressed}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <PointerDownThemeAnimation Storyboard.TargetName="ContentPresenter"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AccentButtonBackgroundDisabled}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="BorderBrush">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AccentButtonBorderBrushDisabled}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AccentButtonForegroundDisabled}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </ContentPresenter>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
     </Page.Resources>
@@ -88,31 +155,50 @@
         </Grid>
 
         <Grid x:Name="PlayingMenu" Visibility="Visible">
-            <Button x:Name="BtnLowerVolume" Click="BtnLowerVolume_Click"
-                 Style="{StaticResource AccentButtonStyle}"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="359*"/>
+                <ColumnDefinition Width="115*"/>
+                <ColumnDefinition Width="6*"/>
+            </Grid.ColumnDefinitions>
+            <Image x:Name="volumeSlider" Source="/Assets/Images/Menu/menu5.png" HorizontalAlignment="Left" Height="10" Margin="316,30,0,0" VerticalAlignment="Top" Width="168" Grid.ColumnSpan="2" Grid.Column="1"/>
+            <Button x:Name="BtnMuteVolume" Click="BtnMuteVolume_Click"
+                 Background="#161616"
+                 Style="{StaticResource OwnButtonStyle}"
                  Height="30" Width="42"
                  HorizontalAlignment="Right"
-                 VerticalAlignment="Top" Margin="0,0,43,0">
+                 VerticalAlignment="Top" Margin="0,0,102,0" Grid.Column="1">
+                <StackPanel>
+                    <Image x:Name="muteButtonChange" Source="Assets/Images/Menu/volumeunmute.png" Height="20" Width="20"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="BtnLowerVolume" Click="BtnLowerVolume_Click"
+                 Background="#161616"
+                 Style="{StaticResource OwnButtonStyle}"
+                 Height="30" Width="42"
+                 HorizontalAlignment="Right"
+                 VerticalAlignment="Top" Margin="0,0,59,0" Grid.Column="1">
                 <StackPanel>
                     <Image Source="Assets/Images/Menu/volumelower.png" Height="20" Width="20"/>
                 </StackPanel>
             </Button>
             <Button x:Name="BtnRaiseVolume" Click="BtnRaiseVolume_Click"
-                 Style="{StaticResource AccentButtonStyle}"
+                 Background="#161616"
+                 Style="{StaticResource OwnButtonStyle}"
                  Height="30" Width="42"
                  HorizontalAlignment="Right"
-                 VerticalAlignment="Top">
+                 VerticalAlignment="Top" Margin="0,0,16,0" Grid.Column="1">
                 <StackPanel>
                     <Image Source="Assets/Images/Menu/volumeraise.png" Height="20" Width="20"/>
                 </StackPanel>
             </Button>
-            <Button x:Name="BtnMuteVolume" Click="BtnMuteVolume_Click"
-                 Style="{StaticResource AccentButtonStyle}"
-                 Height="30" Width="42"
-                 HorizontalAlignment="Right"
-                 VerticalAlignment="Top" Margin="0,0,86,0">
-                <StackPanel>
-                    <Image Source="Assets/Images/Menu/volumemute.png" Height="20" Width="20"/>
+            <Button x:Name="BtnMenuHelp" Click="BtnMenuHelp_Click"
+                Background="#161616"
+                Style="{StaticResource OwnButtonStyle}"
+                Height="30" Width="39"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1">
+                <StackPanel Margin="-18,-16,-17,-16">
+                    <Image Source="/Assets/Images/Menu/help.png" Height="32" Width="30" RenderTransformOrigin="0.215,0.33"/>
                 </StackPanel>
             </Button>
         </Grid>
