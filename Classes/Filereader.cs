@@ -13,7 +13,7 @@ namespace LudoNewWorld
     public class Filereader
     {
         public Tile tile;
-        public FactionTile factionTile;
+        public Faction factionTile;
         public Vector2 vector;
 
         public List<Filereader> LoadJson(string filename)
