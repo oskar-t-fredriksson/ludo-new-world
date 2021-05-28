@@ -142,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Images\bg.png" />
+    <Content Include="Assets\Images\Credits.png" />
     <Content Include="Assets\Images\Dices\dice0.png" />
     <Content Include="Assets\Images\Dices\dice1.png" />
     <Content Include="Assets\Images\Dices\dice2.png" />
@@ -164,6 +165,8 @@
     <Content Include="Assets\Images\GameTiles\RandomTile.png" />
     <Content Include="Assets\Images\GameTiles\SpainGoalTile.png" />
     <Content Include="Assets\Images\GameTiles\SpainTile.png" />
+    <Content Include="Assets\Images\helpMenuNew.png" />
+    <Content Include="Assets\Images\instruct_placeholder.png" />
     <Content Include="Assets\Images\menuBackground.png" />
     <Content Include="Assets\Images\FactionBanners\Spain.png" />
     <Content Include="Assets\Images\Menu\help.png" />

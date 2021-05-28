@@ -26,6 +26,7 @@ using Windows.Storage;
 using Windows.Media.Playback;
 using Windows.Media.Core;
 using Windows.UI.Xaml.Media.Imaging;
+using System.ServiceModel.Channels;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -190,9 +191,49 @@ namespace LudoNewWorld
             }
             Debug.WriteLine("Volume: " + mPlayer.Volume);
         }
-        private void BtnMenuHelp_Click(object sender, RoutedEventArgs e)
+
+        private void Help_Quit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Exit();
+        }
+
+        private void Instruct_btn_Click(object sender, RoutedEventArgs e)
         {
 
+            Popup2.IsOpen = false;
+            MyPopup.IsOpen = false;
+            InstructPopup.IsOpen = true;
+     
         }
+
+        private void Credit_btn_Click(object sender, RoutedEventArgs e)
+        {
+            Popup2.IsOpen = false;
+            MyPopup.IsOpen = false;
+            CreditPopup.IsOpen = true;
+        }
+
+        private void BtnMenuHelp_Click(object sender, RoutedEventArgs e)
+        {
+            if (gameState == 1)
+            {
+                ParentPopup.IsOpen = true;
+
+                if (ParentPopup.IsOpen == true)
+                {
+                    MyPopup.IsOpen = true;
+                    Popup2.IsOpen = true;
+                }
+                else if (ParentPopup.IsOpen == false)
+                {
+                    MyPopup.IsOpen = false;
+                    Popup2.IsOpen = false;
+                }
+            }
+
+        }
+
+
+
     }
 }
