@@ -8,12 +8,26 @@ namespace LudoNewWorld.Classes
 {
     class GameEngine
     {
-        public static bool GoalAchieved;
+        public bool GoalAchieved;
+
+        public List<Player> playerList = new List<Player>();
         
 
+        public List<Faction> factionList = new List<Faction>();
 
-        public static void StartGame()
+        public void CreatePlayers(Faction faction)
         {
+            factionList.Add(Faction.Britain);
+            factionList.Add(Faction.Dutch);
+            factionList.Add(Faction.Spain);
+            factionList.Add(Faction.France);
+            Player player1 = new Player(faction, true);
+
+        }              
+
+        public void StartGame(Faction faction)
+        {
+            CreatePlayers(faction);
             while (GoalAchieved!=false)
             {
                 for (int i = 0; i < 4; i++)

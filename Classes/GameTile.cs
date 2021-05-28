@@ -10,33 +10,15 @@ using LudoNewWorld.Classes;
 
 namespace LudoNewWorld
 {
-    public enum Tile
-    {
-        NeutralTile,
-        GoalTile,
-        BaseTile,
-        StartTile,
-        NegativeTile,
-        PositiveTile,
-        RandomTile    
-    }
-    public enum FactionTile
-    {
-        BritainTile,
-        SpainTile,
-        DutchTile,
-        FranceTile,
-        FactionNull
-    }
     public class GameTile
     {
         public CanvasBitmap TileImage { get; set; }
         public Vector2 GameTileVector { get; set; }
-        public FactionTile FactionType { get; set; }
+        public Faction FactionType { get; set; }
         public Tile TileType { get; set; }
         public bool IsPlayerOnTile = false;
 
-        public GameTile(Tile tileType, FactionTile factionType, Vector2 gameTileVector)
+        public GameTile(Tile tileType, Faction factionType, Vector2 gameTileVector)
         {
             TileType = tileType;
             FactionType = factionType;
@@ -46,7 +28,7 @@ namespace LudoNewWorld
         {
             TileType = tileType;
             GameTileVector = gameTileVector;
-            FactionType = FactionTile.FactionNull;
+            FactionType = Faction.FactionNull;
         }
     }
 }

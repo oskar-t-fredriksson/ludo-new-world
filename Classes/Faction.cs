@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace LudoNewWorld.Classes
 {
-    class ComputerPlayer
+    public enum Faction
     {
+        Britain,
+        Spain,
+        Dutch,
+        France,
+        FactionNull
     }
 }
