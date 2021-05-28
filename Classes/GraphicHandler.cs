@@ -17,9 +17,10 @@ namespace LudoNewWorld
         public static CanvasBitmap background, gameBackground, menuBackground,
         dice1, dice2, dice3, dice4, dice5, dice6, britishDisplayDice, dutchDisplayDice, spainDisplayDice, franceDisplayDice,
         dice1Inactive, dice2Inactive, dice3Inactive, dice4Inactive, dice5Inactive, dice6Inactive,
-        NeutralTile, BritainTile, SpainTile, DutchTile, FranceTile, NegativeTile, PositiveTile, RandomTile, 
+        NeutralTile, BritainTile, SpainTile, DutchTile, FranceTile, NegativeTile, PositiveTile, RandomTile,
         BritainGoalTile, DutchGoalTile, FranceGoalTile, SpainGoalTile,
-        BritainSmallShip, BritainSmallShipActive, DutchSmallShip, DutchSmallShipActive, SpainSmallShip, SpainSmallShipActive, FranceSmallShip, FranceSmallShipActive;
+        BritainSmallShip, BritainSmallShipActive, DutchSmallShip, DutchSmallShipActive, SpainSmallShip, SpainSmallShipActive, FranceSmallShip, FranceSmallShipActive,
+        helpmenuBackground, instructionsBackground, creditsBackground;
 
         // List
         static List<GameTile> gameTiles = new List<GameTile>();

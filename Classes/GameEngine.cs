@@ -10,7 +10,6 @@ namespace LudoNewWorld.Classes
     {
         public static bool GoalAchieved;
         public static int playerturn = 1;
-        public bool GoalAchieved;
 
         public List<Player> playerList = new List<Player>();     
         public List<Faction> factionList = new List<Faction>();
