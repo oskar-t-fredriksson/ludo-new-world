@@ -17,7 +17,8 @@ namespace LudoNewWorld
         public static CanvasBitmap background, gameBackground, menuBackground,
         dice1, dice2, dice3, dice4, dice5, dice6, displayDice,
         NeutralTile, BritainTile, SpainTile, DutchTile, FranceTile, NegativeTile, PositiveTile, RandomTile, 
-        BritainGoalTile, DutchGoalTile, FranceGoalTile, SpainGoalTile;
+        BritainGoalTile, DutchGoalTile, FranceGoalTile, SpainGoalTile,
+        BritainSmallShip, BritainSmallShipActive, DutchSmallShip, DutchSmallShipActive, SpainSmallShip, SpainSmallShipActive, FranceSmallShip, FranceSmallShipActive;
 
         // List
         static List<GameTile> gameTiles = new List<GameTile>();
@@ -87,6 +88,16 @@ namespace LudoNewWorld
             diceBitmapList.Add(dice4 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice4.png")));
             diceBitmapList.Add(dice5 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice5.png")));
             diceBitmapList.Add(dice6 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice6.png")));
+
+            //Player ships
+            BritainSmallShip = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Ships/BritainSmallShip.png"));
+            BritainSmallShipActive = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Ships/BritainSmallShipActive.png"));
+            DutchSmallShip = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Ships/DutchSmallShip.png"));
+            DutchSmallShipActive = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Ships/DutchSmallShipActive.png"));
+            SpainSmallShip = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Ships/SpainSmallShip.png"));
+            SpainSmallShipActive = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Ships/SpainSmallShipActive.png"));
+            FranceSmallShip = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Ships/FranceSmallShip.png"));
+            FranceSmallShipActive = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Ships/FranceSmallShipActive.png"));
         }
 
         public static void Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
@@ -161,6 +172,30 @@ namespace LudoNewWorld
                         args.DrawingSession.DrawImage(Scaler.Fit(NeutralTile), Scaler.Cords(tile.GameTileVector));
                     }
                 }
+                //Britain ships start
+                args.DrawingSession.DrawImage(Scaler.Fit(BritainSmallShip), Scaler.Cords(new Vector2(190 - 10, 150 - 25)));
+                args.DrawingSession.DrawImage(Scaler.Fit(BritainSmallShip), Scaler.Cords(new Vector2(190 - 10, 230 - 25)));
+                args.DrawingSession.DrawImage(Scaler.Fit(BritainSmallShip), Scaler.Cords(new Vector2(270 - 10, 150 - 25)));
+                args.DrawingSession.DrawImage(Scaler.Fit(BritainSmallShip), Scaler.Cords(new Vector2(270 - 10, 230 - 25)));
+
+                //Dutch ships start
+                args.DrawingSession.DrawImage(Scaler.Fit(DutchSmallShip), Scaler.Cords(new Vector2(1730 - 10, 150 - 25)));
+                args.DrawingSession.DrawImage(Scaler.Fit(DutchSmallShip), Scaler.Cords(new Vector2(1730 - 10, 230 - 25)));
+                args.DrawingSession.DrawImage(Scaler.Fit(DutchSmallShip), Scaler.Cords(new Vector2(1650 - 10, 150 - 25)));
+                args.DrawingSession.DrawImage(Scaler.Fit(DutchSmallShip), Scaler.Cords(new Vector2(1650 - 10, 230 - 25)));
+
+                //Spain ships start
+                args.DrawingSession.DrawImage(Scaler.Fit(SpainSmallShip), Scaler.Cords(new Vector2(1730 - 10, 930 - 25)));
+                args.DrawingSession.DrawImage(Scaler.Fit(SpainSmallShip), Scaler.Cords(new Vector2(1730 - 10, 850 - 25)));
+                args.DrawingSession.DrawImage(Scaler.Fit(SpainSmallShip), Scaler.Cords(new Vector2(1650 - 10, 930 - 25)));
+                args.DrawingSession.DrawImage(Scaler.Fit(SpainSmallShip), Scaler.Cords(new Vector2(1650 - 10, 850 - 25)));
+
+                //France ships start
+                args.DrawingSession.DrawImage(Scaler.Fit(DutchSmallShip), Scaler.Cords(new Vector2(190 - 10, 930 - 25)));
+                args.DrawingSession.DrawImage(Scaler.Fit(DutchSmallShip), Scaler.Cords(new Vector2(190 - 10, 850 - 25)));
+                args.DrawingSession.DrawImage(Scaler.Fit(DutchSmallShip), Scaler.Cords(new Vector2(270 - 10, 930 - 25)));
+                args.DrawingSession.DrawImage(Scaler.Fit(DutchSmallShip), Scaler.Cords(new Vector2(270 - 10, 850 - 25)));
+
                 args.DrawingSession.DrawImage(Scaler.Fit(GraphicHandler.displayDice), 0, 0);
             }
         }
