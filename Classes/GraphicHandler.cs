@@ -191,10 +191,10 @@ namespace LudoNewWorld
                 args.DrawingSession.DrawImage(Scaler.Fit(SpainSmallShip), Scaler.Cords(new Vector2(1650 - 10, 850 - 25)));
 
                 //France ships start
-                args.DrawingSession.DrawImage(Scaler.Fit(DutchSmallShip), Scaler.Cords(new Vector2(190 - 10, 930 - 25)));
-                args.DrawingSession.DrawImage(Scaler.Fit(DutchSmallShip), Scaler.Cords(new Vector2(190 - 10, 850 - 25)));
-                args.DrawingSession.DrawImage(Scaler.Fit(DutchSmallShip), Scaler.Cords(new Vector2(270 - 10, 930 - 25)));
-                args.DrawingSession.DrawImage(Scaler.Fit(DutchSmallShip), Scaler.Cords(new Vector2(270 - 10, 850 - 25)));
+                args.DrawingSession.DrawImage(Scaler.Fit(FranceSmallShip), Scaler.Cords(new Vector2(190 - 10, 930 - 25)));
+                args.DrawingSession.DrawImage(Scaler.Fit(FranceSmallShip), Scaler.Cords(new Vector2(190 - 10, 850 - 25)));
+                args.DrawingSession.DrawImage(Scaler.Fit(FranceSmallShip), Scaler.Cords(new Vector2(270 - 10, 930 - 25)));
+                args.DrawingSession.DrawImage(Scaler.Fit(FranceSmallShip), Scaler.Cords(new Vector2(270 - 10, 850 - 25)));
 
                 args.DrawingSession.DrawImage(Scaler.Fit(GraphicHandler.displayDice), 0, 0);
             }
