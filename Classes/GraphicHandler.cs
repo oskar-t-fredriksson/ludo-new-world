@@ -139,6 +139,23 @@ namespace LudoNewWorld
                                 break;
                         }
                     }
+                    else if(tile.TileType == Tile.NegativeTile || tile.TileType == Tile.PositiveTile || tile.TileType == Tile.RandomTile)
+                    {
+                        switch (tile.TileType)
+                        {
+                            case Tile.NegativeTile:
+                                args.DrawingSession.DrawImage(Scaler.Fit(NegativeTile), Scaler.Cords(tile.GameTileVector));
+                                break;
+                            case Tile.PositiveTile:
+                                args.DrawingSession.DrawImage(Scaler.Fit(PositiveTile), Scaler.Cords(tile.GameTileVector));
+                                break;
+                            case Tile.RandomTile:
+                                args.DrawingSession.DrawImage(Scaler.Fit(RandomTile), Scaler.Cords(tile.GameTileVector));
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                     else
                     {
                         args.DrawingSession.DrawImage(Scaler.Fit(NeutralTile), Scaler.Cords(tile.GameTileVector));
@@ -217,47 +234,55 @@ namespace LudoNewWorld
 
             //Neutral Tile Britain side
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(420, 420)));
-            gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(500, 380)));
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(540, 300)));
-            gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(560, 220)));
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(590, 140)));
-            gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(640, 80)));
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(720, 70)));
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(800, 70)));
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(880, 70)));            
 
             //Neutral Tile Dutch side
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1120, 70)));
-            gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1200, 70)));
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1280, 80)));
-            gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1330, 140)));
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1360, 220)));
-            gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1380, 300)));
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1420, 380)));
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1500, 420)));
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1580, 460)));           
 
             //Neutral Tile Spain side
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1500, 660)));
-            gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1420, 700)));
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1380, 780)));
-            gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1360, 860)));
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1330, 940)));
-            gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1280, 1000)));
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1200, 1010)));
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1120, 1010)));
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1040, 1010)));
 
             //Neutral Tile France side
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(800, 1010)));
-            gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(720, 1010)));
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(640, 1000)));
-            gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(590, 940)));
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(560, 860)));
-            gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(540, 780)));
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(500, 700)));
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(420, 660)));
             gameTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(340, 620)));
+
+            //Britain side Effects Tile
+            gameTiles.Add(new GameTile(Tile.PositiveTile, new Vector2(500, 380)));
+            gameTiles.Add(new GameTile(Tile.RandomTile, new Vector2(560, 220)));
+            gameTiles.Add(new GameTile(Tile.NegativeTile, new Vector2(640, 80)));
+
+            //Dutch side Effects Tile
+            gameTiles.Add(new GameTile(Tile.PositiveTile, new Vector2(1200, 70)));
+            gameTiles.Add(new GameTile(Tile.RandomTile, new Vector2(1330, 140)));
+            gameTiles.Add(new GameTile(Tile.NegativeTile, new Vector2(1380, 300)));
+
+            //Spain side Effects Tile
+            gameTiles.Add(new GameTile(Tile.PositiveTile, new Vector2(1420, 700)));
+            gameTiles.Add(new GameTile(Tile.RandomTile, new Vector2(1360, 860)));
+            gameTiles.Add(new GameTile(Tile.NegativeTile, new Vector2(1280, 1000)));
+
+            //France side Effects Tile
+            gameTiles.Add(new GameTile(Tile.PositiveTile, new Vector2(720, 1010)));
+            gameTiles.Add(new GameTile(Tile.RandomTile, new Vector2(590, 940)));
+            gameTiles.Add(new GameTile(Tile.NegativeTile, new Vector2(540, 780)));
         }
     }
 }
