@@ -21,7 +21,6 @@ using Windows.UI.Core;
 using LudoNewWorld.Classes;
 using System.Threading;
 using System.Numerics;
-using Newtonsoft.Json;
 using System.Diagnostics;
 using Windows.Storage;
 using Windows.Media.Playback;
