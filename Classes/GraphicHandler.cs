@@ -14,7 +14,7 @@ namespace LudoNewWorld
 {
     class GraphicHandler
     {
-        public static CanvasBitmap background, gameBackground, menuBackground,
+        public static CanvasBitmap background, gameBackground, menuBackground, helpmenuBackground, instructionsBackground, creditsBackground,
         dice1, dice2, dice3, dice4, dice5, dice6, displayDice,
         NeutralTile, BritainTile, SpainTile, DutchTile, FranceTile, NegativeTile, PositiveTile, RandomTile, 
         BritainGoalTile, DutchGoalTile, FranceGoalTile, SpainGoalTile,
@@ -65,6 +65,9 @@ namespace LudoNewWorld
             //Background
             gameBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/bg.png"));
             menuBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/menuBackground.png"));
+            helpmenuBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/helpMenuNew.png"));
+            instructionsBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/instruct_placeholder.png"));
+            creditsBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Credits.png"));
 
             //Tiles
             BritainTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/BritainTile.png"));

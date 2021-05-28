@@ -197,10 +197,70 @@
                 Height="30" Width="39"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1">
+                <Button.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="Escape" />
+                </Button.KeyboardAccelerators>
                 <StackPanel Margin="-18,-16,-17,-16">
                     <Image Source="/Assets/Images/Menu/help.png" Height="32" Width="30" RenderTransformOrigin="0.215,0.33"/>
                 </StackPanel>
+                
             </Button>
+            <Popup x:Name="ParentPopup" 
+                   Width="200" Height="300" 
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   IsLightDismissEnabled="True">
+                <Grid>
+                    <Popup x:Name="MyPopup" 
+                   IsOpen="False" 
+                   Width="200" Height="300" 
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center">
+                        <StackPanel>
+                            <Image Width="900" Height="1100" Source="Assets/Images/helpMenuNew.png"  Margin="-100,-400,0,0"></Image>
+                        </StackPanel>
+                    </Popup>
+                    <Popup x:Name="Popup2" 
+                           IsOpen="False" 
+                           Width="200" Height="300" 
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center">
+                        <StackPanel >
+                            <Button Content="Instructions" x:Name="Instruct_btn" Click="Instruct_btn_Click" Style="{StaticResource StartMenuStyle}" Width="300" Height="100" Margin="210,0,0,20">
+                            </Button>
+                            <Button Content="Save" Style="{StaticResource StartMenuStyle}" Width="300" Height="100" Margin="210,0,0,0"></Button>
+                            <Button Content="Credit" x:Name="Credit_btn" Click="Credit_btn_Click" Style="{StaticResource StartMenuStyle}" Width="300" Height="100" Margin="210,20,0,0"></Button>
+                            <Button Content="Quit" x:Name="Help_Quit" Click="Help_Quit_Click" Style="{StaticResource StartMenuStyle}" Width="300" Height="100" Margin="210,60,0,0"></Button>
+                        </StackPanel>
+                    </Popup>
+                    <Popup x:Name="InstructPopup"  
+                           IsOpen="False" 
+                           Width="200" Height="300" 
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           IsLightDismissEnabled="True">
+                        <StackPanel>
+                            <Grid>
+                                <Image Width="900" Height="1100" Margin="-100,-400,0,0" Source="Assets/Images/instruct_placeholder.png"></Image>
+                            </Grid>
+                        </StackPanel>
+                    </Popup>
+                    <Popup x:Name="CreditPopup"  
+                           IsOpen="False" 
+                           Width="200" Height="300" 
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           IsLightDismissEnabled="True">
+                        <StackPanel>
+                            <Grid>
+                                <Image Width="900" Height="1100" Margin="-100,-400,0,0" Source="Assets/Images/Credits.png"></Image>
+                            </Grid>
+                        </StackPanel>
+                    </Popup>
+                </Grid>
+            </Popup>
+            
+            
         </Grid>
         <Grid x:Name="Dice" Visibility="Collapsed">
             <Button x:Name="btnRoll" Click="btnRoll_Click" 
