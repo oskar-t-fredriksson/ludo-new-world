@@ -121,8 +121,6 @@
     </Compile>
     <Compile Include="Classes\Filereader.cs" />
     <Compile Include="Classes\GraphicHandler.cs" />
-    <Compile Include="Classes\Competitor.cs" />
-    <Compile Include="Classes\ComputerPlayer.cs" />
     <Compile Include="Classes\Dice.cs" />
     <Compile Include="Classes\GameEngine.cs" />
     <Compile Include="Classes\GameStateManager.cs" />
