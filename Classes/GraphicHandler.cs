@@ -15,37 +15,88 @@ namespace LudoNewWorld
     class GraphicHandler
     {
         public static CanvasBitmap background, gameBackground, menuBackground,
-        dice1, dice2, dice3, dice4, dice5, dice6, displayDice,
+        dice1, dice2, dice3, dice4, dice5, dice6, britishDisplayDice, dutchDisplayDice, spainDisplayDice, franceDisplayDice,
+        dice1Inactive, dice2Inactive, dice3Inactive, dice4Inactive, dice5Inactive, dice6Inactive,
         NeutralTile, BritainTile, SpainTile, DutchTile, FranceTile, NegativeTile, PositiveTile, RandomTile, 
         BritainGoalTile, DutchGoalTile, FranceGoalTile, SpainGoalTile;
 
         // List
         static List<GameTile> gameTiles = new List<GameTile>();
         static List<CanvasBitmap> diceBitmapList = new List<CanvasBitmap>();
+        public static List<CanvasBitmap> diceInactiveBitmapList = new List<CanvasBitmap>();
 
         // Objects
         private readonly Random _random = new Random();
 
-        public static int scrambleDice()
+        public static int scrambleDice(int playerID)
         {
             Dice dice = new Dice();
             int trueNumber = dice.Roll();
             Debug.WriteLine("Dice rolled: " + trueNumber);
-            for (int i = 0; i < 10000000; i++)
+            switch (playerID)
             {
-                switch (dice.Roll())
-                {
-                    case 1: displayDice = diceBitmapList[1]; break;
-                    case 2: displayDice = diceBitmapList[2]; break;
-                    case 3: displayDice = diceBitmapList[3]; break;
-                    case 4: displayDice = diceBitmapList[4]; break;
-                    case 5: displayDice = diceBitmapList[5]; break;
-                    case 6: displayDice = diceBitmapList[6]; break;
-                    default: break;
-                }
+                case 1:
+                    for (int i = 0; i < 10000000; i++)
+                    {
+                        switch (dice.Roll())
+                        {
+                            case 1: britishDisplayDice = diceBitmapList[0]; break;
+                            case 2: britishDisplayDice = diceBitmapList[1]; break;
+                            case 3: britishDisplayDice = diceBitmapList[2]; break;
+                            case 4: britishDisplayDice = diceBitmapList[3]; break;
+                            case 5: britishDisplayDice = diceBitmapList[4]; break;
+                            case 6: britishDisplayDice = diceBitmapList[5]; break;
+                            default: break;
+                        }
+                    }
+                    britishDisplayDice = diceBitmapList[trueNumber - 1]; break;
+                case 2:
+                    for (int i = 0; i < 10000000; i++)
+                    {
+                        switch (dice.Roll())
+                        {
+                            case 1: dutchDisplayDice = diceBitmapList[0]; break;
+                            case 2: dutchDisplayDice = diceBitmapList[1]; break;
+                            case 3: dutchDisplayDice = diceBitmapList[2]; break;
+                            case 4: dutchDisplayDice = diceBitmapList[3]; break;
+                            case 5: dutchDisplayDice = diceBitmapList[4]; break;
+                            case 6: dutchDisplayDice = diceBitmapList[5]; break;
+                            default: break;
+                        }
+                    }
+                    dutchDisplayDice = diceBitmapList[trueNumber - 1]; break;
+                case 3:
+                    for (int i = 0; i < 10000000; i++)
+                    {
+                        switch (dice.Roll())
+                        {
+                            case 1: spainDisplayDice = diceBitmapList[0]; break;
+                            case 2: spainDisplayDice = diceBitmapList[1]; break;
+                            case 3: spainDisplayDice = diceBitmapList[2]; break;
+                            case 4: spainDisplayDice = diceBitmapList[3]; break;
+                            case 5: spainDisplayDice = diceBitmapList[4]; break;
+                            case 6: spainDisplayDice = diceBitmapList[5]; break;
+                            default: break;
+                        }
+                    }
+                    spainDisplayDice = diceBitmapList[trueNumber - 1]; break;
+                case 4:
+                    for (int i = 0; i < 10000000; i++)
+                    {
+                        switch (dice.Roll())
+                        {
+                            case 1: franceDisplayDice = diceBitmapList[0]; break;
+                            case 2: franceDisplayDice = diceBitmapList[1]; break;
+                            case 3: franceDisplayDice = diceBitmapList[2]; break;
+                            case 4: franceDisplayDice = diceBitmapList[3]; break;
+                            case 5: franceDisplayDice = diceBitmapList[4]; break;
+                            case 6: franceDisplayDice = diceBitmapList[5]; break;
+                            default: break;
+                        }
+                    }
+                    franceDisplayDice = diceBitmapList[trueNumber - 1]; break;
+                default: break;
             }
-            // Change the visual dice asset on the canvas too the correct dice number
-            displayDice = diceBitmapList[trueNumber];
             return trueNumber;
         }
 
@@ -80,13 +131,26 @@ namespace LudoNewWorld
             SpainGoalTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/SpainGoalTile.png"));
 
             // Dice
-            diceBitmapList.Add(displayDice = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice0.png")));
             diceBitmapList.Add(dice1 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice1.png")));
             diceBitmapList.Add(dice2 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice2.png")));
             diceBitmapList.Add(dice3 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice3.png")));
             diceBitmapList.Add(dice4 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice4.png")));
             diceBitmapList.Add(dice5 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice5.png")));
             diceBitmapList.Add(dice6 = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice6.png")));
+
+            // Dice inactive
+            diceInactiveBitmapList.Add(dice1Inactive = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice1.png")));
+            diceInactiveBitmapList.Add(dice2Inactive = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice2.png")));
+            diceInactiveBitmapList.Add(dice3Inactive = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice3.png")));
+            diceInactiveBitmapList.Add(dice4Inactive = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice4.png")));
+            diceInactiveBitmapList.Add(dice5Inactive = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice5.png")));
+            diceInactiveBitmapList.Add(dice6Inactive = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice6.png")));
+
+            // Dice Locations per faction
+            britishDisplayDice = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice0.png"));
+            dutchDisplayDice = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice0_inactive.png"));
+            spainDisplayDice = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice0_inactive.png"));
+            franceDisplayDice = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Dices/dice0_inactive.png"));
         }
 
         public static void Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
@@ -161,7 +225,11 @@ namespace LudoNewWorld
                         args.DrawingSession.DrawImage(Scaler.Fit(NeutralTile), Scaler.Cords(tile.GameTileVector));
                     }
                 }
-                args.DrawingSession.DrawImage(Scaler.Fit(GraphicHandler.displayDice), 0, 0);
+                // Draw 4 x dice on the map
+                args.DrawingSession.DrawImage(Scaler.Fit(britishDisplayDice), Scaler.Cords(new Vector2(362, 184)));
+                args.DrawingSession.DrawImage(Scaler.Fit(dutchDisplayDice), Scaler.Cords(new Vector2(1558, 184)));
+                args.DrawingSession.DrawImage(Scaler.Fit(spainDisplayDice), Scaler.Cords(new Vector2(1558, 896)));
+                args.DrawingSession.DrawImage(Scaler.Fit(franceDisplayDice), Scaler.Cords(new Vector2(362, 896)));
             }
         }
         private static void CreateTileObjects()

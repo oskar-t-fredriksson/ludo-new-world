@@ -9,6 +9,7 @@ namespace LudoNewWorld.Classes
     class GameEngine
     {
         public static bool GoalAchieved;
+        public static int playerturn = 1;
         
 
 

@@ -29,7 +29,7 @@ namespace LudoNewWorld.Classes
         {
             if (ISMyTurn==true)
             {
-                 GraphicHandler.scrambleDice();
+                 GraphicHandler.scrambleDice(1);
             }
             else
             {
