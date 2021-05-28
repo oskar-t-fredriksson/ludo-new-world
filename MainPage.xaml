@@ -265,12 +265,11 @@
         <Grid x:Name="Dice" Visibility="Collapsed">
             <Button x:Name="btnRoll" Click="btnRoll_Click" 
                     Content="Roll"
-                    FontSize="16"
+                    FontSize="40"
                     FontWeight="ExtraBold"
                     Background="#161616"
                     Style="{StaticResource OwnButtonStyle}"
-                    Margin="0,62,0,0"
-                    Height="42" Width="60" VerticalAlignment="Top"/>
+                    Height="90" Width="164" Margin="906,0,0,0"/>
         </Grid>
     </Grid>
 </Page>

@@ -100,7 +100,29 @@ namespace LudoNewWorld
 
         public  void btnRoll_Click(object sender, RoutedEventArgs e)
         {
-            GraphicHandler.scrambleDice();
+            int dicenr = 0;
+            if (GameEngine.playerturn == 1)
+            {
+                dicenr = GraphicHandler.scrambleDice(1);
+                Debug.WriteLine(dicenr);
+                GameEngine.playerturn++;
+            }
+            else if(GameEngine.playerturn == 2)
+            {
+                dicenr = GraphicHandler.scrambleDice(2);
+                GameEngine.playerturn++;
+            }
+            else if (GameEngine.playerturn == 3)
+            {
+                dicenr = GraphicHandler.scrambleDice(3);
+                GameEngine.playerturn++;
+            }
+            else if (GameEngine.playerturn == 4)
+            {
+                dicenr = GraphicHandler.scrambleDice(4);
+                GameEngine.playerturn = 1;
+            }
+
         }
         private void GameCanvas_Loaded(object sender, RoutedEventArgs e){}
 
