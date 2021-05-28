@@ -190,6 +190,14 @@
     <Content Include="Assets\Images\Menu\volumeunmute.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Images\Ships\BritainSmallShip.png" />
+    <Content Include="Assets\Images\Ships\BritainSmallShipActive.png" />
+    <Content Include="Assets\Images\Ships\DutchSmallShip.png" />
+    <Content Include="Assets\Images\Ships\DutchSmallShipActive.png" />
+    <Content Include="Assets\Images\Ships\FranceSmallShip.png" />
+    <Content Include="Assets\Images\Ships\FranceSmallShipActive.png" />
+    <Content Include="Assets\Images\Ships\SpainSmallShip.png" />
+    <Content Include="Assets\Images\Ships\SpainSmallShipActive.png" />
     <Content Include="Assets\Pirates Of The Caribbean Theme Song.mp3" />
     <Content Include="Assets\Sounds\placeholder.mp3" />
     <Content Include="Properties\Default.rd.xml" />
@@ -223,6 +231,7 @@
     <None Include=".gitignore" />
     <None Include="Assets\Data\ObjectData.json" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
