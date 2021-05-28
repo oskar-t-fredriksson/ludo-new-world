@@ -7,7 +7,6 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using LudoNewWorld.Classes;
-using Newtonsoft.Json;
 
 namespace LudoNewWorld
 {
@@ -22,14 +21,6 @@ namespace LudoNewWorld
             List<Filereader> items = new List<Filereader>();
             try
             {
-                string DirectoryPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\..\")) + @"Assets\Data\";
-                string fullPath = DirectoryPath + filename;
-                using (StreamReader r = new StreamReader(fullPath))
-                {
-                    string json = r.ReadToEnd();
-                    items = JsonConvert.DeserializeObject<List<Filereader>>(json);
-                    return items;
-                }
             }
             catch (Exception e)
             {
