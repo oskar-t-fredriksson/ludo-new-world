@@ -205,10 +205,12 @@
         <Grid x:Name="Dice" Visibility="Collapsed">
             <Button x:Name="btnRoll" Click="btnRoll_Click" 
                     Content="Roll"
-                    Style="{StaticResource FactionMenuStyle}"
-                    Margin="217,10,0,0"
-                    Height="42" Width="76" HorizontalAlignment="Left" VerticalAlignment="Top">
-            </Button>
+                    FontSize="16"
+                    FontWeight="ExtraBold"
+                    Background="#161616"
+                    Style="{StaticResource OwnButtonStyle}"
+                    Margin="0,62,0,0"
+                    Height="42" Width="60" VerticalAlignment="Top"/>
         </Grid>
     </Grid>
 </Page>
