@@ -26,6 +26,7 @@ using Windows.Storage;
 using Windows.Media.Playback;
 using Windows.Media.Core;
 using Windows.UI.Xaml.Media.Imaging;
+using System.ServiceModel.Channels;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -42,12 +43,14 @@ namespace LudoNewWorld
         public static float DesignWidth = 1920;
         public static float DesignHeight = 1080;
         public static int gameState = 0;
-        public static string playerFaction;
+        public static Faction playerFaction;
         public static MediaPlayer mPlayer = new MediaPlayer();
         public static double currentVolume = 0.5;
         public static int volumeLevel = 5;
         public static bool volumeMute = false;
         public Vector3 scaleVector3Variable = new Vector3(DesignWidth, DesignHeight, 1);
+
+        GameEngine gameEngine = new GameEngine();
         
         public MainPage()
         {
@@ -59,7 +62,7 @@ namespace LudoNewWorld
             Window.Current.SizeChanged += Current_SizeChanged;
             Scaler.SetScale();
             Sound.SoundPlay();
-            GraphicHandler.LoadResources();
+            GraphicHandler.LoadResources();            
         }
         private void Current_SizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
@@ -136,7 +139,7 @@ namespace LudoNewWorld
 
         private async void btnBritain_Click(object sender, RoutedEventArgs e)
         {
-            playerFaction = "Britain";
+            gameEngine.StartGame(Faction.Britain);
             FactionField.Visibility = Visibility.Collapsed;
             Dice.Visibility = Visibility.Visible;
             gameState = 1;
@@ -144,7 +147,7 @@ namespace LudoNewWorld
 
         private async void btnFrance_Click(object sender, RoutedEventArgs e)
         {
-            playerFaction = "France";
+            gameEngine.StartGame(Faction.France);
             FactionField.Visibility = Visibility.Collapsed;
             Dice.Visibility = Visibility.Visible;
             gameState = 1;
@@ -152,14 +155,14 @@ namespace LudoNewWorld
  
         private void btnDutch_Click(object sender, RoutedEventArgs e)
         {
-            playerFaction = "Dutch";
+            gameEngine.StartGame(Faction.Dutch);
             FactionField.Visibility = Visibility.Collapsed;
             Dice.Visibility = Visibility.Visible;
             gameState = 1;
         }
         private void btnSpain_Click(object sender, RoutedEventArgs e)
         {
-            playerFaction = "Spain";
+            gameEngine.StartGame(Faction.Spain);
             FactionField.Visibility = Visibility.Collapsed;
             Dice.Visibility = Visibility.Visible;
             gameState = 1;
@@ -212,9 +215,49 @@ namespace LudoNewWorld
             }
             Debug.WriteLine("Volume: " + mPlayer.Volume);
         }
-        private void BtnMenuHelp_Click(object sender, RoutedEventArgs e)
+
+        private void Help_Quit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Exit();
+        }
+
+        private void Instruct_btn_Click(object sender, RoutedEventArgs e)
         {
 
+            Popup2.IsOpen = false;
+            MyPopup.IsOpen = false;
+            InstructPopup.IsOpen = true;
+     
         }
+
+        private void Credit_btn_Click(object sender, RoutedEventArgs e)
+        {
+            Popup2.IsOpen = false;
+            MyPopup.IsOpen = false;
+            CreditPopup.IsOpen = true;
+        }
+
+        private void BtnMenuHelp_Click(object sender, RoutedEventArgs e)
+        {
+            if (gameState == 1)
+            {
+                ParentPopup.IsOpen = true;
+
+                if (ParentPopup.IsOpen == true)
+                {
+                    MyPopup.IsOpen = true;
+                    Popup2.IsOpen = true;
+                }
+                else if (ParentPopup.IsOpen == false)
+                {
+                    MyPopup.IsOpen = false;
+                    Popup2.IsOpen = false;
+                }
+            }
+
+        }
+
+
+
     }
 }
