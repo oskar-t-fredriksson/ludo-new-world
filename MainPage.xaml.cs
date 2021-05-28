@@ -144,14 +144,14 @@ namespace LudoNewWorld
         }
         private void BtnMuteVolume_Click(object sender, RoutedEventArgs e)
         {
-            if (!volumeMute)
+            if (!volumeMute && volumeLevel > 0)
             {
                 Debug.WriteLine("Volume muted");
                 mPlayer.Volume = 0;
                 volumeMute = true;
                 muteButtonChange.Source = new BitmapImage(new Uri(base.BaseUri, @"/Assets/Images/Menu/volumemute.png"));
             }
-            else if (volumeMute)
+            else if (volumeMute && volumeLevel > 0)
             {
                 Debug.WriteLine("Volume enabled");
                 mPlayer.Volume = currentVolume;
@@ -167,6 +167,10 @@ namespace LudoNewWorld
                 mPlayer.Volume -= 0.1;
                 volumeLevel--;
                 volumeSlider.Source = new BitmapImage(new Uri(base.BaseUri, @"/Assets/Images/Menu/menu" + volumeLevel + ".png"));
+                if(volumeLevel == 0)
+                {
+                    muteButtonChange.Source = new BitmapImage(new Uri(base.BaseUri, @"/Assets/Images/Menu/volumemute.png"));
+                }
             }
             Debug.WriteLine("Volume: " + mPlayer.Volume);
         }
@@ -179,6 +183,10 @@ namespace LudoNewWorld
                 mPlayer.Volume += 0.1;
                 volumeLevel++;
                 volumeSlider.Source = new BitmapImage(new Uri(base.BaseUri, @"/Assets/Images/Menu/menu" + volumeLevel + ".png"));
+                if (volumeLevel > 0)
+                {
+                    muteButtonChange.Source = new BitmapImage(new Uri(base.BaseUri, @"/Assets/Images/Menu/volumeunmute.png"));
+                }
             }
             Debug.WriteLine("Volume: " + mPlayer.Volume);
         }
