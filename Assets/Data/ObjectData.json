@@ -1,1 +1,24 @@
-{"Tile":Tile.StartTile,"FactionTile":BritainTile,"gameTileVector":new Vector2(300f,400f)}
+{
+  [
+    {
+      "tile": "Tile.BaseTile",
+      "factionTile": "FactionTile.BritainTile",
+      "vector": "(190, 150)"
+    },
+    {
+      "tile": "Tile.BaseTile",
+      "factionTile": "FactionTile.BritainTile",
+      "vector": "(190, 230)"
+    },
+    {
+      "tile": "Tile.BaseTile",
+      "factionTile": "FactionTile.BritainTile",
+      "vector": "(270, 150)"
+    },
+    {
+      "tile": "Tile.BaseTile",
+      "factionTile": "FactionTile.BritainTile",
+      "vector": "(270, 230)"
+    }
+  ] 
+}
