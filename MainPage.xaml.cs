@@ -254,10 +254,6 @@ namespace LudoNewWorld
                     Popup2.IsOpen = false;
                 }
             }
-
         }
-
-
-
     }
 }

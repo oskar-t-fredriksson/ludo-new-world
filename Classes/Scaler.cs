@@ -43,8 +43,8 @@ namespace LudoNewWorld
         // Method to scale the x and y coordinates in the Vector2 value of each object based on a ratio of the windowsize
         public static Vector2 Cords(Vector2 cords)
         {
-            var scaleRatioWidth = (float)MainPage.bounds.Width / MainPage.DesignWidth;
-            var scaleRatioheight = (float)MainPage.bounds.Height / MainPage.DesignHeight;
+            var scaleRatioWidth = (float)MainPage.bounds.Width / (MainPage.DesignWidth + 50);
+            var scaleRatioheight = (float)MainPage.bounds.Height / (MainPage.DesignHeight + 50);
             return new Vector2(cords.X * scaleRatioWidth, cords.Y * scaleRatioheight);
         }
     }
