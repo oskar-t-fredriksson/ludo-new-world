@@ -8,6 +8,7 @@ namespace LudoNewWorld.Classes
 {
     class GameEngine
     {
+        public static int tick = 0;
         public static bool GoalAchieved = false;
         public static int playerturn = 1;
 

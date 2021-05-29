@@ -171,6 +171,7 @@ namespace LudoNewWorld
 
         public static void Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
+            GameEngine.tick++;
             GameStateManager.BackgroundManager();
             args.DrawingSession.DrawImage(Scaler.Fit(background));
             if (MainPage.gameState == 1)
