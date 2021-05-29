@@ -269,7 +269,7 @@
                     FontWeight="ExtraBold"
                     Background="#161616"
                     Style="{StaticResource OwnButtonStyle}"
-                    Height="90" Width="164" Margin="906,0,0,0"/>
+                    Height="90" Width="164" HorizontalAlignment="Center"/>
         </Grid>
     </Grid>
 </Page>

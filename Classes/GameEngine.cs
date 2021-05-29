@@ -8,7 +8,7 @@ namespace LudoNewWorld.Classes
 {
     class GameEngine
     {
-        public static bool GoalAchieved;
+        public static bool GoalAchieved = false;
         public static int playerturn = 1;
 
         public List<Player> playerList = new List<Player>();     
@@ -28,11 +28,7 @@ namespace LudoNewWorld.Classes
             CreatePlayers(faction);
             while (GoalAchieved!=false)
             {
-                for (int i = 0; i < 4; i++)
-                {
-
-
-                }
+                
             }
         }
     }
