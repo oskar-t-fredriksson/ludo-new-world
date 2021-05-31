@@ -26,7 +26,12 @@ namespace LudoNewWorld.Classes
             factionList.Add(Faction.Dutch);
             factionList.Add(Faction.Spain);
             factionList.Add(Faction.France);
+            factionList.Remove(faction);
             p1 = new Player(faction, true);
+            p2 = new Player(factionList[0], false);
+            p3 = new Player(factionList[1], false);
+            p4 = new Player(factionList[2], false);
+
         }              
 
         public void StartGame(Faction faction)
@@ -38,8 +43,8 @@ namespace LudoNewWorld.Classes
         {
             if(gameActive)
             {
-                int n = _random.Next(0, 5);
-                int m = _random.Next(0, 5);
+                int n = _random.Next(0, 4);
+                int m = _random.Next(0, 4);
 
                 p1.rowBoats[n].targetable = true;
                 p1.rowBoats[m].targetable = false;
