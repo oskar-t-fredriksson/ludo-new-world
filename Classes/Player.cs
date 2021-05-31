@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -15,6 +16,7 @@ namespace LudoNewWorld.Classes
         public bool isMyTurn = false;
         public int rowBoatOut = 4;
 
+        public static List<Player> playerList = new List<Player>();
         public List<RowBoat> rowBoats = new List<RowBoat>();
 
         public Player(Faction playerFaction, bool isHuman)
@@ -91,10 +93,12 @@ namespace LudoNewWorld.Classes
         public class RowBoat
         {
             public Vector2 Vector { get; set; }
+            public int CurrentTile { get; set; }
             public Faction Faction { get; }
             public int Id { get; }
             public bool active = false;
             public bool targetable = false;
+            public bool rowBoatPressed = false;
 
             public RowBoat(int id, Vector2 vector, Faction faction)
             {
@@ -103,9 +107,27 @@ namespace LudoNewWorld.Classes
                 this.Id = id;
             }
         }
-        public void MoveRowBoat()
+        public void MoveRowBoat(int diceValue)
         {
-
+            
+            foreach (var player in playerList)
+            {
+                if (player.isMyTurn == true)
+                {
+                    foreach (var rowBoat in GraphicHandler.rowBoatList)
+                    {
+                        float rowBoatX = GraphicHandler.orderedTiles[rowBoat.CurrentTile + diceValue - 1].GameTileVector.X - 10;
+                        float rowBoatY = GraphicHandler.orderedTiles[rowBoat.CurrentTile + diceValue - 1].GameTileVector.Y - 25;
+                        if (rowBoat.rowBoatPressed == true)
+                        {
+                            rowBoat.Vector = new Vector2(rowBoatX, rowBoatY);
+                            rowBoat.CurrentTile += diceValue;
+                            
+                        }
+                    }
+                }
+                player.isMyTurn = false;
+            }
         }
     }
 }

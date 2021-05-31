@@ -23,7 +23,8 @@ namespace LudoNewWorld
         helpmenuBackground, instructionsBackground, creditsBackground;
 
         // List
-        static List<GameTile> gameTiles = new List<GameTile>();
+        public static List<GameTile> gameTiles = new List<GameTile>();
+        public static List<GameTile> orderedTiles = new List<GameTile>(); 
         static List<CanvasBitmap> diceBitmapList = new List<CanvasBitmap>();
         public static List<CanvasBitmap> diceInactiveBitmapList = new List<CanvasBitmap>();
         public static List<Player.RowBoat> rowBoatList = new List<Player.RowBoat>();
@@ -106,6 +107,7 @@ namespace LudoNewWorld
         public static void LoadResources()
         {
             CreateTileObjects();
+            AddBoardTilesOrdered();
         }
 
         public static void CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
@@ -420,6 +422,69 @@ namespace LudoNewWorld
             gameTiles.Add(new GameTile(Tile.PositiveTile, new Vector2(720, 1010)));
             gameTiles.Add(new GameTile(Tile.RandomTile, new Vector2(590, 940)));
             gameTiles.Add(new GameTile(Tile.NegativeTile, new Vector2(540, 780)));
+        }
+
+        private static void AddBoardTilesOrdered()
+        {
+            //Neutral Tile Britain side
+            orderedTiles.Add(new GameTile(Tile.GoalTile, Faction.Britain, new Vector2(340, 460)));
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(420, 420)));
+            orderedTiles.Add(new GameTile(Tile.PositiveTile, new Vector2(500, 380)));
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(540, 300)));
+            orderedTiles.Add(new GameTile(Tile.RandomTile, new Vector2(560, 220)));
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(590, 140)));
+            orderedTiles.Add(new GameTile(Tile.NegativeTile, new Vector2(640, 80)));
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(720, 70)));
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(800, 70)));
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(880, 70)));
+
+            //Dutch last tile
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, Faction.Dutch, new Vector2(960, 70)));
+
+            //Neutral Tile Dutch side
+            orderedTiles.Add(new GameTile(Tile.GoalTile, Faction.Dutch, new Vector2(1040, 70)));
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1120, 70)));
+            orderedTiles.Add(new GameTile(Tile.PositiveTile, new Vector2(1200, 70)));
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1280, 80)));
+            orderedTiles.Add(new GameTile(Tile.RandomTile, new Vector2(1330, 140)));
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1360, 220)));
+            orderedTiles.Add(new GameTile(Tile.NegativeTile, new Vector2(1380, 300)));
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1420, 380)));
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1500, 420)));
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1580, 460)));
+
+            //Spain last tile
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, Faction.Spain, new Vector2(1580, 540)));
+
+            //Neutral Tile Spain side
+            orderedTiles.Add(new GameTile(Tile.GoalTile, Faction.Spain, new Vector2(1580, 620)));
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1500, 660)));
+            orderedTiles.Add(new GameTile(Tile.PositiveTile, new Vector2(1420, 700)));
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1380, 780)));
+            orderedTiles.Add(new GameTile(Tile.RandomTile, new Vector2(1360, 860)));
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1330, 940)));
+            orderedTiles.Add(new GameTile(Tile.NegativeTile, new Vector2(1280, 1000)));
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1200, 1010)));
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1120, 1010)));
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(1040, 1010)));
+
+            //France last tile
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, Faction.France, new Vector2(960, 1010)));
+
+            //Neutral Tile France side
+            orderedTiles.Add(new GameTile(Tile.GoalTile, Faction.France, new Vector2(880, 1010)));
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(800, 1010)));
+            orderedTiles.Add(new GameTile(Tile.PositiveTile, new Vector2(720, 1010)));
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(640, 1000)));
+            orderedTiles.Add(new GameTile(Tile.RandomTile, new Vector2(590, 940)));
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(560, 860)));
+            orderedTiles.Add(new GameTile(Tile.NegativeTile, new Vector2(540, 780)));
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(500, 700)));
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(420, 660)));
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, new Vector2(340, 620)));
+
+            //Britain last tile 
+            orderedTiles.Add(new GameTile(Tile.NeutralTile, Faction.Britain, new Vector2(340, 540)));
         }
     }
 }
