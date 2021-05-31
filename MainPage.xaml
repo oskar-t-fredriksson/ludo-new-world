@@ -127,7 +127,7 @@
             </Button>
             <Button x:Name="btnFrance" Click="btnFrance_Click" 
                     Style="{StaticResource FactionMenuStyle}"
-                    Margin="200,-100,0,0"
+                    Margin="-200,100,0,0"
                     Height="70" Width="140">
                 <StackPanel>
                     <Image Source="Assets/Images/FactionBanners/France.png" Height="40" Width="120"/>
@@ -136,7 +136,7 @@
             </Button>
             <Button x:Name="btnDutch" Click="btnDutch_Click" 
                     Style="{StaticResource FactionMenuStyle}"
-                    Margin="-200,100,0,0"
+                    Margin="200,-100,0,0"
                     Height="70" Width="140">
                 <StackPanel>
                     <Image Source="Assets/Images/FactionBanners/Dutch.png" Height="40" Width="120"/>

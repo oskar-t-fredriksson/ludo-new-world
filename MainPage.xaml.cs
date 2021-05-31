@@ -51,6 +51,8 @@ namespace LudoNewWorld
         public Vector3 scaleVector3Variable = new Vector3(DesignWidth, DesignHeight, 1);
 
         GameEngine gameEngine = new GameEngine();
+
+        Dice dice = new Dice();
         
         public MainPage()
         {
@@ -118,21 +120,25 @@ namespace LudoNewWorld
             if (GameEngine.playerturn == 1)
             {
                 dicenr = GraphicHandler.scrambleDice(1);
+                gameEngine.p1.MoveRowBoat(dicenr);
                 GameEngine.playerturn++;
             }
             else if(GameEngine.playerturn == 2)
             {
                 dicenr = GraphicHandler.scrambleDice(2);
+                gameEngine.p2.MoveRowBoat(dicenr);
                 GameEngine.playerturn++;
             }
             else if (GameEngine.playerturn == 3)
             {
                 dicenr = GraphicHandler.scrambleDice(3);
+                gameEngine.p3.MoveRowBoat(dicenr);
                 GameEngine.playerturn++;
             }
             else if (GameEngine.playerturn == 4)
             {
                 dicenr = GraphicHandler.scrambleDice(4);
+                gameEngine.p4.MoveRowBoat(dicenr);
                 GameEngine.playerturn = 1;
             }
         }
