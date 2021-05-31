@@ -19,7 +19,8 @@ namespace LudoNewWorld
         dice1Inactive, dice2Inactive, dice3Inactive, dice4Inactive, dice5Inactive, dice6Inactive,
         NeutralTile, BritainTile, SpainTile, DutchTile, FranceTile, NegativeTile, PositiveTile, RandomTile,
         BritainGoalTile, DutchGoalTile, FranceGoalTile, SpainGoalTile,
-        BritainSmallShip, BritainSmallShipActive, DutchSmallShip, DutchSmallShipActive, SpainSmallShip, SpainSmallShipActive, FranceSmallShip, FranceSmallShipActive,
+        BritainSmallShip, BritainSmallShipActive, BritainSmallShipTarget, DutchSmallShip, DutchSmallShipActive, DutchSmallShipTarget, 
+        SpainSmallShip, SpainSmallShipActive, SpainSmallShipTarget, FranceSmallShip, FranceSmallShipActive, FranceSmallShipTarget,
         helpmenuBackground, instructionsBackground, creditsBackground;
 
         // List
@@ -161,12 +162,16 @@ namespace LudoNewWorld
             //Player ships
             BritainSmallShip = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Ships/BritainSmallShip.png"));
             BritainSmallShipActive = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Ships/BritainSmallShipActive.png"));
+            BritainSmallShipTarget = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Ships/BritainSmallShipTarget.png"));
             DutchSmallShip = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Ships/DutchSmallShip.png"));
             DutchSmallShipActive = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Ships/DutchSmallShipActive.png"));
+            DutchSmallShipTarget = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Ships/DutchSmallShipTarget.png"));
             SpainSmallShip = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Ships/SpainSmallShip.png"));
             SpainSmallShipActive = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Ships/SpainSmallShipActive.png"));
+            SpainSmallShipTarget = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Ships/SpainSmallShipTarget.png"));
             FranceSmallShip = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Ships/FranceSmallShip.png"));
             FranceSmallShipActive = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Ships/FranceSmallShipActive.png"));
+            FranceSmallShipTarget = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Ships/FranceSmallShipTarget.png"));
         }
 
         public static void Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
@@ -251,12 +256,17 @@ namespace LudoNewWorld
                 // Draw all ship objects created by the GameEngine
                 foreach (var ship in rowBoatList)
                 {
+                    ship.scaledVector = Scaler.Cords(ship.Vector);
                     switch (ship.Faction)
                     {
                         case Faction.Britain:
                             if (ship.targetable)
                             {
                                 args.DrawingSession.DrawImage(Scaler.Fit(BritainSmallShipActive), Scaler.Cords(ship.Vector));
+                            }
+                            else if(ship.pressedByMouse)
+                            {
+                                args.DrawingSession.DrawImage(Scaler.Fit(BritainSmallShipTarget), Scaler.Cords(ship.Vector));
                             }
                             else
                             {
@@ -266,6 +276,10 @@ namespace LudoNewWorld
                             if (ship.targetable)
                             {
                                 args.DrawingSession.DrawImage(Scaler.Fit(DutchSmallShipActive), Scaler.Cords(ship.Vector));
+                            }
+                            else if (ship.pressedByMouse)
+                            {
+                                args.DrawingSession.DrawImage(Scaler.Fit(DutchSmallShipTarget), Scaler.Cords(ship.Vector));
                             }
                             else
                             {
@@ -277,6 +291,10 @@ namespace LudoNewWorld
                             {
                                 args.DrawingSession.DrawImage(Scaler.Fit(SpainSmallShipActive), Scaler.Cords(ship.Vector));
                             }
+                            else if (ship.pressedByMouse)
+                            {
+                                args.DrawingSession.DrawImage(Scaler.Fit(SpainSmallShipTarget), Scaler.Cords(ship.Vector));
+                            }
                             else
                             {
                                 args.DrawingSession.DrawImage(Scaler.Fit(SpainSmallShip), Scaler.Cords(ship.Vector));
@@ -286,6 +304,10 @@ namespace LudoNewWorld
                             if (ship.targetable)
                             {
                                 args.DrawingSession.DrawImage(Scaler.Fit(FranceSmallShipActive), Scaler.Cords(ship.Vector));
+                            }
+                            else if (ship.pressedByMouse)
+                            {
+                                args.DrawingSession.DrawImage(Scaler.Fit(FranceSmallShipTarget), Scaler.Cords(ship.Vector));
                             }
                             else
                             {

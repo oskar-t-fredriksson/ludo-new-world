@@ -91,10 +91,12 @@ namespace LudoNewWorld.Classes
         public class RowBoat
         {
             public Vector2 Vector { get; set; }
+            public Vector2 scaledVector { get; set; }
             public Faction Faction { get; }
             public int Id { get; }
             public bool active = false;
             public bool targetable = false;
+            public bool pressedByMouse = false;
 
             public RowBoat(int id, Vector2 vector, Faction faction)
             {
@@ -105,7 +107,6 @@ namespace LudoNewWorld.Classes
         }
         public void MoveRowBoat()
         {
-
         }
     }
 }

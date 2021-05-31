@@ -47,5 +47,12 @@ namespace LudoNewWorld
             var scaleRatioheight = (float)MainPage.bounds.Height / (MainPage.DesignHeight + 50);
             return new Vector2(cords.X * scaleRatioWidth, cords.Y * scaleRatioheight);
         }
+        public static Vector2 ClickCords(Vector2 cords)
+        {
+            var scaleRatioWidth = (float)MainPage.bounds.Width / (MainPage.DesignWidth);
+            var scaleRatioheight = (float)MainPage.bounds.Height / (MainPage.DesignHeight);
+
+            return new Vector2(cords.X - 32 * scaleRatioWidth, cords.Y - 45 * scaleRatioheight);
+        }
     }
 }
