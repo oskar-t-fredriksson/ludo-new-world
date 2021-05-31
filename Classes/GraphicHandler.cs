@@ -262,11 +262,35 @@ namespace LudoNewWorld
                             {
                                 args.DrawingSession.DrawImage(Scaler.Fit(BritainSmallShip), Scaler.Cords(ship.Vector));
                             } break;
-                        case Faction.Spain:
-                            break;
                         case Faction.Dutch:
+                            if (ship.targetable)
+                            {
+                                args.DrawingSession.DrawImage(Scaler.Fit(DutchSmallShipActive), Scaler.Cords(ship.Vector));
+                            }
+                            else
+                            {
+                                args.DrawingSession.DrawImage(Scaler.Fit(DutchSmallShip), Scaler.Cords(ship.Vector));
+                            }
+                            break;
+                        case Faction.Spain:
+                            if (ship.targetable)
+                            {
+                                args.DrawingSession.DrawImage(Scaler.Fit(SpainSmallShipActive), Scaler.Cords(ship.Vector));
+                            }
+                            else
+                            {
+                                args.DrawingSession.DrawImage(Scaler.Fit(SpainSmallShip), Scaler.Cords(ship.Vector));
+                            }
                             break;
                         case Faction.France:
+                            if (ship.targetable)
+                            {
+                                args.DrawingSession.DrawImage(Scaler.Fit(FranceSmallShipActive), Scaler.Cords(ship.Vector));
+                            }
+                            else
+                            {
+                                args.DrawingSession.DrawImage(Scaler.Fit(FranceSmallShip), Scaler.Cords(ship.Vector));
+                            }
                             break;
                         case Faction.FactionNull:
                             break;
@@ -274,30 +298,6 @@ namespace LudoNewWorld
                             break;
                     }
                 }
-
-                //Britain ships start
-                //args.DrawingSession.DrawImage(Scaler.Fit(BritainSmallShip), Scaler.Cords(new Vector2(190 - 10, 150 - 25)));
-                //args.DrawingSession.DrawImage(Scaler.Fit(BritainSmallShip), Scaler.Cords(new Vector2(190 - 10, 230 - 25)));
-                //args.DrawingSession.DrawImage(Scaler.Fit(BritainSmallShip), Scaler.Cords(new Vector2(270 - 10, 150 - 25)));
-                //args.DrawingSession.DrawImage(Scaler.Fit(BritainSmallShip), Scaler.Cords(new Vector2(270 - 10, 230 - 25)));
-
-                //Dutch ships start
-                args.DrawingSession.DrawImage(Scaler.Fit(DutchSmallShip), Scaler.Cords(new Vector2(1730 - 10, 150 - 25)));
-                args.DrawingSession.DrawImage(Scaler.Fit(DutchSmallShip), Scaler.Cords(new Vector2(1730 - 10, 230 - 25)));
-                args.DrawingSession.DrawImage(Scaler.Fit(DutchSmallShip), Scaler.Cords(new Vector2(1650 - 10, 150 - 25)));
-                args.DrawingSession.DrawImage(Scaler.Fit(DutchSmallShip), Scaler.Cords(new Vector2(1650 - 10, 230 - 25)));
-
-                //Spain ships start
-                args.DrawingSession.DrawImage(Scaler.Fit(SpainSmallShip), Scaler.Cords(new Vector2(1730 - 10, 930 - 25)));
-                args.DrawingSession.DrawImage(Scaler.Fit(SpainSmallShip), Scaler.Cords(new Vector2(1730 - 10, 850 - 25)));
-                args.DrawingSession.DrawImage(Scaler.Fit(SpainSmallShip), Scaler.Cords(new Vector2(1650 - 10, 930 - 25)));
-                args.DrawingSession.DrawImage(Scaler.Fit(SpainSmallShip), Scaler.Cords(new Vector2(1650 - 10, 850 - 25)));
-
-                //France ships start
-                args.DrawingSession.DrawImage(Scaler.Fit(FranceSmallShip), Scaler.Cords(new Vector2(190 - 10, 930 - 25)));
-                args.DrawingSession.DrawImage(Scaler.Fit(FranceSmallShip), Scaler.Cords(new Vector2(190 - 10, 850 - 25)));
-                args.DrawingSession.DrawImage(Scaler.Fit(FranceSmallShip), Scaler.Cords(new Vector2(270 - 10, 930 - 25)));
-                args.DrawingSession.DrawImage(Scaler.Fit(FranceSmallShip), Scaler.Cords(new Vector2(270 - 10, 850 - 25)));
             }
         }
 

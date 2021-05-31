@@ -25,29 +25,64 @@ namespace LudoNewWorld.Classes
             switch (playerFaction)
             {
                 case Faction.Britain:
-                    RowBoat rowBoat1 = new RowBoat(1, new Vector2(190 - 10, 150 - 25), Faction.Britain);
-                    RowBoat rowBoat2 = new RowBoat(2, new Vector2(190 - 10, 230 - 25), Faction.Britain);
-                    RowBoat rowBoat3 = new RowBoat(3, new Vector2(270 - 10, 150 - 25), Faction.Britain);
-                    RowBoat rowBoat4 = new RowBoat(4, new Vector2(270 - 10, 230 - 25), Faction.Britain);
+                    RowBoat britainRowBoat1 = new RowBoat(1, new Vector2(190 - 10, 150 - 25), Faction.Britain);
+                    RowBoat britainRowBoat2 = new RowBoat(2, new Vector2(190 - 10, 230 - 25), Faction.Britain);
+                    RowBoat britainRowBoat3 = new RowBoat(3, new Vector2(270 - 10, 150 - 25), Faction.Britain);
+                    RowBoat britainRowBoat4 = new RowBoat(4, new Vector2(270 - 10, 230 - 25), Faction.Britain);
 
-                    GraphicHandler.rowBoatList.Add(rowBoat1);
-                    rowBoats.Add(rowBoat1);
-                    GraphicHandler.rowBoatList.Add(rowBoat2);
-                    rowBoats.Add(rowBoat2);
-                    GraphicHandler.rowBoatList.Add(rowBoat3);
-                    rowBoats.Add(rowBoat3);
-                    GraphicHandler.rowBoatList.Add(rowBoat3);
-                    rowBoats.Add(rowBoat3);
-                    GraphicHandler.rowBoatList.Add(rowBoat4);
-                    rowBoats.Add(rowBoat4);
-                    break;
-                case Faction.Spain:
+                    GraphicHandler.rowBoatList.Add(britainRowBoat1);
+                    rowBoats.Add(britainRowBoat1);
+                    GraphicHandler.rowBoatList.Add(britainRowBoat2);
+                    rowBoats.Add(britainRowBoat2);
+                    GraphicHandler.rowBoatList.Add(britainRowBoat3);
+                    rowBoats.Add(britainRowBoat3);
+                    GraphicHandler.rowBoatList.Add(britainRowBoat4);
+                    rowBoats.Add(britainRowBoat4);
                     break;
                 case Faction.Dutch:
+                    RowBoat dutchRowBoat1 = new RowBoat(1, new Vector2(1730 - 10, 150 - 25), Faction.Dutch);
+                    RowBoat dutchRowBoat2 = new RowBoat(2, new Vector2(1730 - 10, 230 - 25), Faction.Dutch);
+                    RowBoat dutchRowBoat3 = new RowBoat(3, new Vector2(1650 - 10, 150 - 25), Faction.Dutch);
+                    RowBoat dutchRowBoat4 = new RowBoat(4, new Vector2(1650 - 10, 230 - 25), Faction.Dutch);
+
+                    GraphicHandler.rowBoatList.Add(dutchRowBoat1);
+                    rowBoats.Add(dutchRowBoat1);
+                    GraphicHandler.rowBoatList.Add(dutchRowBoat2);
+                    rowBoats.Add(dutchRowBoat2);
+                    GraphicHandler.rowBoatList.Add(dutchRowBoat3);
+                    rowBoats.Add(dutchRowBoat3);
+                    GraphicHandler.rowBoatList.Add(dutchRowBoat4);
+                    rowBoats.Add(dutchRowBoat4);
+                    break;
+                case Faction.Spain:
+                    RowBoat spainRowBoat1 = new RowBoat(1, new Vector2(1730 - 10, 930 - 25), Faction.Spain);
+                    RowBoat spainRowBoat2 = new RowBoat(2, new Vector2(1730 - 10, 850 - 25), Faction.Spain);
+                    RowBoat spainRowBoat3 = new RowBoat(3, new Vector2(1650 - 10, 930 - 25), Faction.Spain);
+                    RowBoat spainRowBoat4 = new RowBoat(4, new Vector2(1650 - 10, 850 - 25), Faction.Spain);
+
+                    GraphicHandler.rowBoatList.Add(spainRowBoat1);
+                    rowBoats.Add(spainRowBoat1);
+                    GraphicHandler.rowBoatList.Add(spainRowBoat2);
+                    rowBoats.Add(spainRowBoat2);
+                    GraphicHandler.rowBoatList.Add(spainRowBoat3);
+                    rowBoats.Add(spainRowBoat3);
+                    GraphicHandler.rowBoatList.Add(spainRowBoat4);
+                    rowBoats.Add(spainRowBoat4);
                     break;
                 case Faction.France:
-                    break;
-                case Faction.FactionNull:
+                    RowBoat franceRowBoat1 = new RowBoat(1, new Vector2(190 - 10, 930 - 25), Faction.France);
+                    RowBoat franceRowBoat2 = new RowBoat(2, new Vector2(190 - 10, 850 - 25), Faction.France);
+                    RowBoat franceRowBoat3 = new RowBoat(3, new Vector2(270 - 10, 930 - 25), Faction.France);
+                    RowBoat franceRowBoat4 = new RowBoat(4, new Vector2(270 - 10, 850 - 25), Faction.France);
+
+                    GraphicHandler.rowBoatList.Add(franceRowBoat1);
+                    rowBoats.Add(franceRowBoat1);
+                    GraphicHandler.rowBoatList.Add(franceRowBoat2);
+                    rowBoats.Add(franceRowBoat2);
+                    GraphicHandler.rowBoatList.Add(franceRowBoat3);
+                    rowBoats.Add(franceRowBoat3);
+                    GraphicHandler.rowBoatList.Add(franceRowBoat4);
+                    rowBoats.Add(franceRowBoat4);
                     break;
                 default:
                     break;

@@ -8,9 +8,9 @@ namespace LudoNewWorld.Classes
 {
     public enum Faction
     {
-        Britain,
-        Spain,
+        Britain,        
         Dutch,
+        Spain,
         France,
         FactionNull
     }
