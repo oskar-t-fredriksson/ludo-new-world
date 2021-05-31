@@ -53,7 +53,7 @@ namespace LudoNewWorld.Classes
                 //p1.rowBoats[m].targetable = false;
             }
         }
-        public void CheckForObjectsOnMousePressed(Vector2 clickCords)
+        public Player.RowBoat CheckForObjectsOnMousePressed(Vector2 clickCords)
         {
             if(gameActive)
             {
@@ -64,25 +64,30 @@ namespace LudoNewWorld.Classes
                 }
                 foreach (var ship in p1.rowBoats)
                 {
-                    if (clickCords.X >= ship.scaledVector.X - 30 && clickCords.X <= ship.scaledVector.X + 30
-                        && clickCords.Y >= ship.scaledVector.Y - 30 && clickCords.Y <= ship.scaledVector.Y + 30)
+                    if(ship.targetable)
                     {
-                        ship.targetable = false;
-                        if (ship.pressedByMouse)
+                        if (clickCords.X >= ship.scaledVector.X - 30 && clickCords.X <= ship.scaledVector.X + 30
+                        && clickCords.Y >= ship.scaledVector.Y - 30 && clickCords.Y <= ship.scaledVector.Y + 30)
                         {
-                            ship.targetable = true;
-                            ship.pressedByMouse = false;
+                            ship.targetable = false;
+                            if (ship.pressedByMouse)
+                            {
+                                ship.targetable = true;
+                                ship.pressedByMouse = false;
+                            }
+                            else
+                            {
+                                ship.targetable = false;
+                                ship.pressedByMouse = true;
+                                lastPressed = ship;
+                            }
+                            Debug.WriteLine("Found ship" + ship.Faction + " " + ship.Id + " " + ship.scaledVector);
+                            return ship;
                         }
-                        else
-                        {
-                            ship.targetable = false; 
-                            ship.pressedByMouse = true;
-                            lastPressed = ship;
-                        }
-                        Debug.WriteLine("Found ship" + ship.Faction + " " + ship.Id + " " + ship.scaledVector);
                     }
                 }
             }
+            return null;
         }
     }
 }
