@@ -107,7 +107,7 @@
 
     </Page.Resources>
     <Grid x:Name="mainGrid">
-        <canvas:CanvasAnimatedControl x:Name="GameCanvas" CreateResources="GameCanvas_CreateResources" Draw="GameCanvas_Draw" Loaded="GameCanvas_Loaded"/>
+        <canvas:CanvasAnimatedControl x:Name="GameCanvas" CreateResources="GameCanvas_CreateResources" Draw="GameCanvas_Draw" Update="GameCanvas_Update" Loaded="GameCanvas_Loaded"/>
         <Grid x:Name="MenuField" Visibility="Visible">
             <Button x:Name="btnStart" Click="btnStart_Click" Content="Start Game" Style="{StaticResource StartMenuStyle}" Margin="0,-100,0,0" Height="70" Width="140"/>
             <Button x:Name="btnQuit" Click="btnQuit_Click" Content="Quit Game" Style="{StaticResource StartMenuStyle}" Margin="0,100,0,0" Height="70" Width="140"/>
@@ -203,7 +203,7 @@
                 <StackPanel Margin="-18,-16,-17,-16">
                     <Image Source="/Assets/Images/Menu/help.png" Height="32" Width="30" RenderTransformOrigin="0.215,0.33"/>
                 </StackPanel>
-                
+
             </Button>
             <Popup x:Name="ParentPopup" 
                    Width="200" Height="300" 
@@ -259,8 +259,6 @@
                     </Popup>
                 </Grid>
             </Popup>
-            
-            
         </Grid>
         <Grid x:Name="Dice" Visibility="Collapsed">
             <Button x:Name="btnRoll" Click="btnRoll_Click" 

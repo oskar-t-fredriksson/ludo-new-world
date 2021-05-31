@@ -97,14 +97,18 @@ namespace LudoNewWorld
         {
             GraphicHandler.Draw(sender, args);
         }
+        private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
+        {
+            gameEngine.Update();
+        }
+        private void GameCanvas_Loaded(object sender, RoutedEventArgs e) { }
 
-        public  void btnRoll_Click(object sender, RoutedEventArgs e)
+        public void btnRoll_Click(object sender, RoutedEventArgs e)
         {
             int dicenr = 0;
             if (GameEngine.playerturn == 1)
             {
                 dicenr = GraphicHandler.scrambleDice(1);
-                Debug.WriteLine(dicenr);
                 GameEngine.playerturn++;
             }
             else if(GameEngine.playerturn == 2)
@@ -122,9 +126,7 @@ namespace LudoNewWorld
                 dicenr = GraphicHandler.scrambleDice(4);
                 GameEngine.playerturn = 1;
             }
-
         }
-        private void GameCanvas_Loaded(object sender, RoutedEventArgs e){}
 
         private async void btnStart_Click(object sender, RoutedEventArgs e)
         {

@@ -248,9 +248,31 @@ namespace LudoNewWorld
                 args.DrawingSession.DrawImage(Scaler.Fit(spainDisplayDice), Scaler.Cords(new Vector2(1552, 885)));
                 args.DrawingSession.DrawImage(Scaler.Fit(franceDisplayDice), Scaler.Cords(new Vector2(362, 885)));
 
+                // Draw all ship objects created by the GameEngine
                 foreach (var ship in rowBoatList)
                 {
-                    args.DrawingSession.DrawImage(Scaler.Fit(BritainSmallShip), Scaler.Cords(ship.SmallShipVector));
+                    switch (ship.Faction)
+                    {
+                        case Faction.Britain:
+                            if (ship.targetable)
+                            {
+                                args.DrawingSession.DrawImage(Scaler.Fit(BritainSmallShipActive), Scaler.Cords(ship.Vector));
+                            }
+                            else
+                            {
+                                args.DrawingSession.DrawImage(Scaler.Fit(BritainSmallShip), Scaler.Cords(ship.Vector));
+                            } break;
+                        case Faction.Spain:
+                            break;
+                        case Faction.Dutch:
+                            break;
+                        case Faction.France:
+                            break;
+                        case Faction.FactionNull:
+                            break;
+                        default:
+                            break;
+                    }
                 }
 
                 //Britain ships start
