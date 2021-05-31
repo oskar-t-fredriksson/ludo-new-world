@@ -10,26 +10,26 @@ namespace LudoNewWorld.Classes
     class Player
     {
         
-        public Faction PlayerFaction;
-        public bool IsHuman { get; set; }
-        public bool IsMyTurn = false;
-        public int RowBoatOut = 4;
+        public Faction playerFaction;
+        public bool IsHuman { get; }
+        public bool isMyTurn = false;
+        public int rowBoatOut = 4;
 
         public List<RowBoat> rowBoats = new List<RowBoat>();
 
         public Player(Faction playerFaction, bool isHuman)
         {
-            PlayerFaction = playerFaction;
-            IsHuman = isHuman;
+            this.playerFaction = playerFaction;
+            this.IsHuman = isHuman;
             
-            
-            switch (PlayerFaction)
+            switch (playerFaction)
             {
                 case Faction.Britain:
-                    RowBoat rowBoat1 = new RowBoat(new Vector2(190 - 10, 150 - 25), Faction.Britain);
-                    RowBoat rowBoat2 = new RowBoat(new Vector2(190 - 10, 230 - 25), Faction.Britain);
-                    RowBoat rowBoat3 = new RowBoat(new Vector2(270 - 10, 150 - 25), Faction.Britain);
-                    RowBoat rowBoat4 = new RowBoat(new Vector2(270 - 10, 230 - 25), Faction.Britain);
+                    RowBoat rowBoat1 = new RowBoat(1, new Vector2(190 - 10, 150 - 25), Faction.Britain);
+                    RowBoat rowBoat2 = new RowBoat(2, new Vector2(190 - 10, 230 - 25), Faction.Britain);
+                    RowBoat rowBoat3 = new RowBoat(3, new Vector2(270 - 10, 150 - 25), Faction.Britain);
+                    RowBoat rowBoat4 = new RowBoat(4, new Vector2(270 - 10, 230 - 25), Faction.Britain);
+
                     GraphicHandler.rowBoatList.Add(rowBoat1);
                     rowBoats.Add(rowBoat1);
                     GraphicHandler.rowBoatList.Add(rowBoat2);
@@ -53,24 +53,24 @@ namespace LudoNewWorld.Classes
                     break;
             }
         }
+        public class RowBoat
+        {
+            public Vector2 Vector { get; set; }
+            public Faction Faction { get; }
+            public int Id { get; }
+            public bool active = false;
+            public bool targetable = false;
 
+            public RowBoat(int id, Vector2 vector, Faction faction)
+            {
+                this.Vector = vector;
+                this.Faction = faction;
+                this.Id = id;
+            }
+        }
         public void MoveRowBoat()
         {
 
         }
-        public class RowBoat
-        {
-            public Vector2 SmallShipVector { get; set; }
-            public Faction FactionShip { get; set; }
-            //public Faction RowBoatFaction;
-            public bool Active = false;
-
-            public RowBoat(Vector2 smallShipVector, Faction factionShip)
-            {
-                SmallShipVector = smallShipVector;
-                FactionShip = factionShip;
-            }
-        }
-
     }
 }
