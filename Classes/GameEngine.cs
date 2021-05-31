@@ -17,7 +17,7 @@ namespace LudoNewWorld.Classes
 
         public Player p1, p2, p3, p4;
 
-        public List<Player> playerList = new List<Player>();     
+            
         public List<Faction> factionList = new List<Faction>();
 
         public void CreatePlayers(Faction faction)
@@ -27,10 +27,10 @@ namespace LudoNewWorld.Classes
             factionList.Add(Faction.Spain);
             factionList.Add(Faction.France);
             factionList.Remove(faction);
-            p1 = new Player(faction, true);
-            p2 = new Player(factionList[0], false);
-            p3 = new Player(factionList[1], false);
-            p4 = new Player(factionList[2], false);
+            Player.playerList.Add(p1 = new Player(faction, true));
+            Player.playerList.Add(p2 = new Player(factionList[0], false));
+            Player.playerList.Add(p3 = new Player(factionList[1], false));
+            Player.playerList.Add(p4 = new Player(factionList[2], false));
 
         }              
 
