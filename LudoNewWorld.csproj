@@ -203,12 +203,16 @@
     </Content>
     <Content Include="Assets\Images\Ships\BritainSmallShip.png" />
     <Content Include="Assets\Images\Ships\BritainSmallShipActive.png" />
+    <Content Include="Assets\Images\Ships\BritainSmallShipTarget.png" />
     <Content Include="Assets\Images\Ships\DutchSmallShip.png" />
     <Content Include="Assets\Images\Ships\DutchSmallShipActive.png" />
+    <Content Include="Assets\Images\Ships\DutchSmallShipTarget.png" />
     <Content Include="Assets\Images\Ships\FranceSmallShip.png" />
     <Content Include="Assets\Images\Ships\FranceSmallShipActive.png" />
+    <Content Include="Assets\Images\Ships\FranceSmallShipTarget.png" />
     <Content Include="Assets\Images\Ships\SpainSmallShip.png" />
     <Content Include="Assets\Images\Ships\SpainSmallShipActive.png" />
+    <Content Include="Assets\Images\Ships\SpainSmallShipTarget.png" />
     <Content Include="Assets\Pirates Of The Caribbean Theme Song.mp3" />
     <Content Include="Assets\Sounds\placeholder.mp3" />
     <Content Include="Properties\Default.rd.xml" />

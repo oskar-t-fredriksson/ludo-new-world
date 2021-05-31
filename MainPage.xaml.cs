@@ -105,6 +105,15 @@ namespace LudoNewWorld
         }
         private void GameCanvas_Loaded(object sender, RoutedEventArgs e) { }
 
+        private void GameCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            Vector2 cords = new Vector2((float)e.GetCurrentPoint(GameCanvas).Position.X, (float)e.GetCurrentPoint(GameCanvas).Position.Y);
+            Vector2 scaledVector = Scaler.ClickCords(cords);
+            gameEngine.CheckForObjectsOnMousePressed(scaledVector);
+            //xcord.Text = "X click cord: " + string.Format("{0:0.00}", scaledVector.X) + " was: " + cords.X;
+            //ycord.Text = "Y click cord: " + string.Format("{0:0.00}", scaledVector.Y);
+        }
+
         public void btnRoll_Click(object sender, RoutedEventArgs e)
         {
             int dicenr = 0;

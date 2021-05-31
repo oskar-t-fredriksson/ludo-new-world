@@ -93,12 +93,13 @@ namespace LudoNewWorld.Classes
         public class RowBoat
         {
             public Vector2 Vector { get; set; }
+            public Vector2 scaledVector { get; set; }
             public int CurrentTile { get; set; }
             public Faction Faction { get; }
             public int Id { get; }
             public bool active = false;
             public bool targetable = false;
-            public bool rowBoatPressed = false;
+            public bool pressedByMouse = false;
 
             public RowBoat(int id, Vector2 vector, Faction faction)
             {
@@ -108,8 +109,7 @@ namespace LudoNewWorld.Classes
             }
         }
         public void MoveRowBoat(int diceValue)
-        {
-            
+        {            
             foreach (var player in playerList)
             {
                 if (player.isMyTurn == true)
@@ -118,11 +118,10 @@ namespace LudoNewWorld.Classes
                     {
                         float rowBoatX = GraphicHandler.orderedTiles[rowBoat.CurrentTile + diceValue - 1].GameTileVector.X - 10;
                         float rowBoatY = GraphicHandler.orderedTiles[rowBoat.CurrentTile + diceValue - 1].GameTileVector.Y - 25;
-                        if (rowBoat.rowBoatPressed == true)
+                        if (rowBoat.pressedByMouse == true)
                         {
                             rowBoat.Vector = new Vector2(rowBoatX, rowBoatY);
                             rowBoat.CurrentTile += diceValue;
-                            
                         }
                     }
                 }
