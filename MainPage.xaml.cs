@@ -151,7 +151,8 @@ namespace LudoNewWorld
 
         private void btnQuit_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Exit();
+            MenuField.Visibility = Visibility.Collapsed;
+            QuitConfirm_Popup.IsOpen = true;
         }
 
         private async void btnBritain_Click(object sender, RoutedEventArgs e)
@@ -235,7 +236,8 @@ namespace LudoNewWorld
 
         private void Help_Quit_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Exit();
+            Popup2.IsOpen = false;
+            ExitMenuConfirm_Popup.IsOpen = true;
         }
 
         private void Instruct_btn_Click(object sender, RoutedEventArgs e)
@@ -253,6 +255,53 @@ namespace LudoNewWorld
             MyPopup.IsOpen = false;
             CreditPopup.IsOpen = true;
         }
+
+        private void instruct_return_Click(object sender, RoutedEventArgs e)
+        {
+            InstructPopup.IsOpen = false;
+            MyPopup.IsOpen = true;
+            Popup2.IsOpen = true;
+        }
+
+        private void credit_return_Click(object sender, RoutedEventArgs e)
+        {
+            CreditPopup.IsOpen = false;
+            MyPopup.IsOpen = true;
+            Popup2.IsOpen = true;
+        }
+
+        private void QuitConfirm_yes_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Exit();
+        }
+
+        private void QuitConfirm_no_Click(object sender, RoutedEventArgs e)
+        {
+            MenuField.Visibility = Visibility.Visible;
+            QuitConfirm_Popup.IsOpen = false;
+        }
+
+        private void ExitConfirm_yes_Click(object sender, RoutedEventArgs e)
+        {
+            gameState = 0;
+
+            if (gameState == 0)
+            {
+                ParentPopup.IsOpen = false;
+                ExitMenuConfirm_Popup.IsOpen = false;
+
+                MenuField.Visibility = Visibility.Visible;
+                Dice.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void ExitConfirm_no_Click(object sender, RoutedEventArgs e)
+        {
+            ExitMenuConfirm_Popup.IsOpen = false;
+            Popup2.IsOpen = true;
+        }
+
+
 
         private void BtnMenuHelp_Click(object sender, RoutedEventArgs e)
         {
