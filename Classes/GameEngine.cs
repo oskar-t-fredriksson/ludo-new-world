@@ -13,9 +13,12 @@ namespace LudoNewWorld.Classes
         public static int tick = 0;
         public static bool GoalAchieved = false;
         public static int playerturn = 1;
-        private static bool gameActive = false;
+        public static bool gameActive = false;
         private static readonly Random _random = new Random();
         private static Player.RowBoat lastPressed = null;
+        private static GameTile lastPressedGameTile = null;
+        public Player.RowBoat boat;
+        public GameTile tile;
 
         public Player p1, p2, p3, p4;
 
@@ -44,6 +47,14 @@ namespace LudoNewWorld.Classes
         {
             if(gameActive)
             {
+                switch (playerturn)
+                {
+                    case 1: break;
+                    case 2: break;
+                    case 3: break;
+                    case 4: break;
+                    default: break;
+                }
 
                 //Debug.WriteLine("Scaled vector: " + string.Format("{0:0.00}", p1.rowBoats[0].scaledVector) + " Was: " + p1.rowBoats[0].Vector);
                 //int n = _random.Next(0, 4);
@@ -53,7 +64,7 @@ namespace LudoNewWorld.Classes
                 //p1.rowBoats[m].targetable = false;
             }
         }
-        public Player.RowBoat CheckForObjectsOnMousePressed(Vector2 clickCords)
+        public Player.RowBoat CheckForShipsOnMousePressed(Vector2 clickCords)
         {
             if(gameActive)
             {
@@ -64,6 +75,7 @@ namespace LudoNewWorld.Classes
                 }
                 foreach (var ship in p1.rowBoats)
                 {
+                    ship.targetable = true;
                     if(ship.targetable)
                     {
                         if (clickCords.X >= ship.scaledVector.X - 30 && clickCords.X <= ship.scaledVector.X + 30
@@ -83,6 +95,25 @@ namespace LudoNewWorld.Classes
                             }
                             Debug.WriteLine("Found ship" + ship.Faction + " " + ship.Id + " " + ship.scaledVector);
                             return ship;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+        public GameTile CheckForTileOnMousePressed(Vector2 clickCords)
+        {
+            if (gameActive)
+            {
+                foreach (var tile in GraphicHandler.gameTiles)
+                {
+                    if(tile.TileType != Tile.BaseTile)
+                    {
+                        if (clickCords.X >= tile.ScaledVector.X - 30 && clickCords.X <= tile.ScaledVector.X + 30
+                        && clickCords.Y >= tile.ScaledVector.Y - 30 && clickCords.Y <= tile.ScaledVector.Y + 30)
+                        {
+                            Debug.WriteLine("Found tile " + tile.TileType);
+                            return tile;
                         }
                     }
                 }

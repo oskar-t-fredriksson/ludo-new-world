@@ -109,9 +109,14 @@ namespace LudoNewWorld
         {
             Vector2 cords = new Vector2((float)e.GetCurrentPoint(GameCanvas).Position.X, (float)e.GetCurrentPoint(GameCanvas).Position.Y);
             Vector2 scaledVector = Scaler.ClickCords(cords);
-            gameEngine.CheckForObjectsOnMousePressed(scaledVector);
-            //xcord.Text = "X click cord: " + string.Format("{0:0.00}", scaledVector.X) + " was: " + cords.X;
-            //ycord.Text = "Y click cord: " + string.Format("{0:0.00}", scaledVector.Y);
+            gameEngine.boat = gameEngine.CheckForShipsOnMousePressed(scaledVector);
+            gameEngine.tile = gameEngine.CheckForTileOnMousePressed(scaledVector);
+            if (GameEngine.gameActive)
+            {
+                if(gameEngine.boat != null)
+                {
+                }
+            }
         }
 
         public void btnRoll_Click(object sender, RoutedEventArgs e)
@@ -121,6 +126,10 @@ namespace LudoNewWorld
             {
                 dicenr = GraphicHandler.scrambleDice(1);
                 gameEngine.p1.MoveRowBoat(dicenr);
+                Debug.WriteLine(gameEngine.p1.CheckIfMovable(gameEngine.p1.rowBoats[0], gameEngine.p2, dicenr));
+                Debug.WriteLine(gameEngine.p1.CheckIfMovable(gameEngine.p1.rowBoats[1], gameEngine.p2, dicenr));
+                Debug.WriteLine(gameEngine.p1.CheckIfMovable(gameEngine.p1.rowBoats[2], gameEngine.p2, dicenr));
+                Debug.WriteLine(gameEngine.p1.CheckIfMovable(gameEngine.p1.rowBoats[3], gameEngine.p2, dicenr));
                 GameEngine.playerturn++;
             }
             else if(GameEngine.playerturn == 2)

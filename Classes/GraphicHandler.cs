@@ -185,6 +185,7 @@ namespace LudoNewWorld
             {
                 foreach (var tile in gameTiles)
                 {
+                    tile.ScaledVector = Scaler.TileCords(tile.GameTileVector);
                     if (tile.FactionType != Faction.FactionNull && tile.TileType == Tile.GoalTile || tile.FactionType != Faction.FactionNull && tile.TileType == Tile.StartTile || tile.FactionType != Faction.FactionNull && tile.TileType == Tile.BaseTile)
                     {
                         switch (tile.FactionType)

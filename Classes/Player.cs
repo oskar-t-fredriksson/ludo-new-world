@@ -94,7 +94,7 @@ namespace LudoNewWorld.Classes
         {
             public Vector2 Vector { get; set; }
             public Vector2 scaledVector { get; set; }
-            public int CurrentTile { get; set; }
+            public int CurrentTile = -1;
             public Faction Faction { get; }
             public int Id { get; }
             public bool active = false;
@@ -127,6 +127,54 @@ namespace LudoNewWorld.Classes
                 }
                 player.isMyTurn = false;
             }
+        }
+        public bool CheckIfMovable(Player.RowBoat ship, Player targetPlayer, int dicenr)
+        {
+            if(GameEngine.gameActive)
+            {
+                GameEngine gameEngine = new GameEngine();
+                targetPlayer.rowBoats[0].CurrentTile = 0;
+
+                switch (ship.Faction)
+                {
+                    case Faction.Britain:
+                        Debug.Write($"Loop for ship {ship.Id} started: ");
+                        for (int i = 0; i < dicenr; i++)
+                        {
+                            ship.CurrentTile = GraphicHandler.orderedTiles.IndexOf(GraphicHandler.orderedTiles[i]);
+
+                            if (GraphicHandler.orderedTiles[ship.CurrentTile].IsPlayerOnTile)
+                            {
+                                foreach (var targetShip in GraphicHandler.rowBoatList)
+                                {
+                                    if (ship.CurrentTile == targetShip.CurrentTile && ship.Faction == targetShip.Faction)
+                                    {
+                                        return false;
+                                    }
+                                    else if (ship.CurrentTile == targetShip.CurrentTile)
+                                    {
+                                        Debug.WriteLine("Found p2 ship");
+                                    }
+                                }
+                            }
+                            // Om det redan står en pjäs på rutan
+                            // Är pjäsen motståndare eller inte
+                        }
+                        ship.CurrentTile = GraphicHandler.orderedTiles.IndexOf(GraphicHandler.orderedTiles[0]);
+                        break;
+                    case Faction.Dutch:
+                        break;
+                    case Faction.Spain:
+                        break;
+                    case Faction.France:
+                        break;
+                    case Faction.FactionNull:
+                        break;
+                    default:
+                        break;
+                }
+            }
+        return true;
         }
     }
 }
