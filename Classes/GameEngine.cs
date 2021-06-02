@@ -13,13 +13,16 @@ namespace LudoNewWorld.Classes
         public static int tick = 0;
         public static bool GoalAchieved = false;
         public static int playerturn = 1;
-        private static bool gameActive = false;
-        private static readonly Random _random = new Random();
-        private static Player.RowBoat lastPressed = null;
-
+        public static bool gameActive = false;
+        public static Player.RowBoat lastPressedBoat = null;
+        public static GameTile lastPressedGameTile = null;
+        public Player.RowBoat boat;
+        public GameTile tile;
         public Player p1, p2, p3, p4;
-
         public List<Faction> factionList = new List<Faction>();
+
+        private static readonly Random _random = new Random();
+
 
         public void CreatePlayers(Faction faction)
         {
@@ -44,26 +47,28 @@ namespace LudoNewWorld.Classes
         {
             if(gameActive)
             {
-
-                //Debug.WriteLine("Scaled vector: " + string.Format("{0:0.00}", p1.rowBoats[0].scaledVector) + " Was: " + p1.rowBoats[0].Vector);
-                //int n = _random.Next(0, 4);
-                //int m = _random.Next(0, 4);
-                //p1.rowBoats[n].targetable = true;
-                //p3.rowBoats[n].targetable = true;
-                //p1.rowBoats[m].targetable = false;
+                switch (playerturn)
+                {
+                    case 1: break;
+                    case 2: break;
+                    case 3: break;
+                    case 4: break;
+                    default: break;
+                }
             }
         }
-        public Player.RowBoat CheckForObjectsOnMousePressed(Vector2 clickCords)
+        public Player.RowBoat CheckForShipsOnMousePressed(Vector2 clickCords)
         {
             if(gameActive)
             {
-                if(lastPressed != null)
+                if(lastPressedBoat != null)
                 {
-                    lastPressed.pressedByMouse = false;
-                    lastPressed.targetable = true;
+                    lastPressedBoat.pressedByMouse = false;
+                    lastPressedBoat.targetable = true;
                 }
                 foreach (var ship in p1.rowBoats)
                 {
+                    ship.targetable = true;
                     if(ship.targetable)
                     {
                         if (clickCords.X >= ship.scaledVector.X - 30 && clickCords.X <= ship.scaledVector.X + 30
@@ -79,10 +84,31 @@ namespace LudoNewWorld.Classes
                             {
                                 ship.targetable = false;
                                 ship.pressedByMouse = true;
-                                lastPressed = ship;
+                                lastPressedBoat = ship;
                             }
+                            p1.CheckIfMovable(ship, p2, 6);
                             Debug.WriteLine("Found ship" + ship.Faction + " " + ship.Id + " " + ship.scaledVector);
                             return ship;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+        public GameTile CheckForTileOnMousePressed(Vector2 clickCords)
+        {
+            if (gameActive)
+            {
+                foreach (var tile in GraphicHandler.orderedTiles)
+                {
+                    if(tile.TileType != Tile.BaseTile)
+                    {
+                        if (clickCords.X >= tile.ScaledVector.X - 30 && clickCords.X <= tile.ScaledVector.X + 30
+                        && clickCords.Y >= tile.ScaledVector.Y - 30 && clickCords.Y <= tile.ScaledVector.Y + 30)
+                        {
+                            Debug.WriteLine("Found tile " + tile.TileType);
+                            lastPressedGameTile = tile;
+                            return tile;
                         }
                     }
                 }

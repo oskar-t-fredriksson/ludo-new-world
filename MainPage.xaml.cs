@@ -109,9 +109,14 @@ namespace LudoNewWorld
         {
             Vector2 cords = new Vector2((float)e.GetCurrentPoint(GameCanvas).Position.X, (float)e.GetCurrentPoint(GameCanvas).Position.Y);
             Vector2 scaledVector = Scaler.ClickCords(cords);
-            gameEngine.CheckForObjectsOnMousePressed(scaledVector);
-            //xcord.Text = "X click cord: " + string.Format("{0:0.00}", scaledVector.X) + " was: " + cords.X;
-            //ycord.Text = "Y click cord: " + string.Format("{0:0.00}", scaledVector.Y);
+            gameEngine.boat = gameEngine.CheckForShipsOnMousePressed(scaledVector);
+            gameEngine.tile = gameEngine.CheckForTileOnMousePressed(scaledVector);
+            if (GameEngine.gameActive)
+            {
+                if(gameEngine.boat != null)
+                {
+                }
+            }
         }
 
         public void btnRoll_Click(object sender, RoutedEventArgs e)
@@ -120,25 +125,28 @@ namespace LudoNewWorld
             if (GameEngine.playerturn == 1)
             {
                 dicenr = GraphicHandler.scrambleDice(1);
-                gameEngine.p1.MoveRowBoat(dicenr);
+                Debug.WriteLine("\nMoveable: " + gameEngine.p1.CheckIfMovable(gameEngine.p1.rowBoats[0], gameEngine.p2, dicenr));
+                Debug.WriteLine("\nMoveable: " + gameEngine.p1.CheckIfMovable(gameEngine.p1.rowBoats[1], gameEngine.p2, dicenr));
+                Debug.WriteLine("\nMoveable: " + gameEngine.p1.CheckIfMovable(gameEngine.p1.rowBoats[2], gameEngine.p2, dicenr));
+                Debug.WriteLine("\nMoveable: " + gameEngine.p1.CheckIfMovable(gameEngine.p1.rowBoats[3], gameEngine.p2, dicenr));
                 GameEngine.playerturn++;
             }
             else if(GameEngine.playerturn == 2)
             {
                 dicenr = GraphicHandler.scrambleDice(2);
-                gameEngine.p2.MoveRowBoat(dicenr);
+                //gameEngine.p2.MoveRowBoat(dicenr);
                 GameEngine.playerturn++;
             }
             else if (GameEngine.playerturn == 3)
             {
                 dicenr = GraphicHandler.scrambleDice(3);
-                gameEngine.p3.MoveRowBoat(dicenr);
+                //gameEngine.p3.MoveRowBoat(dicenr);
                 GameEngine.playerturn++;
             }
             else if (GameEngine.playerturn == 4)
             {
                 dicenr = GraphicHandler.scrambleDice(4);
-                gameEngine.p4.MoveRowBoat(dicenr);
+                //gameEngine.p4.MoveRowBoat(dicenr);
                 GameEngine.playerturn = 1;
             }
         }
@@ -160,6 +168,7 @@ namespace LudoNewWorld
             gameEngine.StartGame(Faction.Britain);
             FactionField.Visibility = Visibility.Collapsed;
             Dice.Visibility = Visibility.Visible;
+            Move.Visibility = Visibility.Visible;
             gameState = 1;
         }
 
@@ -168,6 +177,7 @@ namespace LudoNewWorld
             gameEngine.StartGame(Faction.France);
             FactionField.Visibility = Visibility.Collapsed;
             Dice.Visibility = Visibility.Visible;
+            Move.Visibility = Visibility.Visible;
             gameState = 1;
         }
  
@@ -176,6 +186,7 @@ namespace LudoNewWorld
             gameEngine.StartGame(Faction.Dutch);
             FactionField.Visibility = Visibility.Collapsed;
             Dice.Visibility = Visibility.Visible;
+            Move.Visibility = Visibility.Visible;
             gameState = 1;
         }
         private void btnSpain_Click(object sender, RoutedEventArgs e)
@@ -183,6 +194,7 @@ namespace LudoNewWorld
             gameEngine.StartGame(Faction.Spain);
             FactionField.Visibility = Visibility.Collapsed;
             Dice.Visibility = Visibility.Visible;
+            Move.Visibility = Visibility.Visible;
             gameState = 1;
         }
         private void BtnMuteVolume_Click(object sender, RoutedEventArgs e)
@@ -238,6 +250,13 @@ namespace LudoNewWorld
         {
             Popup2.IsOpen = false;
             ExitMenuConfirm_Popup.IsOpen = true;
+        }
+
+        private void btnMove_Click(object sender, RoutedEventArgs e)
+        {
+
+            gameEngine.p1.MoveRowBoat();
+
         }
 
         private void Instruct_btn_Click(object sender, RoutedEventArgs e)

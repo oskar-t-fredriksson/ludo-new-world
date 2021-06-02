@@ -14,6 +14,7 @@ namespace LudoNewWorld.Classes
         StartTile,
         NegativeTile,
         PositiveTile,
-        RandomTile
+        RandomTile,
+        HighlightTile
     }
 }

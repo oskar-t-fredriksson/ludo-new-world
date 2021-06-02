@@ -301,6 +301,15 @@
                     Style="{StaticResource OwnButtonStyle}"
                     Height="90" Width="164" HorizontalAlignment="Center"/>
         </Grid>
+        <Grid x:Name="Move" Visibility="Collapsed">
+            <Button x:Name="btnMove" Click="btnMove_Click"
+                    Content="Move"
+                    FontSize="20"
+                    FontWeight="ExtraBold"
+                    Background="#161616"
+                    Style="{StaticResource OwnButtonStyle}"
+                    Height="50" Width="100" HorizontalAlignment="Left"/>
+        </Grid>
         <TextBlock x:Name="xcord" HorizontalAlignment="Left" Margin="10,0,0,0" Text="" FontSize="40" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="ycord" HorizontalAlignment="Left" Margin="10,35,0,0" Text="" FontSize="40" TextWrapping="Wrap" VerticalAlignment="Top"/>
     </Grid>
