@@ -152,8 +152,8 @@ namespace LudoNewWorld.Classes
                 {
                     if(tile.TileType != Tile.BaseTile)
                     {
-                        if (clickCords.X >= tile.ScaledVector.X - 30 && clickCords.X <= tile.ScaledVector.X + 30
-                        && clickCords.Y >= tile.ScaledVector.Y - 30 && clickCords.Y <= tile.ScaledVector.Y + 30)
+                        if (clickCords.X >= tile.ScaledVector.X - 50 && clickCords.X <= tile.ScaledVector.X
+                        && clickCords.Y >= tile.ScaledVector.Y - 50 && clickCords.Y <= tile.ScaledVector.Y)
                         {
                             Debug.WriteLine("Found tile " + tile.TileType);
                             lastPressedGameTile = tile;
