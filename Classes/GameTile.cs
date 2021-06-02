@@ -18,6 +18,7 @@ namespace LudoNewWorld
         public Faction FactionType { get; set; }
         public Tile TileType { get; set; }
         public bool IsPlayerOnTile = false;
+        public bool moveable = false;
 
         public GameTile(Tile tileType, Faction factionType, Vector2 gameTileVector)
         {

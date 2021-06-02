@@ -108,59 +108,70 @@ namespace LudoNewWorld.Classes
                 this.Id = id;
             }
         }
-        public void MoveRowBoat(int diceValue)
-        {            
-            foreach (var player in playerList)
-            {
-                if (player.isMyTurn == true)
-                {
-                    foreach (var rowBoat in GraphicHandler.rowBoatList)
-                    {
-                        float rowBoatX = GraphicHandler.orderedTiles[rowBoat.CurrentTile + diceValue - 1].GameTileVector.X - 10;
-                        float rowBoatY = GraphicHandler.orderedTiles[rowBoat.CurrentTile + diceValue - 1].GameTileVector.Y - 25;
-                        if (rowBoat.pressedByMouse == true)
-                        {
-                            rowBoat.Vector = new Vector2(rowBoatX, rowBoatY);
-                            rowBoat.CurrentTile += diceValue;
-                        }
-                    }
-                }
-                player.isMyTurn = false;
-            }
+        public void MoveRowBoat()
+        {
+            var ship = GameEngine.lastPressedBoat;
+            var tile = GameEngine.lastPressedGameTile;
+
+            float shipX = tile.GameTileVector.X - 10;
+            float shipY = tile.GameTileVector.Y - 25;
+            ship.Vector = new Vector2(shipX, shipY);
+            Debug.WriteLine("Ship: " + ship + "Tile: " + tile);
         }
         public bool CheckIfMovable(Player.RowBoat ship, Player targetPlayer, int dicenr)
         {
             if(GameEngine.gameActive)
             {
-                GameEngine gameEngine = new GameEngine();
+                // Test DATA
+                GraphicHandler.orderedTiles[0].IsPlayerOnTile = true;
+                GraphicHandler.orderedTiles[1].IsPlayerOnTile = true;
+                GraphicHandler.orderedTiles[3].IsPlayerOnTile = true;
                 targetPlayer.rowBoats[0].CurrentTile = 0;
+                targetPlayer.rowBoats[1].CurrentTile = 3;
+                targetPlayer.rowBoats[2].CurrentTile = 1;
 
                 switch (ship.Faction)
                 {
                     case Faction.Britain:
-                        Debug.Write($"Loop for ship {ship.Id} started: ");
-                        for (int i = 0; i < dicenr; i++)
+                        Debug.WriteLine("=================================");
+                        Debug.WriteLine($"Loop for ship {ship.Id} started: ");
+                        for (int i = ship.CurrentTile + 1; i < dicenr; i++)
                         {
-                            ship.CurrentTile = GraphicHandler.orderedTiles.IndexOf(GraphicHandler.orderedTiles[i]);
+                            //ship.CurrentTile = GraphicHandler.orderedTiles.IndexOf(GraphicHandler.orderedTiles[i]);
+                            Debug.Write("Tile: " + i);
 
-                            if (GraphicHandler.orderedTiles[ship.CurrentTile].IsPlayerOnTile)
+                            if (GraphicHandler.orderedTiles[i].IsPlayerOnTile)
                             {
                                 foreach (var targetShip in GraphicHandler.rowBoatList)
                                 {
-                                    if (ship.CurrentTile == targetShip.CurrentTile && ship.Faction == targetShip.Faction)
+                                    if (ship.Id != targetShip.Id && i == targetShip.CurrentTile && ship.Faction == targetShip.Faction)
                                     {
-                                        return false;
+                                        //return false;
                                     }
-                                    else if (ship.CurrentTile == targetShip.CurrentTile)
+                                    else if (i == targetShip.CurrentTile && i+1 == dicenr)
                                     {
-                                        Debug.WriteLine("Found p2 ship");
+                                        Debug.WriteLine($" Found {targetShip.Faction} ship on last tile!");
+                                        Vector2 highlightoffset = new Vector2(GraphicHandler.orderedTiles[i].GameTileVector.X - 12, GraphicHandler.orderedTiles[i].GameTileVector.Y - 12);
+                                        GraphicHandler.highlighter.GameTileVector = highlightoffset;
                                     }
+                                    else if (i == targetShip.CurrentTile)
+                                    {
+                                        Debug.WriteLine($" Found {targetShip.Faction} ship!");
+                                    }
+
                                 }
                             }
-                            // Om det redan står en pjäs på rutan
-                            // Är pjäsen motståndare eller inte
+                            else if(i+1 == dicenr)
+                            {
+                                Vector2 highlightoffset = new Vector2(GraphicHandler.orderedTiles[i].GameTileVector.X - 12, GraphicHandler.orderedTiles[i].GameTileVector.Y - 12);
+                                GraphicHandler.highlighter.GameTileVector = highlightoffset;
+                            }
+                            else
+                            {
+                                Debug.WriteLine($" Found zero ship!");
+                            }
                         }
-                        ship.CurrentTile = GraphicHandler.orderedTiles.IndexOf(GraphicHandler.orderedTiles[0]);
+
                         break;
                     case Faction.Dutch:
                         break;

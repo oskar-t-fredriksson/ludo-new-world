@@ -19,9 +19,9 @@ namespace LudoNewWorld
         dice1Inactive, dice2Inactive, dice3Inactive, dice4Inactive, dice5Inactive, dice6Inactive,
         NeutralTile, BritainTile, SpainTile, DutchTile, FranceTile, NegativeTile, PositiveTile, RandomTile,
         BritainGoalTile, DutchGoalTile, FranceGoalTile, SpainGoalTile,
-        BritainSmallShip, BritainSmallShipActive, BritainSmallShipTarget, DutchSmallShip, DutchSmallShipActive, DutchSmallShipTarget, 
+        BritainSmallShip, BritainSmallShipActive, BritainSmallShipTarget, DutchSmallShip, DutchSmallShipActive, DutchSmallShipTarget,
         SpainSmallShip, SpainSmallShipActive, SpainSmallShipTarget, FranceSmallShip, FranceSmallShipActive, FranceSmallShipTarget,
-        helpmenuBackground, instructionsBackground, creditsBackground;
+        helpmenuBackground, instructionsBackground, creditsBackground, MoveableTile;
 
         // List
         public static List<GameTile> gameTiles = new List<GameTile>();
@@ -32,6 +32,7 @@ namespace LudoNewWorld
 
         // Objects
         private readonly Random _random = new Random();
+        public static GameTile highlighter = new GameTile(Tile.HighlightTile, new Vector2(2000, 2000));
 
         public static int scrambleDice(int playerID)
         {
@@ -126,6 +127,7 @@ namespace LudoNewWorld
             creditsBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Credits.png"));
 
             //Tiles
+            MoveableTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/MovableTilePlaceholder.png"));
             BritainTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/BritainTile.png"));
             DutchTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/DutchTile.png"));
             SpainTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/SpainTile.png"));
@@ -181,9 +183,11 @@ namespace LudoNewWorld
             GameEngine.tick++;
             GameStateManager.BackgroundManager();
             args.DrawingSession.DrawImage(Scaler.Fit(background));
+            args.DrawingSession.DrawImage(Scaler.Fit(MoveableTile), Scaler.Cords(highlighter.GameTileVector));
+
             if (MainPage.gameState == 1)
             {
-                foreach (var tile in gameTiles)
+                foreach (var tile in orderedTiles)
                 {
                     tile.ScaledVector = Scaler.TileCords(tile.GameTileVector);
                     if (tile.FactionType != Faction.FactionNull && tile.TileType == Tile.GoalTile || tile.FactionType != Faction.FactionNull && tile.TileType == Tile.StartTile || tile.FactionType != Faction.FactionNull && tile.TileType == Tile.BaseTile)
@@ -328,7 +332,6 @@ namespace LudoNewWorld
 
         private static void CreateTileObjects()
         {
-
             //Faction Tiles
             //Britain Base Tile
             gameTiles.Add(new GameTile(Tile.BaseTile, Faction.Britain, new Vector2(190, 150)));

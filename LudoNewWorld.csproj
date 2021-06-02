@@ -167,6 +167,7 @@
     <Content Include="Assets\Images\GameTiles\DutchTile.png" />
     <Content Include="Assets\Images\GameTiles\FranceGoalTile.png" />
     <Content Include="Assets\Images\GameTiles\FranceTile.png" />
+    <Content Include="Assets\Images\GameTiles\MovableTilePlaceholder.png" />
     <Content Include="Assets\Images\GameTiles\NegativeTile.png" />
     <Content Include="Assets\Images\GameTiles\NeutralTile.png" />
     <Content Include="Assets\Images\GameTiles\PositiveTile.png" />
