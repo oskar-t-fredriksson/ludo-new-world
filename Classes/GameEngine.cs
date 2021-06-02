@@ -18,6 +18,8 @@ namespace LudoNewWorld.Classes
         public static GameTile lastPressedGameTile = null;
         public static int lastDiceRoll = 0;
         public static bool diceRolled = false;
+        public static bool playerCanMove = false;
+        public static bool playerRoundCompleted = false;
         public Player.RowBoat boat;
         public GameTile tile;
         public Player p1, p2, p3, p4;
@@ -60,6 +62,8 @@ namespace LudoNewWorld.Classes
         }
         public void NextRound()
         {
+            playerCanMove = false;
+            playerRoundCompleted = false;
             if(gameActive)
             {
                 if(diceRolled)
@@ -67,7 +71,6 @@ namespace LudoNewWorld.Classes
                     foreach (var boat in p1.rowBoats)
                     {
                         Debug.WriteLine(p1.CheckIfMovable(boat, lastDiceRoll));
-                        Debug.WriteLine("RowBoat tile: " + boat.CurrentTile);
                     }
                     diceRolled = false;
                 }
@@ -77,15 +80,34 @@ namespace LudoNewWorld.Classes
                 }
                 if (lastPressedBoat != null)
                 {
-                    var tileIndex = lastPressedBoat.CurrentTile + lastDiceRoll;
-                    Debug.WriteLine("lastPressedBoat tile: " + lastPressedBoat.CurrentTile);
+                    var tileIndex = lastPressedBoat.CurrentTile;
+                    if(!lastPressedBoat.active)
+                    {
+                        switch (lastPressedBoat.Faction)
+                        {
+                            case Faction.Britain: break;
+                            case Faction.Dutch: tileIndex = 10; break;
+                            case Faction.Spain: tileIndex = 21; break;
+                            case Faction.France: tileIndex = 32; break;
+                            default: break;
+                        }
+                    }
+                    tileIndex += lastDiceRoll;
                     Vector2 highlightoffset = new Vector2(GraphicHandler.orderedTiles[tileIndex].GameTileVector.X - 12, GraphicHandler.orderedTiles[tileIndex].GameTileVector.Y - 12);
-                    GraphicHandler.highlighter.GameTileVector = highlightoffset;                    
+                    GraphicHandler.highlighter.GameTileVector = highlightoffset;
                 }
-                if(lastPressedBoat != null && lastPressedGameTile != null)
+                if (lastPressedBoat != null && lastPressedBoat.targetable)
                 {
+                    playerCanMove = true;
                     p1.MoveRowBoat();
                     GraphicHandler.highlighter.GameTileVector = new Vector2(2000, 2000);
+                    playerRoundCompleted = true;
+                    lastPressedBoat = null;
+                    lastPressedGameTile = null;
+                    foreach (var boat in p1.rowBoats)
+                    {
+                        boat.targetable = false;
+                    }
                 }
             }
         }
@@ -126,7 +148,7 @@ namespace LudoNewWorld.Classes
         }
         public GameTile CheckForTileOnMousePressed(Vector2 clickCords)
         {
-            if (gameActive)
+            if (gameActive && playerCanMove)
             {
                 foreach (var tile in GraphicHandler.orderedTiles)
                 {

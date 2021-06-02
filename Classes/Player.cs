@@ -113,33 +113,45 @@ namespace LudoNewWorld.Classes
             var ship = GameEngine.lastPressedBoat;
             var tile = GameEngine.lastPressedGameTile;
             var tileIndex = GraphicHandler.orderedTiles.IndexOf(tile);
+
             var diceRoll = GameEngine.lastDiceRoll;
             if (!ship.active)
             {
-                switch (ship.Faction)
+
+                if(ship.Faction == Faction.Britain)
                 {
-                    case Faction.Britain:
-                        ship.CurrentTile = 0;
-                        ship.active = true;
-                        break;
-                    case Faction.Dutch:
-                        ship.CurrentTile = 10;
-                        ship.active = true;
-                        break;
-                    case Faction.Spain:
-                        ship.CurrentTile = 21;
-                        ship.active = true;
-                        break;
-                    case Faction.France:
-                        ship.CurrentTile = 32;
-                        ship.active = true;
-                        break;
-                    default:
-                        break;
+                    ship.CurrentTile = 0;
+                    ship.active = true;
+                }
+                else if(ship.Faction == Faction.Dutch)
+                {
+                    ship.CurrentTile = 10;
+                    ship.active = true;
+                }
+                else if (ship.Faction == Faction.Spain)
+                {
+                    ship.CurrentTile = 21;
+                    ship.active = true;
+                }
+                else if (ship.Faction == Faction.France)
+                {
+                    ship.CurrentTile = 32;
+                    ship.active = true;
+                }
+                if (ship.CurrentTile < tileIndex && tileIndex - ship.CurrentTile == diceRoll)
+                {
+                    Debug.WriteLine("Got into IF statement");
+                    float shipX = tile.GameTileVector.X - 10;
+                    float shipY = tile.GameTileVector.Y - 25;
+                    ship.Vector = new Vector2(shipX, shipY);
+                    ship.CurrentTile += diceRoll;
+                    GraphicHandler.orderedTiles[ship.CurrentTile].IsPlayerOnTile = false;
+                    tile.IsPlayerOnTile = true;
                 }
             }
             if (ship.CurrentTile < tileIndex && tileIndex - ship.CurrentTile == diceRoll)
-            {                
+            {
+                Debug.WriteLine("Got into IF statement");
                 float shipX = tile.GameTileVector.X - 10;
                 float shipY = tile.GameTileVector.Y - 25;
                 ship.Vector = new Vector2(shipX, shipY);

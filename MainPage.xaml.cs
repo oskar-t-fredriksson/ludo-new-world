@@ -102,10 +102,13 @@ namespace LudoNewWorld
         }
         private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
         {
-            gameEngine.NextRound();
-            if(debugMenuActive)
+            if(GameEngine.gameActive)
             {
-                SetDebugMenu();
+                gameEngine.NextRound();
+                if (debugMenuActive)
+                {
+                    SetDebugMenu();
+                }
             }
         }
         private void GameCanvas_Loaded(object sender, RoutedEventArgs e) { }
