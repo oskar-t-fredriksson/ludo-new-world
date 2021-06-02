@@ -12,10 +12,12 @@ namespace LudoNewWorld.Classes
     {
         public static int tick = 0;
         public static bool GoalAchieved = false;
-        public static int playerturn = 1;
+        public static int playerturn = 0;
         public static bool gameActive = false;
         public static Player.RowBoat lastPressedBoat = null;
         public static GameTile lastPressedGameTile = null;
+        public static int lastDiceRoll = 0;
+        public static bool diceRolled = false;
         public Player.RowBoat boat;
         public GameTile tile;
         public Player p1, p2, p3, p4;
@@ -41,19 +43,37 @@ namespace LudoNewWorld.Classes
         public void StartGame(Faction faction)
         {
             CreatePlayers(faction);
+            switch (faction)
+            {
+                case Faction.Britain:
+                    playerturn = 1; break;
+                case Faction.Dutch:
+                    playerturn = 2; break;
+                case Faction.Spain:
+                    playerturn = 3; break;
+                case Faction.France:
+                    playerturn = 4; break;
+                default: break;
+            }
             gameActive = true;
+            NextRound();
         }
-        public void Update()
+        public void NextRound()
         {
             if(gameActive)
             {
-                switch (playerturn)
+                if(diceRolled)
                 {
-                    case 1: break;
-                    case 2: break;
-                    case 3: break;
-                    case 4: break;
-                    default: break;
+                    foreach (var boat in p1.rowBoats)
+                    {
+                        Debug.WriteLine(p1.CheckIfMovable(boat, lastDiceRoll));
+                    }
+                    diceRolled = false;
+                }
+                if(lastPressedBoat != null && lastPressedGameTile != null)
+                {
+                    p1.MoveRowBoat();
+                    GraphicHandler.highlighter.GameTileVector = new Vector2(2000, 2000);
                 }
             }
         }
@@ -68,7 +88,6 @@ namespace LudoNewWorld.Classes
                 }
                 foreach (var ship in p1.rowBoats)
                 {
-                    ship.targetable = true;
                     if(ship.targetable)
                     {
                         if (clickCords.X >= ship.scaledVector.X - 30 && clickCords.X <= ship.scaledVector.X + 30
@@ -86,8 +105,6 @@ namespace LudoNewWorld.Classes
                                 ship.pressedByMouse = true;
                                 lastPressedBoat = ship;
                             }
-                            p1.CheckIfMovable(ship, p2, 6);
-                            Debug.WriteLine("Found ship" + ship.Faction + " " + ship.Id + " " + ship.scaledVector);
                             return ship;
                         }
                     }

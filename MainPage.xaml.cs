@@ -101,7 +101,7 @@ namespace LudoNewWorld
         }
         private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
         {
-            gameEngine.Update();
+            gameEngine.NextRound();
         }
         private void GameCanvas_Loaded(object sender, RoutedEventArgs e) { }
 
@@ -121,34 +121,36 @@ namespace LudoNewWorld
 
         public void btnRoll_Click(object sender, RoutedEventArgs e)
         {
-            int dicenr = 0;
-            if (GameEngine.playerturn == 1)
-            {
-                dicenr = GraphicHandler.scrambleDice(1);
-                Debug.WriteLine("\nMoveable: " + gameEngine.p1.CheckIfMovable(gameEngine.p1.rowBoats[0], gameEngine.p2, dicenr));
-                Debug.WriteLine("\nMoveable: " + gameEngine.p1.CheckIfMovable(gameEngine.p1.rowBoats[1], gameEngine.p2, dicenr));
-                Debug.WriteLine("\nMoveable: " + gameEngine.p1.CheckIfMovable(gameEngine.p1.rowBoats[2], gameEngine.p2, dicenr));
-                Debug.WriteLine("\nMoveable: " + gameEngine.p1.CheckIfMovable(gameEngine.p1.rowBoats[3], gameEngine.p2, dicenr));
-                GameEngine.playerturn++;
-            }
-            else if(GameEngine.playerturn == 2)
-            {
-                dicenr = GraphicHandler.scrambleDice(2);
-                //gameEngine.p2.MoveRowBoat(dicenr);
-                GameEngine.playerturn++;
-            }
-            else if (GameEngine.playerturn == 3)
-            {
-                dicenr = GraphicHandler.scrambleDice(3);
-                //gameEngine.p3.MoveRowBoat(dicenr);
-                GameEngine.playerturn++;
-            }
-            else if (GameEngine.playerturn == 4)
-            {
-                dicenr = GraphicHandler.scrambleDice(4);
-                //gameEngine.p4.MoveRowBoat(dicenr);
-                GameEngine.playerturn = 1;
-            }
+            GameEngine.lastDiceRoll = GraphicHandler.scrambleDice(GameEngine.playerturn);
+            GameEngine.diceRolled = true;
+            //int dicenr = 0;
+            //if (GameEngine.playerturn == 1)
+            //{
+            //    dicenr = GraphicHandler.scrambleDice(1);
+            //    Debug.WriteLine("\nMoveable: " + gameEngine.p1.CheckIfMovable(gameEngine.p1.rowBoats[0], gameEngine.p2, dicenr));
+            //    Debug.WriteLine("\nMoveable: " + gameEngine.p1.CheckIfMovable(gameEngine.p1.rowBoats[1], gameEngine.p2, dicenr));
+            //    Debug.WriteLine("\nMoveable: " + gameEngine.p1.CheckIfMovable(gameEngine.p1.rowBoats[2], gameEngine.p2, dicenr));
+            //    Debug.WriteLine("\nMoveable: " + gameEngine.p1.CheckIfMovable(gameEngine.p1.rowBoats[3], gameEngine.p2, dicenr));
+            //    GameEngine.playerturn++;
+            //}
+            //else if(GameEngine.playerturn == 2)
+            //{
+            //    dicenr = GraphicHandler.scrambleDice(2);
+            //    //gameEngine.p2.MoveRowBoat(dicenr);
+            //    GameEngine.playerturn++;
+            //}
+            //else if (GameEngine.playerturn == 3)
+            //{
+            //    dicenr = GraphicHandler.scrambleDice(3);
+            //    //gameEngine.p3.MoveRowBoat(dicenr);
+            //    GameEngine.playerturn++;
+            //}
+            //else if (GameEngine.playerturn == 4)
+            //{
+            //    dicenr = GraphicHandler.scrambleDice(4);
+            //    //gameEngine.p4.MoveRowBoat(dicenr);
+            //    GameEngine.playerturn = 1;
+            //}
         }
 
         private async void btnStart_Click(object sender, RoutedEventArgs e)
@@ -170,6 +172,19 @@ namespace LudoNewWorld
             Dice.Visibility = Visibility.Visible;
             Move.Visibility = Visibility.Visible;
             gameState = 1;
+            Thickness margin = new Thickness(30, 179, 0, 0);
+            btnRoll.Margin = margin;
+        }
+
+        private void btnDutch_Click(object sender, RoutedEventArgs e)
+        {
+            gameEngine.StartGame(Faction.Dutch);
+            FactionField.Visibility = Visibility.Collapsed;
+            Dice.Visibility = Visibility.Visible;
+            Move.Visibility = Visibility.Visible;
+            gameState = 1;
+            Thickness margin = new Thickness(1773, 179, 0, 0);
+            btnRoll.Margin = margin;
         }
 
         private async void btnFrance_Click(object sender, RoutedEventArgs e)
@@ -179,16 +194,10 @@ namespace LudoNewWorld
             Dice.Visibility = Visibility.Visible;
             Move.Visibility = Visibility.Visible;
             gameState = 1;
+            Thickness margin = new Thickness(30, 851, 0, 0);
+            btnRoll.Margin = margin;
         }
  
-        private void btnDutch_Click(object sender, RoutedEventArgs e)
-        {
-            gameEngine.StartGame(Faction.Dutch);
-            FactionField.Visibility = Visibility.Collapsed;
-            Dice.Visibility = Visibility.Visible;
-            Move.Visibility = Visibility.Visible;
-            gameState = 1;
-        }
         private void btnSpain_Click(object sender, RoutedEventArgs e)
         {
             gameEngine.StartGame(Faction.Spain);
@@ -196,6 +205,8 @@ namespace LudoNewWorld
             Dice.Visibility = Visibility.Visible;
             Move.Visibility = Visibility.Visible;
             gameState = 1;
+            Thickness margin = new Thickness(1773, 851, 0, 0);
+            btnRoll.Margin = margin;
         }
         private void BtnMuteVolume_Click(object sender, RoutedEventArgs e)
         {
