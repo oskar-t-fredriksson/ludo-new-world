@@ -67,8 +67,20 @@ namespace LudoNewWorld.Classes
                     foreach (var boat in p1.rowBoats)
                     {
                         Debug.WriteLine(p1.CheckIfMovable(boat, lastDiceRoll));
+                        Debug.WriteLine("RowBoat tile: " + boat.CurrentTile);
                     }
                     diceRolled = false;
+                }
+                if (lastPressedBoat == null)
+                {
+                    GraphicHandler.highlighter.GameTileVector = new Vector2(2000, 2000);
+                }
+                if (lastPressedBoat != null)
+                {
+                    var tileIndex = lastPressedBoat.CurrentTile + lastDiceRoll;
+                    Debug.WriteLine("lastPressedBoat tile: " + lastPressedBoat.CurrentTile);
+                    Vector2 highlightoffset = new Vector2(GraphicHandler.orderedTiles[tileIndex].GameTileVector.X - 12, GraphicHandler.orderedTiles[tileIndex].GameTileVector.Y - 12);
+                    GraphicHandler.highlighter.GameTileVector = highlightoffset;                    
                 }
                 if(lastPressedBoat != null && lastPressedGameTile != null)
                 {
