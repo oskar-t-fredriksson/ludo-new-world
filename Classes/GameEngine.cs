@@ -62,11 +62,10 @@ namespace LudoNewWorld.Classes
         }
         public void NextRound()
         {
-            playerCanMove = false;
-            playerRoundCompleted = false;
             if(gameActive)
             {
-                if(diceRolled)
+                playerCanMove = true;
+                if (diceRolled)
                 {
                     foreach (var boat in p1.rowBoats)
                     {
@@ -98,7 +97,6 @@ namespace LudoNewWorld.Classes
                 }
                 if (lastPressedBoat != null && lastPressedBoat.targetable)
                 {
-                    playerCanMove = true;
                     p1.MoveRowBoat();
                     GraphicHandler.highlighter.GameTileVector = new Vector2(2000, 2000);
                     playerRoundCompleted = true;

@@ -176,7 +176,8 @@ namespace LudoNewWorld.Classes
                         {
                             if (ship.Id != targetShip.Id && i == targetShip.CurrentTile && ship.Faction == targetShip.Faction)
                             {
-                                //return false;
+                                Debug.WriteLine("Found own ship, cant move!");
+                                return false;
                             }
                             else if (i == targetShip.CurrentTile && i + 1 == dicenr)
                             {
