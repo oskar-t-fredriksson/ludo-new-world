@@ -26,11 +26,11 @@ namespace LudoNewWorld
         // List GameTile
         public static List<GameTile> gameTiles = new List<GameTile>();
         public static List<GameTile> orderedTiles = new List<GameTile>();
-        public static List<GameTile> britainEndTiles = new List<GameTile>();
-        public static List<GameTile> dutchEndTiles = new List<GameTile>();
-        public static List<GameTile> spainEndTiles = new List<GameTile>();
-        public static List<GameTile> franceEndTiles = new List<GameTile>();
-        public static List<List<GameTile>> allEndTiles = new List<List<GameTile>>();
+        public static List<GameTile> britainGoalTiles = new List<GameTile>();
+        public static List<GameTile> dutchGoalTiles = new List<GameTile>();
+        public static List<GameTile> spainGoalTiles = new List<GameTile>();
+        public static List<GameTile> franceGoalTiles = new List<GameTile>();
+        public static List<List<GameTile>> allGoalTiles = new List<List<GameTile>>();
         public static List<GameTile> britainBaseTiles = new List<GameTile>();
         public static List<GameTile> dutchBaseTiles = new List<GameTile>();
         public static List<GameTile> spainBaseTiles = new List<GameTile>();
@@ -122,7 +122,6 @@ namespace LudoNewWorld
 
         public static void LoadResources()
         {
-            //CreateTileObjects();
             AddBoardTilesOrdered();
             BritainEndTilesToList();
             DutchEndTilesToList();
@@ -303,7 +302,7 @@ namespace LudoNewWorld
                     }
                 }
 
-                foreach (var list in allEndTiles)
+                foreach (var list in allGoalTiles)
                 {                    
                     foreach (var tile in list)
                     {
@@ -469,35 +468,35 @@ namespace LudoNewWorld
         }
         private static void BritainEndTilesToList()
         {
-            britainEndTiles.Add(new GameTile(Tile.GoalTile, Faction.Britain, new Vector2(420, 540)));
-            britainEndTiles.Add(new GameTile(Tile.GoalTile, Faction.Britain, new Vector2(500, 540)));
-            britainEndTiles.Add(new GameTile(Tile.GoalTile, Faction.Britain, new Vector2(580, 540)));
-            britainEndTiles.Add(new GameTile(Tile.GoalTile, Faction.Britain, new Vector2(660, 540)));
-            allEndTiles.Add(britainEndTiles);
+            britainGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Britain, new Vector2(420, 540)));
+            britainGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Britain, new Vector2(500, 540)));
+            britainGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Britain, new Vector2(580, 540)));
+            britainGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Britain, new Vector2(660, 540)));
+            allGoalTiles.Add(britainGoalTiles);
         }
         private static void DutchEndTilesToList()
         {
-            dutchEndTiles.Add(new GameTile(Tile.GoalTile, Faction.Dutch, new Vector2(960, 150)));
-            dutchEndTiles.Add(new GameTile(Tile.GoalTile, Faction.Dutch, new Vector2(960, 230)));
-            dutchEndTiles.Add(new GameTile(Tile.GoalTile, Faction.Dutch, new Vector2(960, 310)));
-            dutchEndTiles.Add(new GameTile(Tile.GoalTile, Faction.Dutch, new Vector2(960, 390)));
-            allEndTiles.Add(dutchEndTiles);
+            dutchGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Dutch, new Vector2(960, 150)));
+            dutchGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Dutch, new Vector2(960, 230)));
+            dutchGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Dutch, new Vector2(960, 310)));
+            dutchGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Dutch, new Vector2(960, 390)));
+            allGoalTiles.Add(dutchGoalTiles);
         }
         private static void SpainEndTilesToList()
         {
-            spainEndTiles.Add(new GameTile(Tile.GoalTile, Faction.Spain, new Vector2(1500, 540)));
-            spainEndTiles.Add(new GameTile(Tile.GoalTile, Faction.Spain, new Vector2(1420, 540)));
-            spainEndTiles.Add(new GameTile(Tile.GoalTile, Faction.Spain, new Vector2(1340, 540)));
-            spainEndTiles.Add(new GameTile(Tile.GoalTile, Faction.Spain, new Vector2(1260, 540)));
-            allEndTiles.Add(spainEndTiles);
+            spainGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Spain, new Vector2(1500, 540)));
+            spainGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Spain, new Vector2(1420, 540)));
+            spainGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Spain, new Vector2(1340, 540)));
+            spainGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Spain, new Vector2(1260, 540)));
+            allGoalTiles.Add(spainGoalTiles);
         }
         private static void FranceEndTilesToList()
         {
-            franceEndTiles.Add(new GameTile(Tile.GoalTile, Faction.France, new Vector2(960, 930)));
-            franceEndTiles.Add(new GameTile(Tile.GoalTile, Faction.France, new Vector2(960, 850)));
-            franceEndTiles.Add(new GameTile(Tile.GoalTile, Faction.France, new Vector2(960, 770)));
-            franceEndTiles.Add(new GameTile(Tile.GoalTile, Faction.France, new Vector2(960, 690)));
-            allEndTiles.Add(franceEndTiles);
+            franceGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.France, new Vector2(960, 930)));
+            franceGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.France, new Vector2(960, 850)));
+            franceGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.France, new Vector2(960, 770)));
+            franceGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.France, new Vector2(960, 690)));
+            allGoalTiles.Add(franceGoalTiles);
         }
         private static void BritainBaseTilesToList()
         {
