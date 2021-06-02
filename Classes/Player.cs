@@ -138,20 +138,9 @@ namespace LudoNewWorld.Classes
                     ship.CurrentTile = 32;
                     ship.active = true;
                 }
-                if (ship.CurrentTile < tileIndex && tileIndex - ship.CurrentTile == diceRoll)
-                {
-                    Debug.WriteLine("Got into IF statement");
-                    float shipX = tile.GameTileVector.X - 10;
-                    float shipY = tile.GameTileVector.Y - 25;
-                    ship.Vector = new Vector2(shipX, shipY);
-                    ship.CurrentTile += diceRoll;
-                    GraphicHandler.orderedTiles[ship.CurrentTile].IsPlayerOnTile = false;
-                    tile.IsPlayerOnTile = true;
-                }
             }
             if (ship.CurrentTile < tileIndex && tileIndex - ship.CurrentTile == diceRoll)
             {
-                Debug.WriteLine("Got into IF statement");
                 float shipX = tile.GameTileVector.X - 10;
                 float shipY = tile.GameTileVector.Y - 25;
                 ship.Vector = new Vector2(shipX, shipY);
@@ -167,7 +156,7 @@ namespace LudoNewWorld.Classes
                 Debug.WriteLine("=================================");
                 Debug.WriteLine($"Loop for ship {ship.Id} started: ");
                 for (int i = ship.CurrentTile + 1; i < ship.CurrentTile + dicenr + 1; i++)
-                {              
+                {   
                     Debug.Write("Tile: " + i);
 
                     if (GraphicHandler.orderedTiles[i].IsPlayerOnTile)
