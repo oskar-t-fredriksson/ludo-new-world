@@ -111,7 +111,7 @@
         <Grid x:Name="MenuField" Visibility="Visible">
             <Button x:Name="btnStart" Click="btnStart_Click" Content="Start Game" Style="{StaticResource StartMenuStyle}" Margin="0,-100,0,0" Height="70" Width="140"/>
             <Button x:Name="btnQuit" Click="btnQuit_Click" Content="Quit Game" Style="{StaticResource StartMenuStyle}" Margin="0,100,0,0" Height="70" Width="140"/>
-            
+
         </Grid>
         <Grid x:Name="QuitConfirm_grid">
             <Popup x:Name="QuitConfirm_Popup" 
@@ -299,7 +299,7 @@
                     FontWeight="ExtraBold"
                     Background="#161616"
                     Style="{StaticResource OwnButtonStyle}"
-                    Height="90" Width="164" HorizontalAlignment="Center"/>
+                    Height="64" Width="117" Margin="30,179,0,0" VerticalAlignment="Top"/>
         </Grid>
         <Grid x:Name="Move" Visibility="Collapsed">
             <Button x:Name="btnMove" Click="btnMove_Click"

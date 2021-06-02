@@ -112,23 +112,25 @@ namespace LudoNewWorld.Classes
         {
             var ship = GameEngine.lastPressedBoat;
             var tile = GameEngine.lastPressedGameTile;
+            ship.CurrentTile += GameEngine.lastDiceRoll;
+            //Debug.WriteLine(ship.CurrentTile);
 
             float shipX = tile.GameTileVector.X - 10;
             float shipY = tile.GameTileVector.Y - 25;
             ship.Vector = new Vector2(shipX, shipY);
-            Debug.WriteLine("Ship: " + ship + "Tile: " + tile);
+            //Debug.WriteLine("Ship: " + ship + "Tile: " + tile);
         }
-        public bool CheckIfMovable(Player.RowBoat ship, Player targetPlayer, int dicenr)
+        public bool CheckIfMovable(Player.RowBoat ship, int dicenr)
         {
             if(GameEngine.gameActive)
             {
                 // Test DATA
-                GraphicHandler.orderedTiles[0].IsPlayerOnTile = true;
-                GraphicHandler.orderedTiles[1].IsPlayerOnTile = true;
-                GraphicHandler.orderedTiles[3].IsPlayerOnTile = true;
-                targetPlayer.rowBoats[0].CurrentTile = 0;
-                targetPlayer.rowBoats[1].CurrentTile = 3;
-                targetPlayer.rowBoats[2].CurrentTile = 1;
+                //GraphicHandler.orderedTiles[0].IsPlayerOnTile = true;
+                //GraphicHandler.orderedTiles[1].IsPlayerOnTile = true;
+                //GraphicHandler.orderedTiles[3].IsPlayerOnTile = true;
+                //targetPlayer.rowBoats[0].CurrentTile = 0;
+                //targetPlayer.rowBoats[1].CurrentTile = 3;
+                //targetPlayer.rowBoats[2].CurrentTile = 1;
 
                 switch (ship.Faction)
                 {
@@ -185,7 +187,8 @@ namespace LudoNewWorld.Classes
                         break;
                 }
             }
-        return true;
+            ship.targetable = true;
+            return true;
         }
     }
 }
