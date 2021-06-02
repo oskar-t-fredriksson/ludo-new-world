@@ -106,6 +106,7 @@
         </Style>
 
     </Page.Resources>
+
     <Grid x:Name="mainGrid">
         <canvas:CanvasAnimatedControl x:Name="GameCanvas" CreateResources="GameCanvas_CreateResources" Draw="GameCanvas_Draw" Update="GameCanvas_Update" Loaded="GameCanvas_Loaded" PointerPressed="GameCanvas_PointerPressed"/>
         <Grid x:Name="MenuField" Visibility="Visible">
@@ -219,6 +220,7 @@
                 </StackPanel>
 
             </Button>
+
             <Popup x:Name="ParentPopup" 
                    Width="200" Height="300" 
                    HorizontalAlignment="Center"
@@ -291,6 +293,13 @@
                     </Popup>
                 </Grid>
             </Popup>
+            <Button x:Name="BtnDebug" Click="BtnDebug_Click" Content="D" FontSize="13" FontWeight="ExtraBold"
+                Background="#161616"
+                Style="{StaticResource OwnButtonStyle}"
+                Height="30" Width="42"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top" Margin="0,0,145,0" Grid.Column="1">
+            </Button>
         </Grid>
         <Grid x:Name="Dice" Visibility="Collapsed">
             <Button x:Name="btnRoll" Click="btnRoll_Click" 
@@ -300,15 +309,20 @@
                     Background="#161616"
                     Style="{StaticResource OwnButtonStyle}"
                     Height="64" Width="117" Margin="30,179,0,0" VerticalAlignment="Top"/>
-        </Grid>
-        <Grid x:Name="Move" Visibility="Collapsed">
-            <Button x:Name="btnMove" Click="btnMove_Click"
-                    Content="Move"
-                    FontSize="20"
-                    FontWeight="ExtraBold"
-                    Background="#161616"
-                    Style="{StaticResource OwnButtonStyle}"
-                    Height="50" Width="100" HorizontalAlignment="Left"/>
+
+            <Grid x:Name="DebugMenu" Visibility="Collapsed" Height="480"
+                 Background="Black" Opacity="0.3" Margin="1600,300,0,300">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="67*"/>
+                    <ColumnDefinition Width="13*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="11*"/>
+                    <RowDefinition Height="39*"/>
+                </Grid.RowDefinitions>
+                <TextBlock TextAlignment="Center" HorizontalAlignment="Left" Text="Debug Menu" TextWrapping="Wrap" VerticalAlignment="Top" Height="39" Width="114" FontSize="16" Margin="103,0,0,0"/>
+                <TextBlock x:Name="debugMenuText" TextAlignment="Left" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="457" Width="298" FontSize="12" Margin="11,37,0,0" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+            </Grid>
         </Grid>
         <TextBlock x:Name="xcord" HorizontalAlignment="Left" Margin="10,0,0,0" Text="" FontSize="40" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="ycord" HorizontalAlignment="Left" Margin="10,35,0,0" Text="" FontSize="40" TextWrapping="Wrap" VerticalAlignment="Top"/>

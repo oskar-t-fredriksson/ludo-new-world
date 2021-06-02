@@ -48,6 +48,7 @@ namespace LudoNewWorld
         public static double currentVolume = 0.5;
         public static int volumeLevel = 5;
         public static bool volumeMute = false;
+        private static bool debugMenuActive = false;
         public Vector3 scaleVector3Variable = new Vector3(DesignWidth, DesignHeight, 1);
 
         GameEngine gameEngine = new GameEngine();
@@ -102,6 +103,10 @@ namespace LudoNewWorld
         private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
         {
             gameEngine.NextRound();
+            if(debugMenuActive)
+            {
+                SetDebugMenu();
+            }
         }
         private void GameCanvas_Loaded(object sender, RoutedEventArgs e) { }
 
@@ -165,12 +170,11 @@ namespace LudoNewWorld
             QuitConfirm_Popup.IsOpen = true;
         }
 
-        private async void btnBritain_Click(object sender, RoutedEventArgs e)
+        private void btnBritain_Click(object sender, RoutedEventArgs e)
         {
             gameEngine.StartGame(Faction.Britain);
             FactionField.Visibility = Visibility.Collapsed;
             Dice.Visibility = Visibility.Visible;
-            Move.Visibility = Visibility.Visible;
             gameState = 1;
             Thickness margin = new Thickness(30, 179, 0, 0);
             btnRoll.Margin = margin;
@@ -181,18 +185,16 @@ namespace LudoNewWorld
             gameEngine.StartGame(Faction.Dutch);
             FactionField.Visibility = Visibility.Collapsed;
             Dice.Visibility = Visibility.Visible;
-            Move.Visibility = Visibility.Visible;
             gameState = 1;
             Thickness margin = new Thickness(1773, 179, 0, 0);
             btnRoll.Margin = margin;
         }
 
-        private async void btnFrance_Click(object sender, RoutedEventArgs e)
+        private void btnFrance_Click(object sender, RoutedEventArgs e)
         {
             gameEngine.StartGame(Faction.France);
             FactionField.Visibility = Visibility.Collapsed;
             Dice.Visibility = Visibility.Visible;
-            Move.Visibility = Visibility.Visible;
             gameState = 1;
             Thickness margin = new Thickness(30, 851, 0, 0);
             btnRoll.Margin = margin;
@@ -203,7 +205,6 @@ namespace LudoNewWorld
             gameEngine.StartGame(Faction.Spain);
             FactionField.Visibility = Visibility.Collapsed;
             Dice.Visibility = Visibility.Visible;
-            Move.Visibility = Visibility.Visible;
             gameState = 1;
             Thickness margin = new Thickness(1773, 851, 0, 0);
             btnRoll.Margin = margin;
@@ -265,9 +266,21 @@ namespace LudoNewWorld
 
         private void btnMove_Click(object sender, RoutedEventArgs e)
         {
-
             gameEngine.p1.MoveRowBoat();
+        }
 
+        private void BtnDebug_Click(object sender, RoutedEventArgs e)
+        {
+            if(!debugMenuActive)
+            {
+                DebugMenu.Visibility = Visibility.Visible;
+                debugMenuActive = true;
+            }
+            else
+            {
+                DebugMenu.Visibility = Visibility.Collapsed;
+                debugMenuActive = false;
+            }
         }
 
         private void Instruct_btn_Click(object sender, RoutedEventArgs e)
@@ -331,7 +344,10 @@ namespace LudoNewWorld
             Popup2.IsOpen = true;
         }
 
+        private void DebugMenu_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
 
+        }
 
         private void BtnMenuHelp_Click(object sender, RoutedEventArgs e)
         {
@@ -349,6 +365,44 @@ namespace LudoNewWorld
                     MyPopup.IsOpen = false;
                     Popup2.IsOpen = false;
                 }
+            }
+        }
+        private async void SetDebugMenu()
+        {
+            if(GameEngine.gameActive)
+            {
+                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    debugMenuText.Text =
+                    $"Player 1 boats alive: {gameEngine.p1.rowBoats.Count}\n" +
+                    $"-- Boat 1 current tile: {gameEngine.p1.rowBoats[0].CurrentTile}\n" +
+                    $"-- Boat 2 current tile: {gameEngine.p1.rowBoats[1].CurrentTile}\n" +
+                    $"-- Boat 3 current tile: {gameEngine.p1.rowBoats[2].CurrentTile}\n" +
+                    $"-- Boat 4 current tile: {gameEngine.p1.rowBoats[3].CurrentTile}\n" +
+
+                    $"Player 2 boats alive: {gameEngine.p2.rowBoats.Count}\n" +
+                    $"-- Boat 1 current tile: {gameEngine.p2.rowBoats[0].CurrentTile}\n" +
+                    $"-- Boat 2 current tile: {gameEngine.p2.rowBoats[1].CurrentTile}\n" +
+                    $"-- Boat 3 current tile: {gameEngine.p2.rowBoats[2].CurrentTile}\n" +
+                    $"-- Boat 4 current tile: {gameEngine.p2.rowBoats[3].CurrentTile}\n" +
+
+                    $"Player 3 boats alive: {gameEngine.p3.rowBoats.Count}\n" +
+                    $"-- Boat 1 current tile: {gameEngine.p3.rowBoats[0].CurrentTile}\n" +
+                    $"-- Boat 2 current tile: {gameEngine.p3.rowBoats[1].CurrentTile}\n" +
+                    $"-- Boat 3 current tile: {gameEngine.p3.rowBoats[2].CurrentTile}\n" +
+                    $"-- Boat 4 current tile: {gameEngine.p3.rowBoats[3].CurrentTile}\n" +
+
+                    $"Player 4 boats alive: {gameEngine.p4.rowBoats.Count}\n" +
+                    $"-- Boat 1 current tile: {gameEngine.p4.rowBoats[0].CurrentTile}\n" +
+                    $"-- Boat 2 current tile: {gameEngine.p4.rowBoats[1].CurrentTile}\n" +
+                    $"-- Boat 3 current tile: {gameEngine.p4.rowBoats[2].CurrentTile}\n" +
+                    $"-- Boat 4 current tile: {gameEngine.p4.rowBoats[2].CurrentTile}\n";
+
+
+                    //$"Last pressed boat: {GameEngine.lastPressedBoat}\n" +
+                    //$"Last pressed tile: {GameEngine.lastPressedGameTile}\n";
+
+                }).AsTask();
             }
         }
     }
