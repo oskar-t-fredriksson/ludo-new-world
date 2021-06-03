@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Media.Core;
 using LudoNewWorld.Classes;
+using Windows.UI.Xaml;
 
 namespace LudoNewWorld
 {
@@ -12,6 +13,7 @@ namespace LudoNewWorld
     {
         static Windows.Storage.StorageFile RequestedMusic;
         static Windows.Storage.StorageFile requestedMusic;
+      
         public static async Task SoundPlay()
         {
             Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets\\Sounds");
@@ -24,11 +26,13 @@ namespace LudoNewWorld
             MainPage.mPlayer.IsLoopingEnabled = true;
             MainPage.mPlayer.Play();
            
+
+
         }
         public static async Task EffectPlay()
         {
             Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets\\Sounds");
-            Windows.Storage.StorageFile music1 = await folder.GetFileAsync(@"Pirates Of The Caribbean Theme Song.mp3");
+            Windows.Storage.StorageFile music1 = await folder.GetFileAsync(@"SHEESH SOUND EFFECT.mp3");
             requestedMusic = music1;
 
 
