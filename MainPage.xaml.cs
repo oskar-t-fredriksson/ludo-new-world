@@ -45,6 +45,7 @@ namespace LudoNewWorld
         public static int gameState = 0;
         public static Faction playerFaction;
         public static MediaPlayer mPlayer = new MediaPlayer();
+        public static MediaPlayer mPlayerr = new MediaPlayer();
         public static double currentVolume = 0.5;
         public static int volumeLevel = 5;
         public static bool volumeMute = false;
@@ -252,10 +253,12 @@ namespace LudoNewWorld
             Popup2.IsOpen = false;
             MyPopup.IsOpen = false;
             CreditPopup.IsOpen = true;
+            Sound.EffectPlay();
         }
 
         private void BtnMenuHelp_Click(object sender, RoutedEventArgs e)
         {
+             
             if (gameState == 1)
             {
                 ParentPopup.IsOpen = true;

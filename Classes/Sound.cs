@@ -11,6 +11,7 @@ namespace LudoNewWorld
     class Sound
     {
         static Windows.Storage.StorageFile RequestedMusic;
+        static Windows.Storage.StorageFile requestedMusic;
         public static async Task SoundPlay()
         {
             Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets\\Sounds");
@@ -22,6 +23,21 @@ namespace LudoNewWorld
             MainPage.mPlayer.Volume = MainPage.currentVolume;
             MainPage.mPlayer.IsLoopingEnabled = true;
             MainPage.mPlayer.Play();
+           
+        }
+        public static async Task EffectPlay()
+        {
+            Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets\\Sounds");
+            Windows.Storage.StorageFile music1 = await folder.GetFileAsync(@"Pirates Of The Caribbean Theme Song.mp3");
+            requestedMusic = music1;
+
+
+            MainPage.mPlayerr.AutoPlay = false;
+            MainPage.mPlayerr.Source = MediaSource.CreateFromStorageFile(requestedMusic);
+            MainPage.mPlayerr.Volume = MainPage.currentVolume;
+            //MainPage.mPlayerr.IsLoopingEnabled = true;
+            MainPage.mPlayerr.Play();
+
         }
     }
 }
