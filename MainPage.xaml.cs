@@ -370,11 +370,22 @@ namespace LudoNewWorld
                 await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     debugMenuText.Text =
+                    $"TargetableRowBoats count: {Player.targetableRowBoats.Count}\n" +
                     $"Player 1 boats alive: {gameEngine.p1.rowBoats.Count}\n" +
                     $"-- Boat 1 current tile: {gameEngine.p1.rowBoats[0].CurrentTile}\n" +
                     $"-- Boat 2 current tile: {gameEngine.p1.rowBoats[1].CurrentTile}\n" +
                     $"-- Boat 3 current tile: {gameEngine.p1.rowBoats[2].CurrentTile}\n" +
                     $"-- Boat 4 current tile: {gameEngine.p1.rowBoats[3].CurrentTile}\n" +
+
+                    $"-- Boat 1 active: {gameEngine.p1.rowBoats[0].active}\n" +
+                    $"-- Boat 2 active: {gameEngine.p1.rowBoats[1].active}\n" +
+                    $"-- Boat 3 active: {gameEngine.p1.rowBoats[2].active}\n" +
+                    $"-- Boat 4 active: {gameEngine.p1.rowBoats[3].active}\n" +
+
+                    $"-- Boat 1 targetable: {gameEngine.p1.rowBoats[0].targetable}\n" +
+                    $"-- Boat 2 targetable: {gameEngine.p1.rowBoats[1].targetable}\n" +
+                    $"-- Boat 3 targetable: {gameEngine.p1.rowBoats[2].targetable}\n" +
+                    $"-- Boat 4 targetable: {gameEngine.p1.rowBoats[3].targetable}\n" +
 
                     $"Player 2 boats alive: {gameEngine.p2.rowBoats.Count}\n" +
                     $"-- Boat 1 current tile: {gameEngine.p2.rowBoats[0].CurrentTile}\n" +
