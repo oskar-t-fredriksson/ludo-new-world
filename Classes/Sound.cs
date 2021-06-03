@@ -46,7 +46,7 @@ namespace LudoNewWorld
         public static async Task DiceSound()
         {
             Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets\\Sounds");
-            Windows.Storage.StorageFile music1 = await folder.GetFileAsync(@"SHEESH SOUND EFFECT.mp3");
+            Windows.Storage.StorageFile music1 = await folder.GetFileAsync(@"Rolling Dice - Sound Effect (HD).mp3");
             requestedMusic = music1;
 
 
