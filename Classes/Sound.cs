@@ -29,8 +29,10 @@ namespace LudoNewWorld
 
 
         }
-        public static async Task PositivEffect()
+        public static async Task CrediSound(bool play)
         {
+          
+            
             Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets\\Sounds");
             Windows.Storage.StorageFile music1 = await folder.GetFileAsync(@"SHEESH SOUND EFFECT.mp3");
             requestedMusic = music1;
@@ -40,7 +42,17 @@ namespace LudoNewWorld
             MainPage.mPlayerr.Source = MediaSource.CreateFromStorageFile(requestedMusic);
             MainPage.mPlayerr.Volume = MainPage.currentVolume;
             //MainPage.mPlayerr.IsLoopingEnabled = true;
-            MainPage.mPlayerr.Play();
+            if (play==false)
+            {
+                MainPage.mPlayerr.Source = null;
+            }
+            else
+            {
+                MainPage.mPlayerr.Play();
+
+            }
+
+
 
         }
         public static async Task DiceSound()
@@ -53,7 +65,19 @@ namespace LudoNewWorld
             MainPage.mPlayerr.AutoPlay = false;
             MainPage.mPlayerr.Source = MediaSource.CreateFromStorageFile(requestedMusic);
             MainPage.mPlayerr.Volume = MainPage.currentVolume;
-            //MainPage.mPlayerr.IsLoopingEnabled = true;
+            MainPage.mPlayerr.Play();
+
+        }
+        public static async Task MoveBoat()
+        {
+            Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets\\Sounds");
+            Windows.Storage.StorageFile music1 = await folder.GetFileAsync(@"Rolling Dice - Sound Effect (HD).mp3");
+            requestedMusic = music1;
+
+
+            MainPage.mPlayerr.AutoPlay = false;
+            MainPage.mPlayerr.Source = MediaSource.CreateFromStorageFile(requestedMusic);
+            MainPage.mPlayerr.Volume = MainPage.currentVolume;
             MainPage.mPlayerr.Play();
 
         }
