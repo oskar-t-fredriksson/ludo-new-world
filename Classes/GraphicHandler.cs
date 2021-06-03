@@ -50,7 +50,7 @@ namespace LudoNewWorld
 
         public static int scrambleDice(int playerID)
         {
-            Sound.PositivEffect();
+            
             Sound.DiceSound();
             Dice dice = new Dice();
             int trueNumber = dice.Roll();
