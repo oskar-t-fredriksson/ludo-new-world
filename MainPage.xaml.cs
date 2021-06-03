@@ -299,7 +299,8 @@ namespace LudoNewWorld
             Popup2.IsOpen = false;
             MyPopup.IsOpen = false;
             CreditPopup.IsOpen = true;
-            Sound.PositivEffect();
+            Sound.CrediSound(CreditPopup.IsOpen);
+
         }
 
         private void instruct_return_Click(object sender, RoutedEventArgs e)
@@ -314,6 +315,7 @@ namespace LudoNewWorld
             CreditPopup.IsOpen = false;
             MyPopup.IsOpen = true;
             Popup2.IsOpen = true;
+            Sound.CrediSound(CreditPopup.IsOpen);
         }
 
         private void QuitConfirm_yes_Click(object sender, RoutedEventArgs e)
