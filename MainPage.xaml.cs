@@ -253,7 +253,7 @@ namespace LudoNewWorld
             Popup2.IsOpen = false;
             MyPopup.IsOpen = false;
             CreditPopup.IsOpen = true;
-            Sound.EffectPlay();
+            Sound.PositivEffect();
         }
 
         private void BtnMenuHelp_Click(object sender, RoutedEventArgs e)

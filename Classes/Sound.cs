@@ -29,7 +29,21 @@ namespace LudoNewWorld
 
 
         }
-        public static async Task EffectPlay()
+        public static async Task PositivEffect()
+        {
+            Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets\\Sounds");
+            Windows.Storage.StorageFile music1 = await folder.GetFileAsync(@"SHEESH SOUND EFFECT.mp3");
+            requestedMusic = music1;
+
+
+            MainPage.mPlayerr.AutoPlay = false;
+            MainPage.mPlayerr.Source = MediaSource.CreateFromStorageFile(requestedMusic);
+            MainPage.mPlayerr.Volume = MainPage.currentVolume;
+            //MainPage.mPlayerr.IsLoopingEnabled = true;
+            MainPage.mPlayerr.Play();
+
+        }
+        public static async Task DiceSound()
         {
             Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets\\Sounds");
             Windows.Storage.StorageFile music1 = await folder.GetFileAsync(@"SHEESH SOUND EFFECT.mp3");
