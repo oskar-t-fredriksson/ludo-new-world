@@ -23,11 +23,16 @@ namespace LudoNewWorld.Classes
         public Player.RowBoat boat;
         public GameTile tile;
         public Player p1, p2, p3, p4;
+
         public List<Faction> factionList = new List<Faction>();
 
         private static readonly Random _random = new Random();
 
-
+        /// <summary>
+        /// Creates four Player objects and places them into
+        /// <see cref="Player.playerList"/>
+        /// </summary>
+        /// <param name="faction"></param>
         public void CreatePlayers(Faction faction)
         {
             factionList.Add(Faction.Britain);
@@ -40,8 +45,13 @@ namespace LudoNewWorld.Classes
             Player.playerList.Add(p2 = new Player(factionList[0], false));
             Player.playerList.Add(p3 = new Player(factionList[1], false));
             Player.playerList.Add(p4 = new Player(factionList[2], false));
-        }              
+        }
 
+        /// <summary>
+        /// <para>Creates all player and rowboat objects needed to play the game</para>
+        /// <para>Takes in what <see cref="Faction"/> the player picked in menu</para>
+        /// </summary>
+        /// <param name="faction">What faction are the player picking in the start menu</param>
         public void StartGame(Faction faction)
         {
             CreatePlayers(faction);
@@ -60,11 +70,15 @@ namespace LudoNewWorld.Classes
             gameActive = true;
             NextRound();
         }
+
+        /// <summary>
+        /// Start of a new round of the game
+        /// <para><see cref="gameActive"/> needs to be set True</para>
+        /// </summary>
         public void NextRound()
         {
             if(gameActive)
             {
-                playerCanMove = true;
                 if (diceRolled)
                 {
                     foreach (var boat in p1.rowBoats)
@@ -79,6 +93,7 @@ namespace LudoNewWorld.Classes
                 }
                 if (lastPressedBoat != null)
                 {
+                    playerCanMove = true;
                     var tileIndex = lastPressedBoat.CurrentTile;
                     if(!lastPressedBoat.active)
                     {
@@ -97,6 +112,7 @@ namespace LudoNewWorld.Classes
                 }
                 if (lastPressedBoat != null && lastPressedBoat.targetable)
                 {
+                    Debug.WriteLine("Inside if statement");
                     p1.MoveRowBoat();
                     GraphicHandler.highlighter.GameTileVector = new Vector2(2000, 2000);
                     playerRoundCompleted = true;
@@ -106,9 +122,17 @@ namespace LudoNewWorld.Classes
                     {
                         boat.targetable = false;
                     }
+                    playerCanMove = false;
                 }
             }
         }
+
+        /// <summary>
+        /// Takes in the latest mouse click coordinates in the form of a Vector2 value
+        /// <para>Check if any ship is on that position of the screen</para>
+        /// </summary>
+        /// <param name="clickCords">X/Y coordinates of the latest mouse click on the game screen</param>
+        /// <returns>Player.RowBoat object or null</returns>
         public Player.RowBoat CheckForShipsOnMousePressed(Vector2 clickCords)
         {
             if(gameActive)
@@ -144,6 +168,13 @@ namespace LudoNewWorld.Classes
             }
             return null;
         }
+
+        /// <summary>
+        /// Takes in the latest mouse click coordinates in the form of a Vector2 value
+        /// <para>Check if any game tile is on that position of the screen</para>
+        /// </summary>
+        /// <param name="clickCords">X/Y coordinates of the latest mouse click on the game screen </param>
+        /// <returns>GameTile object or null</returns>
         public GameTile CheckForTileOnMousePressed(Vector2 clickCords)
         {
             if (gameActive && playerCanMove)

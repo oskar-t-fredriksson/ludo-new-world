@@ -17,6 +17,7 @@ namespace LudoNewWorld.Classes
         public int rowBoatOut = 4;
 
         public static List<Player> playerList = new List<Player>();
+        public static List<Player.RowBoat> targetableRowBoats = new List<Player.RowBoat>();
         public List<RowBoat> rowBoats = new List<RowBoat>();
 
         public Player(Faction playerFaction, bool isHuman)
@@ -106,6 +107,13 @@ namespace LudoNewWorld.Classes
                 this.Vector = vector;
                 this.Faction = faction;
                 this.Id = id;
+                switch (faction)
+                {   
+                    case Faction.Britain: this.CurrentTile = -1; break;
+                    case Faction.Dutch: this.CurrentTile = 10; break;
+                    case Faction.Spain: this.CurrentTile = 21; break;
+                    case Faction.France: this.CurrentTile = 32; break;
+                }
             }
         }
         public void MoveRowBoat()
@@ -113,42 +121,47 @@ namespace LudoNewWorld.Classes
             var ship = GameEngine.lastPressedBoat;
             var tile = GameEngine.lastPressedGameTile;
             var tileIndex = GraphicHandler.orderedTiles.IndexOf(tile);
-
             var diceRoll = GameEngine.lastDiceRoll;
-            if (!ship.active)
-            {
 
-                if(ship.Faction == Faction.Britain)
+            Debug.WriteLine($"ship.CurrentTile: {ship.CurrentTile} \ntileIndex: {tileIndex}");
+            Debug.WriteLine($"ship.CurrentTile: {ship.CurrentTile} \ntileIndex: {tileIndex}");
+            Debug.WriteLine("Dice roll: " + diceRoll);
+            Debug.WriteLine($"tileIndex {tileIndex} - ship.CurrentTile {ship.CurrentTile} = {tileIndex - ship.CurrentTile}, should be {diceRoll}");
+
+            if (!ship.active) ship.active = true;
+
+            if(GameEngine.lastPressedGameTile == null || GameEngine.lastPressedGameTile.GameTileVector != tile.GameTileVector)
+            {
+                Debug.WriteLine("Pressed incorrect area/tile, DO NOTHING!");
+                foreach (var rowBoat in targetableRowBoats)
                 {
-                    ship.CurrentTile = 0;
-                    ship.active = true;
-                }
-                else if(ship.Faction == Faction.Dutch)
-                {
-                    ship.CurrentTile = 10;
-                    ship.active = true;
-                }
-                else if (ship.Faction == Faction.Spain)
-                {
-                    ship.CurrentTile = 21;
-                    ship.active = true;
-                }
-                else if (ship.Faction == Faction.France)
-                {
-                    ship.CurrentTile = 32;
-                    ship.active = true;
+                    rowBoat.targetable = true;
                 }
             }
-            if (ship.CurrentTile < tileIndex && tileIndex - ship.CurrentTile == diceRoll)
+            else
             {
-                float shipX = tile.GameTileVector.X - 10;
-                float shipY = tile.GameTileVector.Y - 25;
-                ship.Vector = new Vector2(shipX, shipY);
-                ship.CurrentTile += diceRoll;
-                GraphicHandler.orderedTiles[ship.CurrentTile].IsPlayerOnTile = false;
-                tile.IsPlayerOnTile = true;                
+                if (ship.CurrentTile < tileIndex && tileIndex - ship.CurrentTile == diceRoll)
+                {
+                    Debug.WriteLine("Inside if statement on MoveRowboat");
+                    float shipX = tile.GameTileVector.X - 10;
+                    float shipY = tile.GameTileVector.Y - 25;
+                    ship.Vector = new Vector2(shipX, shipY);
+                    ship.CurrentTile += diceRoll;
+                    GraphicHandler.orderedTiles[ship.CurrentTile].IsPlayerOnTile = false;
+                    tile.IsPlayerOnTile = true;
+                    targetableRowBoats.Clear();
+                }
             }
         }
+
+        /// <summary>
+        /// Return true or false if a ship can move or not on the board 
+        /// <para>Based the latest dice roll and what other ships are already placed in the way</para>
+        /// <para>A ship of the same faction in the way will return false and break</para>
+        /// </summary>
+        /// <param name="ship">Ship object</param>
+        /// <param name="dicenr"></param>
+        /// <returns>True or False</returns>
         public bool CheckIfMovable(Player.RowBoat ship, int dicenr)
         {
             if (GameEngine.gameActive)
@@ -165,12 +178,12 @@ namespace LudoNewWorld.Classes
                         {
                             if (ship.Id != targetShip.Id && i == targetShip.CurrentTile && ship.Faction == targetShip.Faction)
                             {
-                                Debug.WriteLine("Found own ship, cant move!");
+                                Debug.WriteLine(" Found own ship in the way, cant move!");
                                 return false;
                             }
                             else if (i == targetShip.CurrentTile && i + 1 == dicenr)
                             {
-                                Debug.WriteLine($" Found {targetShip.Faction} ship on last tile!");
+                                Debug.WriteLine($" Found {targetShip.Faction} ship on last tile!, Should destroy!");
                                 
                             }
                             else if (i == targetShip.CurrentTile)
@@ -181,11 +194,12 @@ namespace LudoNewWorld.Classes
                     }
                     else
                     {
-                        Debug.WriteLine($" Found zero ship!");
+                        Debug.WriteLine($" Found zero ship on tile!");
                     }                   
                 }               
             }
             ship.targetable = true;
+            if(targetableRowBoats.Count < 4) targetableRowBoats.Add(ship);
             return true;
         }       
     }
