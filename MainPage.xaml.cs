@@ -369,8 +369,8 @@ namespace LudoNewWorld
             {
                 await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    debugMenuText.Text =
-                    $"TargetableRowBoats count: {Player.targetableRowBoats.Count}\n" +
+                    debugMenuTextLeft.Text =
+                    $"\nPlayer 1 Faction : {gameEngine.p1.playerFaction}\n" +
                     $"Player 1 boats alive: {gameEngine.p1.rowBoats.Count}\n" +
                     $"-- Boat 1 current tile: {gameEngine.p1.rowBoats[0].CurrentTile}\n" +
                     $"-- Boat 2 current tile: {gameEngine.p1.rowBoats[1].CurrentTile}\n" +
@@ -387,28 +387,57 @@ namespace LudoNewWorld
                     $"-- Boat 3 targetable: {gameEngine.p1.rowBoats[2].targetable}\n" +
                     $"-- Boat 4 targetable: {gameEngine.p1.rowBoats[3].targetable}\n" +
 
-                    $"Player 2 boats alive: {gameEngine.p2.rowBoats.Count}\n" +
-                    $"-- Boat 1 current tile: {gameEngine.p2.rowBoats[0].CurrentTile}\n" +
-                    $"-- Boat 2 current tile: {gameEngine.p2.rowBoats[1].CurrentTile}\n" +
-                    $"-- Boat 3 current tile: {gameEngine.p2.rowBoats[2].CurrentTile}\n" +
-                    $"-- Boat 4 current tile: {gameEngine.p2.rowBoats[3].CurrentTile}\n" +
-
+                    $"\nPlayer 3 Faction : {gameEngine.p3.playerFaction}\n" +
                     $"Player 3 boats alive: {gameEngine.p3.rowBoats.Count}\n" +
                     $"-- Boat 1 current tile: {gameEngine.p3.rowBoats[0].CurrentTile}\n" +
                     $"-- Boat 2 current tile: {gameEngine.p3.rowBoats[1].CurrentTile}\n" +
                     $"-- Boat 3 current tile: {gameEngine.p3.rowBoats[2].CurrentTile}\n" +
                     $"-- Boat 4 current tile: {gameEngine.p3.rowBoats[3].CurrentTile}\n" +
 
+                    $"-- Boat 1 active: {gameEngine.p3.rowBoats[0].active}\n" +
+                    $"-- Boat 2 active: {gameEngine.p3.rowBoats[1].active}\n" +
+                    $"-- Boat 3 active: {gameEngine.p3.rowBoats[2].active}\n" +
+                    $"-- Boat 4 active: {gameEngine.p3.rowBoats[3].active}\n" +
+
+                    $"-- Boat 1 targetable: {gameEngine.p3.rowBoats[0].targetable}\n" +
+                    $"-- Boat 2 targetable: {gameEngine.p3.rowBoats[1].targetable}\n" +
+                    $"-- Boat 3 targetable: {gameEngine.p3.rowBoats[2].targetable}\n" +
+                    $"-- Boat 4 targetable: {gameEngine.p3.rowBoats[3].targetable}\n";
+
+                    debugMenuTextRight.Text =
+                    $"\nPlayer 2 Faction : {gameEngine.p2.playerFaction}\n" +
+                    $"Player 2 boats alive: {gameEngine.p2.rowBoats.Count}\n" +
+                    $"-- Boat 1 current tile: {gameEngine.p2.rowBoats[0].CurrentTile}\n" +
+                    $"-- Boat 2 current tile: {gameEngine.p2.rowBoats[1].CurrentTile}\n" +
+                    $"-- Boat 3 current tile: {gameEngine.p2.rowBoats[2].CurrentTile}\n" +
+                    $"-- Boat 4 current tile: {gameEngine.p2.rowBoats[3].CurrentTile}\n" +
+
+                    $"-- Boat 1 active: {gameEngine.p2.rowBoats[0].active}\n" +
+                    $"-- Boat 2 active: {gameEngine.p2.rowBoats[1].active}\n" +
+                    $"-- Boat 3 active: {gameEngine.p2.rowBoats[2].active}\n" +
+                    $"-- Boat 4 active: {gameEngine.p2.rowBoats[3].active}\n" +
+
+                    $"-- Boat 1 targetable: {gameEngine.p2.rowBoats[0].targetable}\n" +
+                    $"-- Boat 2 targetable: {gameEngine.p2.rowBoats[1].targetable}\n" +
+                    $"-- Boat 3 targetable: {gameEngine.p2.rowBoats[2].targetable}\n" +
+                    $"-- Boat 4 targetable: {gameEngine.p2.rowBoats[3].targetable}\n" +
+
+                    $"\nPlayer 4 Faction : {gameEngine.p4.playerFaction}\n" +
                     $"Player 4 boats alive: {gameEngine.p4.rowBoats.Count}\n" +
                     $"-- Boat 1 current tile: {gameEngine.p4.rowBoats[0].CurrentTile}\n" +
                     $"-- Boat 2 current tile: {gameEngine.p4.rowBoats[1].CurrentTile}\n" +
                     $"-- Boat 3 current tile: {gameEngine.p4.rowBoats[2].CurrentTile}\n" +
-                    $"-- Boat 4 current tile: {gameEngine.p4.rowBoats[2].CurrentTile}\n";
+                    $"-- Boat 4 current tile: {gameEngine.p4.rowBoats[2].CurrentTile}\n" +
 
+                    $"-- Boat 1 active: {gameEngine.p4.rowBoats[0].active}\n" +
+                    $"-- Boat 2 active: {gameEngine.p4.rowBoats[1].active}\n" +
+                    $"-- Boat 3 active: {gameEngine.p4.rowBoats[2].active}\n" +
+                    $"-- Boat 4 active: {gameEngine.p4.rowBoats[3].active}\n" +
 
-                    //$"Last pressed boat: {GameEngine.lastPressedBoat}\n" +
-                    //$"Last pressed tile: {GameEngine.lastPressedGameTile}\n";
-
+                    $"-- Boat 1 targetable: {gameEngine.p4.rowBoats[0].targetable}\n" +
+                    $"-- Boat 2 targetable: {gameEngine.p4.rowBoats[1].targetable}\n" +
+                    $"-- Boat 3 targetable: {gameEngine.p4.rowBoats[2].targetable}\n" +
+                    $"-- Boat 4 targetable: {gameEngine.p4.rowBoats[3].targetable}\n";
                 }).AsTask();
             }
         }
