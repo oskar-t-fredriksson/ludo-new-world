@@ -49,6 +49,7 @@ namespace LudoNewWorld
         public static int volumeLevel = 5;
         public static bool volumeMute = false;
         private static bool debugMenuActive = false;
+        private static int gameTickCounter = 0;
         public Vector3 scaleVector3Variable = new Vector3(DesignWidth, DesignHeight, 1);
 
         GameEngine gameEngine = new GameEngine();
@@ -102,10 +103,15 @@ namespace LudoNewWorld
         }
         private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
         {
-            gameEngine.NextRound();
-            if(debugMenuActive)
+            gameTickCounter++;
+            if(GameEngine.gameActive)
             {
-                SetDebugMenu();
+                gameEngine.NextRound();
+                if (debugMenuActive && gameTickCounter >= 60)
+                {
+                    SetDebugMenu();
+                    gameTickCounter = 0;
+                }
             }
         }
         private void GameCanvas_Loaded(object sender, RoutedEventArgs e) { }
@@ -264,11 +270,6 @@ namespace LudoNewWorld
             ExitMenuConfirm_Popup.IsOpen = true;
         }
 
-        private void btnMove_Click(object sender, RoutedEventArgs e)
-        {
-            gameEngine.p1.MoveRowBoat();
-        }
-
         private void BtnDebug_Click(object sender, RoutedEventArgs e)
         {
             if(!debugMenuActive)
@@ -342,11 +343,6 @@ namespace LudoNewWorld
         {
             ExitMenuConfirm_Popup.IsOpen = false;
             Popup2.IsOpen = true;
-        }
-
-        private void DebugMenu_KeyDown(object sender, KeyRoutedEventArgs e)
-        {
-
         }
 
         private void BtnMenuHelp_Click(object sender, RoutedEventArgs e)

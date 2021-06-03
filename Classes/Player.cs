@@ -112,83 +112,81 @@ namespace LudoNewWorld.Classes
         {
             var ship = GameEngine.lastPressedBoat;
             var tile = GameEngine.lastPressedGameTile;
-            ship.CurrentTile += GameEngine.lastDiceRoll;
-            //Debug.WriteLine(ship.CurrentTile);
+            var tileIndex = GraphicHandler.orderedTiles.IndexOf(tile);
 
-            float shipX = tile.GameTileVector.X - 10;
-            float shipY = tile.GameTileVector.Y - 25;
-            ship.Vector = new Vector2(shipX, shipY);
-            //Debug.WriteLine("Ship: " + ship + "Tile: " + tile);
+            var diceRoll = GameEngine.lastDiceRoll;
+            if (!ship.active)
+            {
+
+                if(ship.Faction == Faction.Britain)
+                {
+                    ship.CurrentTile = 0;
+                    ship.active = true;
+                }
+                else if(ship.Faction == Faction.Dutch)
+                {
+                    ship.CurrentTile = 10;
+                    ship.active = true;
+                }
+                else if (ship.Faction == Faction.Spain)
+                {
+                    ship.CurrentTile = 21;
+                    ship.active = true;
+                }
+                else if (ship.Faction == Faction.France)
+                {
+                    ship.CurrentTile = 32;
+                    ship.active = true;
+                }
+            }
+            if (ship.CurrentTile < tileIndex && tileIndex - ship.CurrentTile == diceRoll)
+            {
+                float shipX = tile.GameTileVector.X - 10;
+                float shipY = tile.GameTileVector.Y - 25;
+                ship.Vector = new Vector2(shipX, shipY);
+                ship.CurrentTile += diceRoll;
+                GraphicHandler.orderedTiles[ship.CurrentTile].IsPlayerOnTile = false;
+                tile.IsPlayerOnTile = true;                
+            }
         }
         public bool CheckIfMovable(Player.RowBoat ship, int dicenr)
         {
-            if(GameEngine.gameActive)
+            if (GameEngine.gameActive)
             {
-                // Test DATA
-                //GraphicHandler.orderedTiles[0].IsPlayerOnTile = true;
-                //GraphicHandler.orderedTiles[1].IsPlayerOnTile = true;
-                //GraphicHandler.orderedTiles[3].IsPlayerOnTile = true;
-                //targetPlayer.rowBoats[0].CurrentTile = 0;
-                //targetPlayer.rowBoats[1].CurrentTile = 3;
-                //targetPlayer.rowBoats[2].CurrentTile = 1;
+                Debug.WriteLine("=================================");
+                Debug.WriteLine($"Loop for ship {ship.Id} started: ");
+                for (int i = ship.CurrentTile + 1; i < ship.CurrentTile + dicenr + 1; i++)
+                {   
+                    Debug.Write("Tile: " + i);
 
-                switch (ship.Faction)
-                {
-                    case Faction.Britain:
-                        Debug.WriteLine("=================================");
-                        Debug.WriteLine($"Loop for ship {ship.Id} started: ");
-                        for (int i = ship.CurrentTile + 1; i < dicenr; i++)
+                    if (GraphicHandler.orderedTiles[i].IsPlayerOnTile)
+                    {
+                        foreach (var targetShip in GraphicHandler.rowBoatList)
                         {
-                            //ship.CurrentTile = GraphicHandler.orderedTiles.IndexOf(GraphicHandler.orderedTiles[i]);
-                            Debug.Write("Tile: " + i);
-
-                            if (GraphicHandler.orderedTiles[i].IsPlayerOnTile)
+                            if (ship.Id != targetShip.Id && i == targetShip.CurrentTile && ship.Faction == targetShip.Faction)
                             {
-                                foreach (var targetShip in GraphicHandler.rowBoatList)
-                                {
-                                    if (ship.Id != targetShip.Id && i == targetShip.CurrentTile && ship.Faction == targetShip.Faction)
-                                    {
-                                        //return false;
-                                    }
-                                    else if (i == targetShip.CurrentTile && i+1 == dicenr)
-                                    {
-                                        Debug.WriteLine($" Found {targetShip.Faction} ship on last tile!");
-                                        Vector2 highlightoffset = new Vector2(GraphicHandler.orderedTiles[i].GameTileVector.X - 12, GraphicHandler.orderedTiles[i].GameTileVector.Y - 12);
-                                        GraphicHandler.highlighter.GameTileVector = highlightoffset;
-                                    }
-                                    else if (i == targetShip.CurrentTile)
-                                    {
-                                        Debug.WriteLine($" Found {targetShip.Faction} ship!");
-                                    }
-
-                                }
+                                Debug.WriteLine("Found own ship, cant move!");
+                                return false;
                             }
-                            else if(i+1 == dicenr)
+                            else if (i == targetShip.CurrentTile && i + 1 == dicenr)
                             {
-                                Vector2 highlightoffset = new Vector2(GraphicHandler.orderedTiles[i].GameTileVector.X - 12, GraphicHandler.orderedTiles[i].GameTileVector.Y - 12);
-                                GraphicHandler.highlighter.GameTileVector = highlightoffset;
+                                Debug.WriteLine($" Found {targetShip.Faction} ship on last tile!");
+                                
                             }
-                            else
+                            else if (i == targetShip.CurrentTile)
                             {
-                                Debug.WriteLine($" Found zero ship!");
+                                Debug.WriteLine($" Found {targetShip.Faction} ship!");
                             }
                         }
-
-                        break;
-                    case Faction.Dutch:
-                        break;
-                    case Faction.Spain:
-                        break;
-                    case Faction.France:
-                        break;
-                    case Faction.FactionNull:
-                        break;
-                    default:
-                        break;
-                }
+                    }
+                    else
+                    {
+                        Debug.WriteLine($" Found zero ship!");
+                    }                   
+                }               
             }
             ship.targetable = true;
             return true;
-        }
+        }       
     }
 }
