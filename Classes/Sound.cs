@@ -13,7 +13,7 @@ namespace LudoNewWorld
     {
         static Windows.Storage.StorageFile RequestedMusic;
         static Windows.Storage.StorageFile requestedMusic;
-      
+
         public static async Task SoundPlay()
         {
             Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets\\Sounds");
@@ -25,14 +25,12 @@ namespace LudoNewWorld
             MainPage.mPlayer.Volume = MainPage.currentVolume;
             MainPage.mPlayer.IsLoopingEnabled = true;
             MainPage.mPlayer.Play();
-           
+
 
 
         }
         public static async Task CrediSound(bool play)
         {
-          
-            
             Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets\\Sounds");
             Windows.Storage.StorageFile music1 = await folder.GetFileAsync(@"SHEESH SOUND EFFECT.mp3");
             requestedMusic = music1;
@@ -42,7 +40,7 @@ namespace LudoNewWorld
             MainPage.mPlayerr.Source = MediaSource.CreateFromStorageFile(requestedMusic);
             MainPage.mPlayerr.Volume = MainPage.currentVolume;
             //MainPage.mPlayerr.IsLoopingEnabled = true;
-            if (play==false)
+            if (play == false)
             {
                 MainPage.mPlayerr.Source = null;
             }
@@ -51,8 +49,6 @@ namespace LudoNewWorld
                 MainPage.mPlayerr.Play();
 
             }
-
-
 
         }
         public static async Task DiceSound()
@@ -71,7 +67,7 @@ namespace LudoNewWorld
         public static async Task MoveBoat()
         {
             Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets\\Sounds");
-            Windows.Storage.StorageFile music1 = await folder.GetFileAsync(@"Rolling Dice - Sound Effect (HD).mp3");
+            Windows.Storage.StorageFile music1 = await folder.GetFileAsync(@"");
             requestedMusic = music1;
 
 
@@ -80,6 +76,49 @@ namespace LudoNewWorld
             MainPage.mPlayerr.Volume = MainPage.currentVolume;
             MainPage.mPlayerr.Play();
 
+        }
+        public static async Task PositiveSound(bool IsPlayerOnTile)
+        {
+            Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets\\Sounds");
+            Windows.Storage.StorageFile music1 = await folder.GetFileAsync(@"");
+            requestedMusic = music1;
+
+
+            MainPage.mPlayerr.AutoPlay = false;
+            MainPage.mPlayerr.Source = MediaSource.CreateFromStorageFile(requestedMusic);
+            MainPage.mPlayerr.Volume = MainPage.currentVolume;
+            //MainPage.mPlayerr.IsLoopingEnabled = true;
+            if (IsPlayerOnTile == false)
+            {
+                MainPage.mPlayerr.Source = null;
+            }
+            else
+            {
+                MainPage.mPlayerr.Play();
+
+            }
+
+        }
+        public static async Task NegativeSound(bool IsPlayerOnTile)
+        {
+            Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets\\Sounds");
+            Windows.Storage.StorageFile music1 = await folder.GetFileAsync(@"");
+            requestedMusic = music1;
+
+
+            MainPage.mPlayerr.AutoPlay = false;
+            MainPage.mPlayerr.Source = MediaSource.CreateFromStorageFile(requestedMusic);
+            MainPage.mPlayerr.Volume = MainPage.currentVolume;
+            //MainPage.mPlayerr.IsLoopingEnabled = true;
+            if (IsPlayerOnTile == false)
+            {
+                MainPage.mPlayerr.Source = null;
+            }
+            else
+            {
+                MainPage.mPlayerr.Play();
+
+            }
         }
     }
 }
