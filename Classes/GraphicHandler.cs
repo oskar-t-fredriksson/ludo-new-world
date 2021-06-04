@@ -24,18 +24,17 @@ namespace LudoNewWorld
         helpmenuBackground, instructionsBackground, creditsBackground, MoveableTile;
 
         // List GameTile
-        public static List<GameTile> gameTiles = new List<GameTile>();
         public static List<GameTile> orderedTiles = new List<GameTile>();
-        public static List<GameTile> britainGoalTiles = new List<GameTile>();
-        public static List<GameTile> dutchGoalTiles = new List<GameTile>();
-        public static List<GameTile> spainGoalTiles = new List<GameTile>();
-        public static List<GameTile> franceGoalTiles = new List<GameTile>();
-        public static List<List<GameTile>> allGoalTiles = new List<List<GameTile>>();
-        public static List<GameTile> britainBaseTiles = new List<GameTile>();
-        public static List<GameTile> dutchBaseTiles = new List<GameTile>();
-        public static List<GameTile> spainBaseTiles = new List<GameTile>();
-        public static List<GameTile> franceBaseTiles = new List<GameTile>();
-        public static List<List<GameTile>> allBaseTiles = new List<List<GameTile>>();
+        private static List<GameTile> britainGoalTiles = new List<GameTile>();
+        private static List<GameTile> dutchGoalTiles = new List<GameTile>();
+        private static List<GameTile> spainGoalTiles = new List<GameTile>();
+        private static List<GameTile> franceGoalTiles = new List<GameTile>();
+        private static List<List<GameTile>> allGoalTiles = new List<List<GameTile>>();
+        private static List<GameTile> britainBaseTiles = new List<GameTile>();
+        private static List<GameTile> dutchBaseTiles = new List<GameTile>();
+        private static List<GameTile> spainBaseTiles = new List<GameTile>();
+        private static List<GameTile> franceBaseTiles = new List<GameTile>();
+        private static List<List<GameTile>> allBaseTiles = new List<List<GameTile>>();
 
         //List Images
         static List<CanvasBitmap> diceBitmapList = new List<CanvasBitmap>();
@@ -221,128 +220,20 @@ namespace LudoNewWorld
                 foreach (var tile in orderedTiles)
                 {
                     tile.ScaledVector = Scaler.TileCords(tile.GameTileVector);
-                    if (tile.FactionType != Faction.FactionNull && tile.TileType == Tile.StartTile)
-                    {
-                        switch (tile.FactionType)
-                        {
-                            case Faction.Britain:
-                                args.DrawingSession.DrawImage(Scaler.Fit(BritainTile), Scaler.Cords(tile.GameTileVector));
-                                break;
-                            case Faction.Spain:
-                                args.DrawingSession.DrawImage(Scaler.Fit(SpainTile), Scaler.Cords(tile.GameTileVector));
-                                break;
-                            case Faction.Dutch:
-                                args.DrawingSession.DrawImage(Scaler.Fit(DutchTile), Scaler.Cords(tile.GameTileVector));
-                                break;
-                            case Faction.France:
-                                args.DrawingSession.DrawImage(Scaler.Fit(FranceTile), Scaler.Cords(tile.GameTileVector));
-                                break;
-                            default:
-                                args.DrawingSession.DrawImage(Scaler.Fit(NeutralTile), Scaler.Cords(tile.GameTileVector));
-                                break;
-                        }
-                    }
-                    else if (tile.FactionType != Faction.FactionNull && tile.TileType == Tile.NeutralTile)
-                    {
-                        switch (tile.FactionType)
-                        {
-                            case Faction.Britain:
-                                args.DrawingSession.DrawImage(Scaler.Fit(BritainGoalTile), Scaler.Cords(tile.GameTileVector));
-                                break;
-                            case Faction.Spain:
-                                args.DrawingSession.DrawImage(Scaler.Fit(SpainGoalTile), Scaler.Cords(tile.GameTileVector));
-                                break;
-                            case Faction.Dutch:
-                                args.DrawingSession.DrawImage(Scaler.Fit(DutchGoalTile), Scaler.Cords(tile.GameTileVector));
-                                break;
-                            case Faction.France:
-                                args.DrawingSession.DrawImage(Scaler.Fit(FranceGoalTile), Scaler.Cords(tile.GameTileVector));
-                                break;
-                            default:
-                                args.DrawingSession.DrawImage(Scaler.Fit(NeutralTile), Scaler.Cords(tile.GameTileVector));
-                                break;
-                        }
-                    }
-                    else if (tile.TileType == Tile.NegativeTile || tile.TileType == Tile.PositiveTile || tile.TileType == Tile.RandomTile)
-                    {
-                        switch (tile.TileType)
-                        {
-                            case Tile.NegativeTile:
-                                args.DrawingSession.DrawImage(Scaler.Fit(NegativeTile), Scaler.Cords(tile.GameTileVector));
-                                break;
-                            case Tile.PositiveTile:
-                                args.DrawingSession.DrawImage(Scaler.Fit(PositiveTile), Scaler.Cords(tile.GameTileVector));
-                                break;
-                            case Tile.RandomTile:
-                                args.DrawingSession.DrawImage(Scaler.Fit(RandomTile), Scaler.Cords(tile.GameTileVector));
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        args.DrawingSession.DrawImage(Scaler.Fit(NeutralTile), Scaler.Cords(tile.GameTileVector));
-                    }
+                    DrawPlayboardOutsideCircle(args, tile);
                 }
                 foreach (var list in allBaseTiles)
                 {
-                    foreach (var tile in list)
-                    {
-                        tile.ScaledVector = Scaler.TileCords(tile.GameTileVector);
-                        switch (tile.FactionType)
-                        {
-                            case Faction.Britain:
-                                args.DrawingSession.DrawImage(Scaler.Fit(BritainTile), Scaler.Cords(tile.GameTileVector));
-                                break;
-                            case Faction.Dutch:
-                                args.DrawingSession.DrawImage(Scaler.Fit(DutchTile), Scaler.Cords(tile.GameTileVector));
-                                break;
-                            case Faction.Spain:
-                                args.DrawingSession.DrawImage(Scaler.Fit(SpainTile), Scaler.Cords(tile.GameTileVector));
-                                break;
-                            case Faction.France:
-                                args.DrawingSession.DrawImage(Scaler.Fit(FranceTile), Scaler.Cords(tile.GameTileVector));
-                                break;
-                            case Faction.FactionNull:
-                                break;
-                            default:
-                                break;
-                        }
-                    }
+                    DrawBaseTiles(args, list);
                 }
 
                 foreach (var list in allGoalTiles)
-                {                    
-                    foreach (var tile in list)
-                    {
-                        tile.ScaledVector = Scaler.TileCords(tile.GameTileVector);
-                        switch (tile.FactionType)
-                        {
-                            case Faction.Britain:
-                                args.DrawingSession.DrawImage(Scaler.Fit(BritainTile), Scaler.Cords(tile.GameTileVector));
-                                break;
-                            case Faction.Dutch:
-                                args.DrawingSession.DrawImage(Scaler.Fit(DutchTile), Scaler.Cords(tile.GameTileVector));
-                                break;
-                            case Faction.Spain:
-                                args.DrawingSession.DrawImage(Scaler.Fit(SpainTile), Scaler.Cords(tile.GameTileVector));
-                                break;
-                            case Faction.France:
-                                args.DrawingSession.DrawImage(Scaler.Fit(FranceTile), Scaler.Cords(tile.GameTileVector));
-                                break;
-                            case Faction.FactionNull:
-                                break;
-                            default:
-                                break;
-                        }
-                    }                    
+                {
+                    DrawGoalTiles(args, list);
                 }
+                
                 // Draw 4 x dice on the map
-                args.DrawingSession.DrawImage(Scaler.Fit(britishDisplayDice), Scaler.Cords(new Vector2(362, 184)));
-                args.DrawingSession.DrawImage(Scaler.Fit(dutchDisplayDice), Scaler.Cords(new Vector2(1552, 184)));
-                args.DrawingSession.DrawImage(Scaler.Fit(spainDisplayDice), Scaler.Cords(new Vector2(1552, 885)));
-                args.DrawingSession.DrawImage(Scaler.Fit(franceDisplayDice), Scaler.Cords(new Vector2(362, 885)));
+                DrawDices(args);
 
                 // Draw all ship objects created by the GameEngine
                 foreach (var ship in rowBoatList)
@@ -351,68 +242,185 @@ namespace LudoNewWorld
                     switch (ship.Faction)
                     {
                         case Faction.Britain:
-                            if (ship.targetable)
-                            {
-                                args.DrawingSession.DrawImage(Scaler.Fit(BritainSmallShipActive), Scaler.Cords(ship.Vector));
-                            }
-                            else if(ship.pressedByMouse)
-                            {
-                                args.DrawingSession.DrawImage(Scaler.Fit(BritainSmallShipTarget), Scaler.Cords(ship.Vector));
-                            }
-                            else
-                            {
-                                args.DrawingSession.DrawImage(Scaler.Fit(BritainSmallShip), Scaler.Cords(ship.Vector));
-                            } break;
+                            DrawShipStates(args, ship, BritainSmallShipActive, BritainSmallShipTarget, BritainSmallShip); break;
                         case Faction.Dutch:
-                            if (ship.targetable)
-                            {
-                                args.DrawingSession.DrawImage(Scaler.Fit(DutchSmallShipActive), Scaler.Cords(ship.Vector));
-                            }
-                            else if (ship.pressedByMouse)
-                            {
-                                args.DrawingSession.DrawImage(Scaler.Fit(DutchSmallShipTarget), Scaler.Cords(ship.Vector));
-                            }
-                            else
-                            {
-                                args.DrawingSession.DrawImage(Scaler.Fit(DutchSmallShip), Scaler.Cords(ship.Vector));
-                            }
-                            break;
+                            DrawShipStates(args, ship, DutchSmallShipActive, DutchSmallShipTarget, DutchSmallShip); break;
                         case Faction.Spain:
-                            if (ship.targetable)
-                            {
-                                args.DrawingSession.DrawImage(Scaler.Fit(SpainSmallShipActive), Scaler.Cords(ship.Vector));
-                            }
-                            else if (ship.pressedByMouse)
-                            {
-                                args.DrawingSession.DrawImage(Scaler.Fit(SpainSmallShipTarget), Scaler.Cords(ship.Vector));
-                            }
-                            else
-                            {
-                                args.DrawingSession.DrawImage(Scaler.Fit(SpainSmallShip), Scaler.Cords(ship.Vector));
-                            }
-                            break;
+                            DrawShipStates(args, ship, SpainSmallShipActive, SpainSmallShipTarget, SpainSmallShip); break;
                         case Faction.France:
-                            if (ship.targetable)
-                            {
-                                args.DrawingSession.DrawImage(Scaler.Fit(FranceSmallShipActive), Scaler.Cords(ship.Vector));
-                            }
-                            else if (ship.pressedByMouse)
-                            {
-                                args.DrawingSession.DrawImage(Scaler.Fit(FranceSmallShipTarget), Scaler.Cords(ship.Vector));
-                            }
-                            else
-                            {
-                                args.DrawingSession.DrawImage(Scaler.Fit(FranceSmallShip), Scaler.Cords(ship.Vector));
-                            }
-                            break;
-                        case Faction.FactionNull:
-                            break;
-                        default:
-                            break;
+                            DrawShipStates(args, ship, FranceSmallShipActive, FranceSmallShipTarget, FranceSmallShip); break;
                     }
                 }
             }
-        }        
+        }
+
+        /// <summary>
+        /// Draws the different states of the ship
+        /// </summary>
+        /// <param name="args"></param>
+        /// <param name="ship"></param>
+        /// <param name="shipActive">The version of the ship when clickable</param>
+        /// <param name="shipTarget">The version of the ship when user press a specific ship</param>
+        /// <param name="shipSmallShip">Standard version of the ship</param>
+        private static void DrawShipStates(CanvasAnimatedDrawEventArgs args, Player.RowBoat ship, CanvasBitmap shipActive, CanvasBitmap shipTarget, CanvasBitmap shipSmallShip)
+        {
+            if (ship.targetable)
+            {
+                args.DrawingSession.DrawImage(Scaler.Fit(shipActive), Scaler.Cords(ship.Vector));
+            }
+            else if (ship.pressedByMouse)
+            {
+                args.DrawingSession.DrawImage(Scaler.Fit(shipTarget), Scaler.Cords(ship.Vector));
+            }
+            else
+            {
+                args.DrawingSession.DrawImage(Scaler.Fit(shipSmallShip), Scaler.Cords(ship.Vector));
+            }
+        }
+
+        private static void DrawDices(CanvasAnimatedDrawEventArgs args)
+        {
+            args.DrawingSession.DrawImage(Scaler.Fit(britishDisplayDice), Scaler.Cords(new Vector2(362, 184)));
+            args.DrawingSession.DrawImage(Scaler.Fit(dutchDisplayDice), Scaler.Cords(new Vector2(1552, 184)));
+            args.DrawingSession.DrawImage(Scaler.Fit(spainDisplayDice), Scaler.Cords(new Vector2(1552, 885)));
+            args.DrawingSession.DrawImage(Scaler.Fit(franceDisplayDice), Scaler.Cords(new Vector2(362, 885)));
+        }
+
+        /// <summary>
+        /// Draws the 4 last tiles before finish
+        /// </summary>
+        /// <param name="args"></param>
+        /// <param name="list"></param>
+        private static void DrawGoalTiles(CanvasAnimatedDrawEventArgs args, List<GameTile> list)
+        {
+            foreach (var tile in list)
+            {
+                tile.ScaledVector = Scaler.TileCords(tile.GameTileVector);
+                switch (tile.FactionType)
+                {
+                    case Faction.Britain:
+                        args.DrawingSession.DrawImage(Scaler.Fit(BritainTile), Scaler.Cords(tile.GameTileVector));
+                        break;
+                    case Faction.Dutch:
+                        args.DrawingSession.DrawImage(Scaler.Fit(DutchTile), Scaler.Cords(tile.GameTileVector));
+                        break;
+                    case Faction.Spain:
+                        args.DrawingSession.DrawImage(Scaler.Fit(SpainTile), Scaler.Cords(tile.GameTileVector));
+                        break;
+                    case Faction.France:
+                        args.DrawingSession.DrawImage(Scaler.Fit(FranceTile), Scaler.Cords(tile.GameTileVector));
+                        break;
+                    case Faction.FactionNull:
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Draws all base tiles where each player Rowboat nest
+        /// </summary>
+        /// <param name="args"></param>
+        /// <param name="list"></param>
+        private static void DrawBaseTiles(CanvasAnimatedDrawEventArgs args, List<GameTile> list)
+        {
+            foreach (var tile in list)
+            {
+                tile.ScaledVector = Scaler.TileCords(tile.GameTileVector);
+                switch (tile.FactionType)
+                {
+                    case Faction.Britain:
+                        args.DrawingSession.DrawImage(Scaler.Fit(BritainTile), Scaler.Cords(tile.GameTileVector));
+                        break;
+                    case Faction.Dutch:
+                        args.DrawingSession.DrawImage(Scaler.Fit(DutchTile), Scaler.Cords(tile.GameTileVector));
+                        break;
+                    case Faction.Spain:
+                        args.DrawingSession.DrawImage(Scaler.Fit(SpainTile), Scaler.Cords(tile.GameTileVector));
+                        break;
+                    case Faction.France:
+                        args.DrawingSession.DrawImage(Scaler.Fit(FranceTile), Scaler.Cords(tile.GameTileVector));
+                        break;
+                    case Faction.FactionNull:
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Draws all the game tiles to form the circle around the goal tiles
+        /// </summary>
+        /// <param name="args"></param>
+        /// <param name="tile"></param>
+        private static void DrawPlayboardOutsideCircle(CanvasAnimatedDrawEventArgs args, GameTile tile)
+        {
+            if (tile.FactionType != Faction.FactionNull && tile.TileType == Tile.StartTile)
+            {
+                switch (tile.FactionType)
+                {
+                    case Faction.Britain:
+                        args.DrawingSession.DrawImage(Scaler.Fit(BritainTile), Scaler.Cords(tile.GameTileVector));
+                        break;
+                    case Faction.Spain:
+                        args.DrawingSession.DrawImage(Scaler.Fit(SpainTile), Scaler.Cords(tile.GameTileVector));
+                        break;
+                    case Faction.Dutch:
+                        args.DrawingSession.DrawImage(Scaler.Fit(DutchTile), Scaler.Cords(tile.GameTileVector));
+                        break;
+                    case Faction.France:
+                        args.DrawingSession.DrawImage(Scaler.Fit(FranceTile), Scaler.Cords(tile.GameTileVector));
+                        break;
+                    default:
+                        args.DrawingSession.DrawImage(Scaler.Fit(NeutralTile), Scaler.Cords(tile.GameTileVector));
+                        break;
+                }
+            }
+            else if (tile.FactionType != Faction.FactionNull && tile.TileType == Tile.NeutralTile)
+            {
+                switch (tile.FactionType)
+                {
+                    case Faction.Britain:
+                        args.DrawingSession.DrawImage(Scaler.Fit(BritainGoalTile), Scaler.Cords(tile.GameTileVector));
+                        break;
+                    case Faction.Spain:
+                        args.DrawingSession.DrawImage(Scaler.Fit(SpainGoalTile), Scaler.Cords(tile.GameTileVector));
+                        break;
+                    case Faction.Dutch:
+                        args.DrawingSession.DrawImage(Scaler.Fit(DutchGoalTile), Scaler.Cords(tile.GameTileVector));
+                        break;
+                    case Faction.France:
+                        args.DrawingSession.DrawImage(Scaler.Fit(FranceGoalTile), Scaler.Cords(tile.GameTileVector));
+                        break;
+                    default:
+                        args.DrawingSession.DrawImage(Scaler.Fit(NeutralTile), Scaler.Cords(tile.GameTileVector));
+                        break;
+                }
+            }
+            else if (tile.TileType == Tile.NegativeTile || tile.TileType == Tile.PositiveTile || tile.TileType == Tile.RandomTile)
+            {
+                switch (tile.TileType)
+                {
+                    case Tile.NegativeTile:
+                        args.DrawingSession.DrawImage(Scaler.Fit(NegativeTile), Scaler.Cords(tile.GameTileVector));
+                        break;
+                    case Tile.PositiveTile:
+                        args.DrawingSession.DrawImage(Scaler.Fit(PositiveTile), Scaler.Cords(tile.GameTileVector));
+                        break;
+                    case Tile.RandomTile:
+                        args.DrawingSession.DrawImage(Scaler.Fit(RandomTile), Scaler.Cords(tile.GameTileVector));
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                args.DrawingSession.DrawImage(Scaler.Fit(NeutralTile), Scaler.Cords(tile.GameTileVector));
+            }
+        }
 
         /// <summary>
         /// Adds all tile objects in correct order to List<GameTiles> orderTiles
