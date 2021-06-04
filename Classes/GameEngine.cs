@@ -130,7 +130,12 @@ namespace LudoNewWorld.Classes
                         Debug.WriteLine("Right tile was clicked, calling to move tile");
                         moveConfirmed = true;
                     }
-                    if(moveConfirmed)
+                    else if ((lastPressedBoat.CurrentTile - 43 + lastDiceRoll - 1) == lastDiceRoll - 1)
+                    {
+                        Debug.WriteLine("Right tile was clicked, calling to move tile");
+                        moveConfirmed = true;
+                    }
+                    if (moveConfirmed)
                     {
                         p1.MoveRowBoat();
                         GraphicHandler.highlighter.GameTileVector = new Vector2(2000, 2000);

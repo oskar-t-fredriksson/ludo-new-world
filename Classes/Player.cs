@@ -139,7 +139,15 @@ namespace LudoNewWorld.Classes
                 float shipX = tile.GameTileVector.X - 10;
                 float shipY = tile.GameTileVector.Y - 25;
                 ship.Vector = new Vector2(shipX, shipY);
-                ship.CurrentTile += diceRoll;
+                if (ship.CurrentTile + diceRoll > 43)
+                {
+                    ship.CurrentTile = ship.CurrentTile - 43 + diceRoll - 1;
+                }
+                else
+                {
+                    ship.CurrentTile += diceRoll;
+                }
+                
                 GraphicHandler.orderedTiles[ship.CurrentTile].IsPlayerOnTile = false;
                 tile.IsPlayerOnTile = true;
                 GameEngine.moveConfirmed = false;
