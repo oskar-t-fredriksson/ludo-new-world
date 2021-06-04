@@ -96,17 +96,17 @@ namespace LudoNewWorld.Classes
                 {
                     playerCanMove = true;
                     var tileIndex = lastPressedBoat.CurrentTile;
-                    if (!lastPressedBoat.active)
-                    {
-                        switch (lastPressedBoat.Faction)
-                        {
-                            case Faction.Britain: break;
-                            case Faction.Dutch: tileIndex = 10; break;
-                            case Faction.Spain: tileIndex = 21; break;
-                            case Faction.France: tileIndex = 32; break;
-                            default: break;
-                        }
-                    }
+                    //if (!lastPressedBoat.active)
+                    //{
+                    //    switch (lastPressedBoat.Faction)
+                    //    {
+                    //        case Faction.Britain: break;
+                    //        case Faction.Dutch: tileIndex = 10; break;
+                    //        case Faction.Spain: tileIndex = 21; break;
+                    //        case Faction.France: tileIndex = 32; break;
+                    //        default: break;
+                    //    }
+                    //}
                     if (lastPressedBoat.CurrentTile + lastDiceRoll > 43)
                     {
                         Debug.WriteLine("summan > 43: " + (tileIndex - 43 + lastDiceRoll - 1));
@@ -130,9 +130,10 @@ namespace LudoNewWorld.Classes
                         Debug.WriteLine("Right tile was clicked, calling to move tile");
                         moveConfirmed = true;
                     }
-                    else if ((lastPressedBoat.CurrentTile - 43 + lastDiceRoll - 1) == lastDiceRoll - 1)
+                    else if ((lastPressedBoat.CurrentTile + lastDiceRoll - 1) >= 43)
                     {
                         Debug.WriteLine("Right tile was clicked, calling to move tile");
+                        Debug.WriteLine("Test else if moveConfirmed");
                         moveConfirmed = true;
                     }
                     if (moveConfirmed)

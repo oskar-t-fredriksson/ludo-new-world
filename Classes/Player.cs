@@ -201,6 +201,7 @@ namespace LudoNewWorld.Classes
                     }
                     else
                     {
+                        i = -1;
                         shipTile = shipTile - 43 + dicenr - 1;
                     }
                               
