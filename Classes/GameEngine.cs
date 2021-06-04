@@ -96,18 +96,29 @@ namespace LudoNewWorld.Classes
                 {
                     playerCanMove = true;
                     var tileIndex = lastPressedBoat.CurrentTile;
-                    if (!lastPressedBoat.active)
+                    //if (!lastPressedBoat.active)
+                    //{
+                    //    switch (lastPressedBoat.Faction)
+                    //    {
+                    //        case Faction.Britain: break;
+                    //        case Faction.Dutch: tileIndex = 10; break;
+                    //        case Faction.Spain: tileIndex = 21; break;
+                    //        case Faction.France: tileIndex = 32; break;
+                    //        default: break;
+                    //    }
+                    //}
+                    if (lastPressedBoat.CurrentTile + lastDiceRoll > 43)
                     {
-                        switch (lastPressedBoat.Faction)
-                        {
-                            case Faction.Britain: break;
-                            case Faction.Dutch: tileIndex = 10; break;
-                            case Faction.Spain: tileIndex = 21; break;
-                            case Faction.France: tileIndex = 32; break;
-                            default: break;
-                        }
+                        Debug.WriteLine("summan > 43: " + (tileIndex - 43 + lastDiceRoll - 1));
+                        tileIndex = tileIndex - 43 + lastDiceRoll - 1;
+                        Debug.WriteLine("GameEngine tileIndex var: " + tileIndex);
                     }
-                    tileIndex += lastDiceRoll;
+                    else
+                    {
+                        Debug.WriteLine("summan < 43: " + (tileIndex - 43 + lastDiceRoll - 1));
+                        tileIndex += lastDiceRoll;
+                        Debug.WriteLine("GameEngine tileIndex var: " + tileIndex);
+                    }
                     Vector2 highlightoffset = new Vector2(GraphicHandler.orderedTiles[tileIndex].GameTileVector.X - 12, GraphicHandler.orderedTiles[tileIndex].GameTileVector.Y - 12);
                     GraphicHandler.highlighter.GameTileVector = highlightoffset;
                 }
@@ -119,7 +130,13 @@ namespace LudoNewWorld.Classes
                         Debug.WriteLine("Right tile was clicked, calling to move tile");
                         moveConfirmed = true;
                     }
-                    if(moveConfirmed)
+                    else if ((lastPressedBoat.CurrentTile + lastDiceRoll - 1) >= 43)
+                    {
+                        Debug.WriteLine("Right tile was clicked, calling to move tile");
+                        Debug.WriteLine("Test else if moveConfirmed");
+                        moveConfirmed = true;
+                    }
+                    if (moveConfirmed)
                     {
                         p1.MoveRowBoat();
                         GraphicHandler.highlighter.GameTileVector = new Vector2(2000, 2000);

@@ -136,16 +136,21 @@ namespace LudoNewWorld.Classes
             }
             else
             {
-                if (ship.CurrentTile < tileIndex && tileIndex - ship.CurrentTile == diceRoll)
+                float shipX = tile.GameTileVector.X - 10;
+                float shipY = tile.GameTileVector.Y - 25;
+                ship.Vector = new Vector2(shipX, shipY);
+                if (ship.CurrentTile + diceRoll > 43)
                 {
-                    float shipX = tile.GameTileVector.X - 10;
-                    float shipY = tile.GameTileVector.Y - 25;
-                    ship.Vector = new Vector2(shipX, shipY);
-                    ship.CurrentTile += diceRoll;
-                    GraphicHandler.orderedTiles[ship.CurrentTile].IsPlayerOnTile = false;
-                    tile.IsPlayerOnTile = true;
-                    GameEngine.moveConfirmed = false;
+                    ship.CurrentTile = ship.CurrentTile - 43 + diceRoll - 1;
                 }
+                else
+                {
+                    ship.CurrentTile += diceRoll;
+                }
+                
+                GraphicHandler.orderedTiles[ship.CurrentTile].IsPlayerOnTile = false;
+                tile.IsPlayerOnTile = true;
+                GameEngine.moveConfirmed = false;
             }
         }
 
@@ -161,36 +166,45 @@ namespace LudoNewWorld.Classes
         {
             if (GameEngine.gameActive)
             {
+                var shipTile = ship.CurrentTile;
                 Debug.WriteLine("=================================");
                 Debug.WriteLine($"Loop for ship {ship.Id} started: ");
-                for (int i = ship.CurrentTile + 1; i < ship.CurrentTile + dicenr + 1; i++)
+                for (int i = shipTile + 1; i < shipTile + dicenr + 1; i++)
                 {   
                     Debug.Write("Tile: " + i);
-
-                    if (GraphicHandler.orderedTiles[i].IsPlayerOnTile)
+                    if (i <= 43)
                     {
-                        foreach (var targetShip in GraphicHandler.rowBoatList)
+                        if (GraphicHandler.orderedTiles[i].IsPlayerOnTile)
                         {
-                            if (ship.Id != targetShip.Id && i == targetShip.CurrentTile && ship.Faction == targetShip.Faction)
+                            foreach (var targetShip in GraphicHandler.rowBoatList)
                             {
-                                Debug.WriteLine(" Found own ship in the way, cant move!");
-                                return false;
+                                if (ship.Id != targetShip.Id && i == targetShip.CurrentTile && ship.Faction == targetShip.Faction)
+                                {
+                                    Debug.WriteLine(" Found own ship in the way, cant move!");
+                                    return false;
+                                }
+                                else if (i == targetShip.CurrentTile && i + 1 == dicenr)
+                                {
+                                    Debug.WriteLine($" Found {targetShip.Faction} ship on last tile!, Should destroy!");
+
+                                }
+                                else if (i == targetShip.CurrentTile)
+                                {
+                                    Debug.WriteLine($" Found {targetShip.Faction} ship!");
+                                }
                             }
-                            else if (i == targetShip.CurrentTile && i + 1 == dicenr)
-                            {
-                                Debug.WriteLine($" Found {targetShip.Faction} ship on last tile!, Should destroy!");
-                                
-                            }
-                            else if (i == targetShip.CurrentTile)
-                            {
-                                Debug.WriteLine($" Found {targetShip.Faction} ship!");
-                            }
+                        }
+                        else
+                        {
+                            Debug.WriteLine($" Found zero ship on tile!");
                         }
                     }
                     else
                     {
-                        Debug.WriteLine($" Found zero ship on tile!");
-                    }                   
+                        i = -1;
+                        shipTile = shipTile - 43 + dicenr - 1;
+                    }
+                              
                 }               
             }
             ship.targetable = true;
