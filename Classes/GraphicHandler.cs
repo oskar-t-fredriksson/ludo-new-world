@@ -48,6 +48,11 @@ namespace LudoNewWorld
         private readonly Random _random = new Random();
         public static GameTile highlighter = new GameTile(Tile.HighlightTile, new Vector2(2000, 2000));
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="playerID"></param>
+        /// <returns></returns>
         public static int scrambleDice(int playerID)
         {
             
@@ -122,13 +127,16 @@ namespace LudoNewWorld
             return trueNumber;
         }
 
+        /// <summary>
+        /// Adds all tile objects to appointed lists
+        /// </summary>
         public static void LoadResources()
         {
             AddBoardTilesOrdered();
-            BritainEndTilesToList();
-            DutchEndTilesToList();
-            SpainEndTilesToList();
-            FranceEndTilesToList();
+            BritainGoalTilesToList();
+            DutchGoalTilesToList();
+            SpainGoalTilesToList();
+            FranceGoalTilesToList();
             BritainBaseTilesToList();
             DutchBaseTilesToList();
             SpainBaseTilesToList();
@@ -406,6 +414,9 @@ namespace LudoNewWorld
             }
         }        
 
+        /// <summary>
+        /// Adds all tile objects in correct order to List<GameTiles> orderTiles
+        /// </summary>
         private static void AddBoardTilesOrdered()
         {
             //Neutral Tile Britain side
@@ -468,7 +479,10 @@ namespace LudoNewWorld
             //Britain last tile 
             orderedTiles.Add(new GameTile(Tile.NeutralTile, Faction.Britain, new Vector2(340, 540)));
         }
-        private static void BritainEndTilesToList()
+        /// <summary>
+        /// Adds all goal tiles to respective faction goal tile list
+        /// </summary>
+        private static void BritainGoalTilesToList()
         {
             britainGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Britain, new Vector2(420, 540)));
             britainGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Britain, new Vector2(500, 540)));
@@ -476,7 +490,7 @@ namespace LudoNewWorld
             britainGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Britain, new Vector2(660, 540)));
             allGoalTiles.Add(britainGoalTiles);
         }
-        private static void DutchEndTilesToList()
+        private static void DutchGoalTilesToList()
         {
             dutchGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Dutch, new Vector2(960, 150)));
             dutchGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Dutch, new Vector2(960, 230)));
@@ -484,7 +498,7 @@ namespace LudoNewWorld
             dutchGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Dutch, new Vector2(960, 390)));
             allGoalTiles.Add(dutchGoalTiles);
         }
-        private static void SpainEndTilesToList()
+        private static void SpainGoalTilesToList()
         {
             spainGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Spain, new Vector2(1500, 540)));
             spainGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Spain, new Vector2(1420, 540)));
@@ -492,7 +506,7 @@ namespace LudoNewWorld
             spainGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Spain, new Vector2(1260, 540)));
             allGoalTiles.Add(spainGoalTiles);
         }
-        private static void FranceEndTilesToList()
+        private static void FranceGoalTilesToList()
         {
             franceGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.France, new Vector2(960, 930)));
             franceGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.France, new Vector2(960, 850)));
@@ -500,6 +514,9 @@ namespace LudoNewWorld
             franceGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.France, new Vector2(960, 690)));
             allGoalTiles.Add(franceGoalTiles);
         }
+        /// <summary>
+        /// Adds all base tiles to respective faction base tile list
+        /// </summary>
         private static void BritainBaseTilesToList()
         {
             britainBaseTiles.Add(new GameTile(Tile.BaseTile, Faction.Britain, new Vector2(190, 150)));

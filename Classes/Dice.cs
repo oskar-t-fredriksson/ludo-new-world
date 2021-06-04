@@ -14,6 +14,11 @@ namespace LudoNewWorld
     public class Dice
     {
         private readonly Random _random = new Random();
+
+        /// <summary>
+        /// Generates random number for dice roll between 1-6
+        /// </summary>
+        /// <returns></returns>
         public int Roll() => _random.Next(1, 7);
     }
 }

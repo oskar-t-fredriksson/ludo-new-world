@@ -20,12 +20,23 @@ namespace LudoNewWorld
         public bool IsPlayerOnTile = false;
         public bool moveable = false;
 
+        /// <summary>
+        /// Used when creating tile connected to faction
+        /// </summary>
+        /// <param name="tileType"></param>
+        /// <param name="factionType"></param>
+        /// <param name="gameTileVector"></param>
         public GameTile(Tile tileType, Faction factionType, Vector2 gameTileVector)
         {
             TileType = tileType;
             FactionType = factionType;
             GameTileVector = gameTileVector;
         }
+        /// <summary>
+        /// Used when creating tile with no faction connection
+        /// </summary>
+        /// <param name="tileType"></param>
+        /// <param name="gameTileVector"></param>
         public GameTile(Tile tileType, Vector2 gameTileVector)
         {
             TileType = tileType;

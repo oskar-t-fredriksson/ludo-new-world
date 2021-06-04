@@ -45,8 +45,7 @@ namespace LudoNewWorld.Classes
             Player.playerList.Add(p1 = new Player(faction, true));
             Player.playerList.Add(p2 = new Player(factionList[0], false));
             Player.playerList.Add(p3 = new Player(factionList[1], false));
-            Player.playerList.Add(p4 = new Player(factionList[2], false));
-            
+            Player.playerList.Add(p4 = new Player(factionList[2], false));            
         }
 
         /// <summary>
@@ -97,17 +96,6 @@ namespace LudoNewWorld.Classes
                 {
                     playerCanMove = true;
                     var tileIndex = lastPressedBoat.CurrentTile;
-                    //if (!lastPressedBoat.active)
-                    //{
-                    //    switch (lastPressedBoat.Faction)
-                    //    {
-                    //        case Faction.Britain: break;
-                    //        case Faction.Dutch: tileIndex = 10; break;
-                    //        case Faction.Spain: tileIndex = 21; break;
-                    //        case Faction.France: tileIndex = 32; break;
-                    //        default: break;
-                    //    }
-                    //}
                     if (lastPressedBoat.CurrentTile + lastDiceRoll > 43)
                     {
                         Debug.WriteLine("summan > 43: " + (tileIndex - 43 + lastDiceRoll - 1));
@@ -225,7 +213,6 @@ namespace LudoNewWorld.Classes
                 }
             }
             return null;
-        }
-       
+        }       
     }
 }

@@ -116,11 +116,13 @@ namespace LudoNewWorld.Classes
                 }
             }
         }
+        /// <summary>
+        /// Move lastPressedBoat and updates lastPressBoat.CurrentTile value
+        /// </summary>
         public void MoveRowBoat()
         {
             var ship = GameEngine.lastPressedBoat;
             var tile = GameEngine.lastPressedGameTile;
-            var tileIndex = GraphicHandler.orderedTiles.IndexOf(tile);
             var diceRoll = GameEngine.lastDiceRoll;
 
             if (!ship.active) ship.active = true;

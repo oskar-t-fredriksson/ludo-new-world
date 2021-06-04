@@ -10,6 +10,9 @@ namespace LudoNewWorld
 {
     class GameStateManager
     {
+        /// <summary>
+        /// Changes background view depending on the current game state
+        /// </summary>
         public static void BackgroundManager()
         {
             if (MainPage.gameState == 0)
@@ -22,17 +25,18 @@ namespace LudoNewWorld
             }
             else if (MainPage.gameState == 2)
             {
-                Player.playerList.Clear();
-                Debug.WriteLine("listan raderades");
-                Debug.WriteLine(Player.playerList.Count);
-                GameEngine.factionList.Clear();
-                Debug.WriteLine(GameEngine.factionList.Count);
-                GraphicHandler.rowBoatList.Clear();
-                Debug.WriteLine($"listan raderades och det finns {GraphicHandler.rowBoatList.Count}");
-                MainPage.gameState = 0;
-                
-
+                ResetGame();
             }
+        }
+        /// <summary>
+        /// Clears all objects on the board
+        /// </summary>
+        private static void ResetGame()
+        {
+            Player.playerList.Clear();
+            GameEngine.factionList.Clear();
+            GraphicHandler.rowBoatList.Clear();
+            MainPage.gameState = 0;
         }
     }
 }
