@@ -98,23 +98,19 @@ namespace LudoNewWorld.Classes
                     var tileIndex = lastPressedBoat.CurrentTile;
                     if (lastPressedBoat.CurrentTile + lastDiceRoll > 43)
                     {
-                        Debug.WriteLine("summan > 43: " + (tileIndex - 43 + lastDiceRoll - 1));
                         tileIndex = tileIndex - 43 + lastDiceRoll - 1;
-                        Debug.WriteLine("GameEngine tileIndex var: " + tileIndex);
                     }
                     else
                     {
-                        Debug.WriteLine("summan < 43: " + (tileIndex - 43 + lastDiceRoll - 1));
                         tileIndex += lastDiceRoll;
-                        Debug.WriteLine("GameEngine tileIndex var: " + tileIndex);
                     }
-                    Vector2 highlightoffset = new Vector2(GraphicHandler.orderedTiles[tileIndex].GameTileVector.X - 12, GraphicHandler.orderedTiles[tileIndex].GameTileVector.Y - 12);
+                    Vector2 highlightoffset = new Vector2(GraphicHandler.GetTile(tileIndex).GameTileVector.X - 12, GraphicHandler.GetTile(tileIndex).GameTileVector.Y - 12);
                     GraphicHandler.highlighter.GameTileVector = highlightoffset;
                 }
                 if (lastPressedBoat != null && lastPressedBoat.targetable)
                 {
                     GraphicHandler.highlighter.GameTileVector = new Vector2(2000, 2000);
-                    if (GraphicHandler.orderedTiles.IndexOf(lastPressedGameTile) == lastPressedBoat.CurrentTile + lastDiceRoll)
+                    if (GraphicHandler.GetOrderedTiles().IndexOf(lastPressedGameTile) == lastPressedBoat.CurrentTile + lastDiceRoll)
                     {
                         Debug.WriteLine("Right tile was clicked, calling to move tile");
                         moveConfirmed = true;
@@ -199,7 +195,7 @@ namespace LudoNewWorld.Classes
         {
             if (gameActive && playerCanMove)
             {
-                foreach (var tile in GraphicHandler.orderedTiles)
+                foreach (var tile in GraphicHandler.GetOrderedTiles())
                 {
                     if (tile.TileType != Tile.BaseTile)
                     {

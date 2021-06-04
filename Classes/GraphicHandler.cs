@@ -24,7 +24,7 @@ namespace LudoNewWorld
         helpmenuBackground, instructionsBackground, creditsBackground, MoveableTile;
 
         // List GameTile
-        public static List<GameTile> orderedTiles = new List<GameTile>();
+        private static List<GameTile> orderedTiles = new List<GameTile>();
         private static List<GameTile> britainGoalTiles = new List<GameTile>();
         private static List<GameTile> dutchGoalTiles = new List<GameTile>();
         private static List<GameTile> spainGoalTiles = new List<GameTile>();
@@ -557,6 +557,13 @@ namespace LudoNewWorld
             franceBaseTiles.Add(new GameTile(Tile.BaseTile, Faction.France, new Vector2(270, 850)));
             allBaseTiles.Add(franceBaseTiles);
         }
-
+        public static List<GameTile> GetOrderedTiles()
+        {
+            return orderedTiles;
+        }
+        public static GameTile GetTile(int index)
+        {
+            return orderedTiles[index];
+        }
     }
 }

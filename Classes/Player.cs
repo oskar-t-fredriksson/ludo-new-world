@@ -150,7 +150,7 @@ namespace LudoNewWorld.Classes
                     ship.CurrentTile += diceRoll;
                 }
                 
-                GraphicHandler.orderedTiles[ship.CurrentTile].IsPlayerOnTile = false;
+                GraphicHandler.GetTile(ship.CurrentTile).IsPlayerOnTile = false;
                 tile.IsPlayerOnTile = true;
                 GameEngine.moveConfirmed = false;
             }
@@ -176,7 +176,7 @@ namespace LudoNewWorld.Classes
                     Debug.Write("Tile: " + i);
                     if (i <= 43)
                     {
-                        if (GraphicHandler.orderedTiles[i].IsPlayerOnTile)
+                        if (GraphicHandler.GetTile(i).IsPlayerOnTile)
                         {
                             foreach (var targetShip in GraphicHandler.rowBoatList)
                             {
@@ -205,8 +205,7 @@ namespace LudoNewWorld.Classes
                     {
                         i = -1;
                         shipTile = shipTile - 43 + dicenr - 1;
-                    }
-                              
+                    }   
                 }               
             }
             ship.targetable = true;
