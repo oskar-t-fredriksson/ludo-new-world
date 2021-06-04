@@ -107,7 +107,18 @@ namespace LudoNewWorld.Classes
                             default: break;
                         }
                     }
-                    tileIndex += lastDiceRoll;
+                    if (lastPressedBoat.CurrentTile + lastDiceRoll > 43)
+                    {
+                        Debug.WriteLine("summan > 43: " + (tileIndex - 43 + lastDiceRoll - 1));
+                        tileIndex = tileIndex - 43 + lastDiceRoll - 1;
+                        Debug.WriteLine("GameEngine tileIndex var: " + tileIndex);
+                    }
+                    else
+                    {
+                        Debug.WriteLine("summan < 43: " + (tileIndex - 43 + lastDiceRoll - 1));
+                        tileIndex += lastDiceRoll;
+                        Debug.WriteLine("GameEngine tileIndex var: " + tileIndex);
+                    }
                     Vector2 highlightoffset = new Vector2(GraphicHandler.orderedTiles[tileIndex].GameTileVector.X - 12, GraphicHandler.orderedTiles[tileIndex].GameTileVector.Y - 12);
                     GraphicHandler.highlighter.GameTileVector = highlightoffset;
                 }
