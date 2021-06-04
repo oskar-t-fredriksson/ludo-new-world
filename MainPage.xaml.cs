@@ -105,7 +105,7 @@ namespace LudoNewWorld
         private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
         {
             gameTickCounter++;
-            if(GameEngine.gameActive)
+            if(GameEngine.GetGameActive())
             {
                 gameEngine.NextRound();
                 if (debugMenuActive && gameTickCounter >= 60)
@@ -123,7 +123,7 @@ namespace LudoNewWorld
             Vector2 scaledVector = Scaler.ClickCords(cords);
             gameEngine.boat = gameEngine.CheckForShipsOnMousePressed(scaledVector);
             gameEngine.tile = gameEngine.CheckForTileOnMousePressed(scaledVector);
-            if (GameEngine.gameActive)
+            if (GameEngine.GetGameActive())
             {
                 if(gameEngine.boat != null)
                 {
@@ -134,7 +134,7 @@ namespace LudoNewWorld
         public void btnRoll_Click(object sender, RoutedEventArgs e)
         {
             Sound.DiceSound();
-            GameEngine.lastDiceRoll = GraphicHandler.scrambleDice(GameEngine.playerturn);
+            GameEngine.LastDiceRoll = GraphicHandler.scrambleDice(GameEngine.PlayerTurn);
             GameEngine.diceRolled = true;
         }
 
@@ -344,7 +344,7 @@ namespace LudoNewWorld
         }
         private async void SetDebugMenu()
         {
-            if(GameEngine.gameActive)
+            if(GameEngine.GetGameActive())
             {
                 await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {

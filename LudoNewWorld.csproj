@@ -120,7 +120,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Faction.cs" />
-    <Compile Include="Classes\Filereader.cs" />
     <Compile Include="Classes\GraphicHandler.cs" />
     <Compile Include="Classes\Dice.cs" />
     <Compile Include="Classes\GameEngine.cs" />
@@ -128,7 +127,6 @@
     <Compile Include="Classes\GameTile.cs" />
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\Scaler.cs" />
-    <Compile Include="Classes\SmallShip.cs" />
     <Compile Include="Classes\Sound.cs" />
     <Compile Include="Classes\Tile.cs" />
     <Compile Include="MainPage.xaml.cs">

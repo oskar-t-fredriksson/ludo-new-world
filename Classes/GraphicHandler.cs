@@ -210,7 +210,7 @@ namespace LudoNewWorld
 
         public static void Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
-            GameEngine.tick++;
+            GameEngine.Tick++;
             GameStateManager.BackgroundManager();
             args.DrawingSession.DrawImage(Scaler.Fit(background));
             args.DrawingSession.DrawImage(Scaler.Fit(MoveableTile), Scaler.Cords(highlighter.GameTileVector));

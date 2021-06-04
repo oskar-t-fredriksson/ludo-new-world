@@ -10,13 +10,16 @@ namespace LudoNewWorld.Classes
 {
     class GameEngine
     {
-        public static int tick = 0;
-        public static bool GoalAchieved = false;
-        public static int playerturn = 0;
-        public static bool gameActive = false;
-        public static Player.RowBoat lastPressedBoat = null;
-        public static GameTile lastPressedGameTile = null;
-        public static int lastDiceRoll = 0;
+        public static Player.RowBoat LastPressedBoat { get; set; }
+        public static GameTile LastPressedGameTile { get; set; }
+        public static int LastDiceRoll { get; set; }
+        public static int Tick { get; set; }
+        public static int PlayerTurn { get; set; }
+
+        private static bool gameActive = false;
+
+
+
         public static bool diceRolled = false;
         public static bool playerCanMove = false;
         public static bool playerRoundCompleted = false;
@@ -59,13 +62,13 @@ namespace LudoNewWorld.Classes
             switch (faction)
             {
                 case Faction.Britain:
-                    playerturn = 1; break;
+                    PlayerTurn = 1; break;
                 case Faction.Dutch:
-                    playerturn = 2; break;
+                    PlayerTurn = 2; break;
                 case Faction.Spain:
-                    playerturn = 3; break;
+                    PlayerTurn = 3; break;
                 case Faction.France:
-                    playerturn = 4; break;
+                    PlayerTurn = 4; break;
                 default: break;
             }
             gameActive = true;
@@ -84,38 +87,38 @@ namespace LudoNewWorld.Classes
                 {
                     foreach (var boat in p1.rowBoats)
                     {
-                        Debug.WriteLine(p1.CheckIfMovable(boat, lastDiceRoll));
+                        Debug.WriteLine(p1.CheckIfMovable(boat, LastDiceRoll));
                     }
                     diceRolled = false;
                 }
-                if (lastPressedBoat == null)
+                if (LastPressedBoat == null)
                 {
                     GraphicHandler.highlighter.GameTileVector = new Vector2(2000, 2000);
                 }
-                if (lastPressedBoat != null)
+                if (LastPressedBoat != null)
                 {
                     playerCanMove = true;
-                    var tileIndex = lastPressedBoat.CurrentTile;
-                    if (lastPressedBoat.CurrentTile + lastDiceRoll > 43)
+                    var tileIndex = LastPressedBoat.CurrentTile;
+                    if (LastPressedBoat.CurrentTile + LastDiceRoll > 43)
                     {
-                        tileIndex = tileIndex - 43 + lastDiceRoll - 1;
+                        tileIndex = tileIndex - 43 + LastDiceRoll - 1;
                     }
                     else
                     {
-                        tileIndex += lastDiceRoll;
+                        tileIndex += LastDiceRoll;
                     }
                     Vector2 highlightoffset = new Vector2(GraphicHandler.GetTile(tileIndex).GameTileVector.X - 12, GraphicHandler.GetTile(tileIndex).GameTileVector.Y - 12);
                     GraphicHandler.highlighter.GameTileVector = highlightoffset;
                 }
-                if (lastPressedBoat != null && lastPressedBoat.targetable)
+                if (LastPressedBoat != null && LastPressedBoat.targetable)
                 {
                     GraphicHandler.highlighter.GameTileVector = new Vector2(2000, 2000);
-                    if (GraphicHandler.GetOrderedTiles().IndexOf(lastPressedGameTile) == lastPressedBoat.CurrentTile + lastDiceRoll)
+                    if (GraphicHandler.GetOrderedTiles().IndexOf(LastPressedGameTile) == LastPressedBoat.CurrentTile + LastDiceRoll)
                     {
                         Debug.WriteLine("Right tile was clicked, calling to move tile");
                         moveConfirmed = true;
                     }
-                    else if ((lastPressedBoat.CurrentTile + lastDiceRoll - 1) >= 43)
+                    else if ((LastPressedBoat.CurrentTile + LastDiceRoll - 1) >= 43)
                     {
                         Debug.WriteLine("Right tile was clicked, calling to move tile");
                         Debug.WriteLine("Test else if moveConfirmed");
@@ -126,8 +129,8 @@ namespace LudoNewWorld.Classes
                         p1.MoveRowBoat();
                         GraphicHandler.highlighter.GameTileVector = new Vector2(2000, 2000);
                         playerRoundCompleted = true;
-                        lastPressedBoat = null;
-                        lastPressedGameTile = null;
+                        LastPressedBoat = null;
+                        LastPressedGameTile = null;
                         playerCanMove = false;
                         foreach (var boat in Player.targetableRowBoats)
                         {
@@ -153,10 +156,10 @@ namespace LudoNewWorld.Classes
         {
             if (gameActive)
             {
-                if (lastPressedBoat != null)
+                if (LastPressedBoat != null)
                 {
-                    lastPressedBoat.pressedByMouse = false;
-                    lastPressedBoat.targetable = true;
+                    LastPressedBoat.pressedByMouse = false;
+                    LastPressedBoat.targetable = true;
                 }
                 foreach (var ship in p1.rowBoats)
                 {
@@ -174,7 +177,7 @@ namespace LudoNewWorld.Classes
                             {
                                 ship.targetable = false;
                                 ship.pressedByMouse = true;
-                                lastPressedBoat = ship;
+                                LastPressedBoat = ship;
                             }
                             Debug.WriteLine("User has pressed a targetable click, waiting for user to click a tile!");
                             return ship;
@@ -202,13 +205,18 @@ namespace LudoNewWorld.Classes
                         if (clickCords.X >= tile.ScaledVector.X - 50 && clickCords.X <= tile.ScaledVector.X
                         && clickCords.Y >= tile.ScaledVector.Y - 50 && clickCords.Y <= tile.ScaledVector.Y)
                         {
-                            lastPressedGameTile = tile;
+                            LastPressedGameTile = tile;
                             return tile;
                         }
                     }
                 }
             }
             return null;
-        }       
+        }
+
+        public static bool GetGameActive()
+        {
+            return gameActive;
+        }
     }
 }
