@@ -269,6 +269,7 @@ namespace LudoNewWorld
         {
             Popup2.IsOpen = false;
             ExitMenuConfirm_Popup.IsOpen = true;
+            
         }
 
         private void BtnDebug_Click(object sender, RoutedEventArgs e)
@@ -331,9 +332,9 @@ namespace LudoNewWorld
 
         private void ExitConfirm_yes_Click(object sender, RoutedEventArgs e)
         {
-            gameState = 0;
+            gameState = 2;
 
-            if (gameState == 0)
+            if (gameState == 2)
             {
                 ParentPopup.IsOpen = false;
                 ExitMenuConfirm_Popup.IsOpen = false;

@@ -24,7 +24,7 @@ namespace LudoNewWorld.Classes
         public GameTile tile;
         public Player p1, p2, p3, p4;
 
-        public List<Faction> factionList = new List<Faction>();
+        public static List<Faction> factionList = new List<Faction>();
 
         private static readonly Random _random = new Random();
 
@@ -45,6 +45,7 @@ namespace LudoNewWorld.Classes
             Player.playerList.Add(p2 = new Player(factionList[0], false));
             Player.playerList.Add(p3 = new Player(factionList[1], false));
             Player.playerList.Add(p4 = new Player(factionList[2], false));
+            
         }
 
         /// <summary>
@@ -195,5 +196,6 @@ namespace LudoNewWorld.Classes
             }
             return null;
         }
+       
     }
 }
