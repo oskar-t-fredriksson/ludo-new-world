@@ -123,16 +123,12 @@ namespace LudoNewWorld.Classes
             var tileIndex = GraphicHandler.orderedTiles.IndexOf(tile);
             var diceRoll = GameEngine.lastDiceRoll;
 
-            Debug.WriteLine($"ship.CurrentTile: {ship.CurrentTile} \ntileIndex: {tileIndex}");
-            Debug.WriteLine($"ship.CurrentTile: {ship.CurrentTile} \ntileIndex: {tileIndex}");
-            Debug.WriteLine("Dice roll: " + diceRoll);
-            Debug.WriteLine($"tileIndex {tileIndex} - ship.CurrentTile {ship.CurrentTile} = {tileIndex - ship.CurrentTile}, should be {diceRoll}");
-
             if (!ship.active) ship.active = true;
 
             if(GameEngine.lastPressedGameTile == null || GameEngine.lastPressedGameTile.GameTileVector != tile.GameTileVector)
             {
-                Debug.WriteLine("Pressed incorrect area/tile, DO NOTHING!");
+                // If a player clicks on the wrong area when picking the tile to move (not a highlighted one) its should set all
+                // the targetable ships of the faction back to targetable = true again so the round doesnt end
                 foreach (var rowBoat in targetableRowBoats)
                 {
                     rowBoat.targetable = true;
@@ -142,14 +138,13 @@ namespace LudoNewWorld.Classes
             {
                 if (ship.CurrentTile < tileIndex && tileIndex - ship.CurrentTile == diceRoll)
                 {
-                    Debug.WriteLine("Inside if statement on MoveRowboat");
                     float shipX = tile.GameTileVector.X - 10;
                     float shipY = tile.GameTileVector.Y - 25;
                     ship.Vector = new Vector2(shipX, shipY);
                     ship.CurrentTile += diceRoll;
                     GraphicHandler.orderedTiles[ship.CurrentTile].IsPlayerOnTile = false;
                     tile.IsPlayerOnTile = true;
-                    targetableRowBoats.Clear();
+                    GameEngine.moveConfirmed = false;
                 }
             }
         }

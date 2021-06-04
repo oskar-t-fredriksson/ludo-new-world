@@ -20,6 +20,7 @@ namespace LudoNewWorld.Classes
         public static bool diceRolled = false;
         public static bool playerCanMove = false;
         public static bool playerRoundCompleted = false;
+        public static bool moveConfirmed = false;
         public Player.RowBoat boat;
         public GameTile tile;
         public Player p1, p2, p3, p4;
@@ -40,7 +41,7 @@ namespace LudoNewWorld.Classes
             factionList.Add(Faction.Spain);
             factionList.Add(Faction.France);
             factionList.Remove(faction);
-          
+
             Player.playerList.Add(p1 = new Player(faction, true));
             Player.playerList.Add(p2 = new Player(factionList[0], false));
             Player.playerList.Add(p3 = new Player(factionList[1], false));
@@ -77,7 +78,7 @@ namespace LudoNewWorld.Classes
         /// </summary>
         public void NextRound()
         {
-            if(gameActive)
+            if (gameActive)
             {
                 if (diceRolled)
                 {
@@ -95,7 +96,7 @@ namespace LudoNewWorld.Classes
                 {
                     playerCanMove = true;
                     var tileIndex = lastPressedBoat.CurrentTile;
-                    if(!lastPressedBoat.active)
+                    if (!lastPressedBoat.active)
                     {
                         switch (lastPressedBoat.Faction)
                         {
@@ -112,17 +113,30 @@ namespace LudoNewWorld.Classes
                 }
                 if (lastPressedBoat != null && lastPressedBoat.targetable)
                 {
-                    Debug.WriteLine("Inside if statement");
-                    p1.MoveRowBoat();
                     GraphicHandler.highlighter.GameTileVector = new Vector2(2000, 2000);
-                    playerRoundCompleted = true;
-                    lastPressedBoat = null;
-                    lastPressedGameTile = null;
-                    foreach (var boat in p1.rowBoats)
+                    if (GraphicHandler.orderedTiles.IndexOf(lastPressedGameTile) == lastPressedBoat.CurrentTile + lastDiceRoll)
                     {
-                        boat.targetable = false;
+                        Debug.WriteLine("Right tile was clicked, calling to move tile");
+                        moveConfirmed = true;
                     }
-                    playerCanMove = false;
+                    if(moveConfirmed)
+                    {
+                        p1.MoveRowBoat();
+                        GraphicHandler.highlighter.GameTileVector = new Vector2(2000, 2000);
+                        playerRoundCompleted = true;
+                        lastPressedBoat = null;
+                        lastPressedGameTile = null;
+                        playerCanMove = false;
+                        foreach (var boat in Player.targetableRowBoats)
+                        {
+                            boat.targetable = false;
+                        }
+                        Debug.WriteLine("Moved ship to new tile, ending round");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Waiting for user to press the correct tile!");
+                    }
                 }
             }
         }
@@ -135,21 +149,20 @@ namespace LudoNewWorld.Classes
         /// <returns>Player.RowBoat object or null</returns>
         public Player.RowBoat CheckForShipsOnMousePressed(Vector2 clickCords)
         {
-            if(gameActive)
+            if (gameActive)
             {
-                if(lastPressedBoat != null)
+                if (lastPressedBoat != null)
                 {
                     lastPressedBoat.pressedByMouse = false;
                     lastPressedBoat.targetable = true;
                 }
                 foreach (var ship in p1.rowBoats)
                 {
-                    if(ship.targetable)
+                    if (ship.targetable)
                     {
                         if (clickCords.X >= ship.scaledVector.X - 30 && clickCords.X <= ship.scaledVector.X + 30
                         && clickCords.Y >= ship.scaledVector.Y - 30 && clickCords.Y <= ship.scaledVector.Y + 30)
                         {
-                            ship.targetable = false;
                             if (ship.pressedByMouse)
                             {
                                 ship.targetable = true;
@@ -161,6 +174,7 @@ namespace LudoNewWorld.Classes
                                 ship.pressedByMouse = true;
                                 lastPressedBoat = ship;
                             }
+                            Debug.WriteLine("User has pressed a targetable click, waiting for user to click a tile!");
                             return ship;
                         }
                     }
@@ -181,12 +195,11 @@ namespace LudoNewWorld.Classes
             {
                 foreach (var tile in GraphicHandler.orderedTiles)
                 {
-                    if(tile.TileType != Tile.BaseTile)
+                    if (tile.TileType != Tile.BaseTile)
                     {
                         if (clickCords.X >= tile.ScaledVector.X - 50 && clickCords.X <= tile.ScaledVector.X
                         && clickCords.Y >= tile.ScaledVector.Y - 50 && clickCords.Y <= tile.ScaledVector.Y)
                         {
-                            Debug.WriteLine("Found tile " + tile.TileType);
                             lastPressedGameTile = tile;
                             return tile;
                         }
