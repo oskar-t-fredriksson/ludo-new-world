@@ -133,36 +133,9 @@ namespace LudoNewWorld
 
         public void btnRoll_Click(object sender, RoutedEventArgs e)
         {
+            Sound.DiceSound();
             GameEngine.lastDiceRoll = GraphicHandler.scrambleDice(GameEngine.playerturn);
             GameEngine.diceRolled = true;
-            //int dicenr = 0;
-            //if (GameEngine.playerturn == 1)
-            //{
-            //    dicenr = GraphicHandler.scrambleDice(1);
-            //    Debug.WriteLine("\nMoveable: " + gameEngine.p1.CheckIfMovable(gameEngine.p1.rowBoats[0], gameEngine.p2, dicenr));
-            //    Debug.WriteLine("\nMoveable: " + gameEngine.p1.CheckIfMovable(gameEngine.p1.rowBoats[1], gameEngine.p2, dicenr));
-            //    Debug.WriteLine("\nMoveable: " + gameEngine.p1.CheckIfMovable(gameEngine.p1.rowBoats[2], gameEngine.p2, dicenr));
-            //    Debug.WriteLine("\nMoveable: " + gameEngine.p1.CheckIfMovable(gameEngine.p1.rowBoats[3], gameEngine.p2, dicenr));
-            //    GameEngine.playerturn++;
-            //}
-            //else if(GameEngine.playerturn == 2)
-            //{
-            //    dicenr = GraphicHandler.scrambleDice(2);
-            //    //gameEngine.p2.MoveRowBoat(dicenr);
-            //    GameEngine.playerturn++;
-            //}
-            //else if (GameEngine.playerturn == 3)
-            //{
-            //    dicenr = GraphicHandler.scrambleDice(3);
-            //    //gameEngine.p3.MoveRowBoat(dicenr);
-            //    GameEngine.playerturn++;
-            //}
-            //else if (GameEngine.playerturn == 4)
-            //{
-            //    dicenr = GraphicHandler.scrambleDice(4);
-            //    //gameEngine.p4.MoveRowBoat(dicenr);
-            //    GameEngine.playerturn = 1;
-            //}
         }
 
         private async void btnStart_Click(object sender, RoutedEventArgs e)
@@ -405,7 +378,10 @@ namespace LudoNewWorld
                     $"-- Boat 1 targetable: {gameEngine.p3.rowBoats[0].targetable}\n" +
                     $"-- Boat 2 targetable: {gameEngine.p3.rowBoats[1].targetable}\n" +
                     $"-- Boat 3 targetable: {gameEngine.p3.rowBoats[2].targetable}\n" +
-                    $"-- Boat 4 targetable: {gameEngine.p3.rowBoats[3].targetable}\n";
+                    $"-- Boat 4 targetable: {gameEngine.p3.rowBoats[3].targetable}\n" +
+
+                    $"\nTargetableRowBoats count: {Player.targetableRowBoats.Count}" +
+                    $"\nMove confirmed?: {GameEngine.moveConfirmed}";
 
                     debugMenuTextRight.Text =
                     $"\nPlayer 2 Faction : {gameEngine.p2.playerFaction}\n" +
@@ -441,6 +417,8 @@ namespace LudoNewWorld
                     $"-- Boat 2 targetable: {gameEngine.p4.rowBoats[1].targetable}\n" +
                     $"-- Boat 3 targetable: {gameEngine.p4.rowBoats[2].targetable}\n" +
                     $"-- Boat 4 targetable: {gameEngine.p4.rowBoats[3].targetable}\n";
+
+                    warningTextArea.Text = "This menu will cause fps and game lag!";
                 }).AsTask();
             }
         }
