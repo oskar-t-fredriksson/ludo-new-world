@@ -227,71 +227,76 @@
                    VerticalAlignment="Center"
                    IsLightDismissEnabled="True">
                 <Grid>
-                    <Popup x:Name="MyPopup" 
+                    <Grid x:Name="ParentPopup_grid" Visibility="Collapsed">
+                        <Popup x:Name="MyPopup" 
                    IsOpen="False" 
                    Width="200" Height="300" 
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center">
-                        <StackPanel>
-                            <Image Width="900" Height="1100" Source="Assets/Images/helpMenuNew.png"  Margin="-100,-400,0,0"></Image>
-                        </StackPanel>
-                    </Popup>
-                    <Popup x:Name="Popup2" 
+                            <StackPanel>
+                                <Image Width="900" Height="1100" Source="Assets/Images/helpMenuNew.png"  Margin="-100,-400,0,0"></Image>
+                            </StackPanel>
+                        </Popup>
+                        <Popup x:Name="Popup2" 
                            IsOpen="False" 
                            Width="200" Height="300" 
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
-                           IsLightDismissEnabled="True">
-                        <StackPanel >
-                            <Button Content="Instructions" x:Name="Instruct_btn" Click="Instruct_btn_Click" Style="{StaticResource StartMenuStyle}" Width="300" Height="60" Margin="210,0,0,20">
-                            </Button>
-                            <Button Content="Save" Style="{StaticResource StartMenuStyle}" Width="300" Height="60" Margin="210,0,0,0"></Button>
-                            <Button Content="Credit" x:Name="Credit_btn" Click="Credit_btn_Click" Style="{StaticResource StartMenuStyle}" Width="300" Height="60" Margin="210,20,0,0"></Button>
-                            <Button Content="Exit to Main Menu" x:Name="Help_Quit" Click="Help_Quit_Click" Style="{StaticResource StartMenuStyle}" Width="300" Height="60" Margin="210,60,0,0"></Button>
-                            <Grid x:Name="ExitToMainMenu">
-                                <Popup x:Name="ExitMenuConfirm_Popup" 
+                           IsLightDismissEnabled="False">
+                            <StackPanel>
+                                <Button Content="Instructions" x:Name="Instruct_btn" Click="Instruct_btn_Click" Style="{StaticResource StartMenuStyle}" Width="300" Height="60" Margin="210,0,0,20">
+                                </Button>
+                                <Button Content="Save" Style="{StaticResource StartMenuStyle}" Width="300" Height="60" Margin="210,0,0,0"></Button>
+                                <Button Content="Credit" x:Name="Credit_btn" Click="Credit_btn_Click" Style="{StaticResource StartMenuStyle}" Width="300" Height="60" Margin="210,20,0,0"></Button>
+                                <Button Content="Exit to Main Menu" x:Name="Help_Quit" Click="Help_Quit_Click" Style="{StaticResource StartMenuStyle}" Width="300" Height="60" Margin="210,60,0,0"></Button>
+                                <Grid x:Name="ExitToMainMenu">
+                                    <Popup x:Name="ExitMenuConfirm_Popup" 
                                 IsOpen="False" 
                                 Width="200" Height="300" 
                                 HorizontalAlignment="Center"
-                                VerticalAlignment="Center">
-                                    <StackPanel >
-                                        <TextBlock FontSize="30" Margin="890,400,0,0" Height="50" Width="200">Are you sure?</TextBlock>
-                                        <Button x:Name="ExitConfirm_yes" Click="ExitConfirm_yes_Click"  Style="{StaticResource StartMenuStyle}" Margin="885,0,0,0" Height="70" Width="140">Yes</Button>
-                                        <Button x:Name="ExitConfirm_no" Click="ExitConfirm_no_Click"  Style="{StaticResource StartMenuStyle}" Margin="885,20,0,0" Height="70" Width="140">No</Button>
-                                    </StackPanel>
-                                </Popup>
+                                VerticalAlignment="Center"
+                                IsLightDismissEnabled="True">
+                                        <StackPanel >
+                                            <TextBlock FontSize="30" Margin="890,400,0,0" Height="50" Width="200">Are you sure?</TextBlock>
+                                            <Button x:Name="ExitConfirm_yes" Click="ExitConfirm_yes_Click"  Style="{StaticResource StartMenuStyle}" Margin="885,0,0,0" Height="70" Width="140">Yes</Button>
+                                            <Button x:Name="ExitConfirm_no" Click="ExitConfirm_no_Click"  Style="{StaticResource StartMenuStyle}" Margin="885,20,0,0" Height="70" Width="140">No</Button>
+                                        </StackPanel>
+                                    </Popup>
 
-                            </Grid>
-                        </StackPanel>
-                    </Popup>
-                    <Popup x:Name="InstructPopup"  
+                                </Grid>
+                            </StackPanel>
+                        </Popup>
+                        <Popup x:Name="InstructPopup"  
                            IsOpen="False" 
                            Width="200" Height="300" 
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            IsLightDismissEnabled="True">
-                        <StackPanel>
-                            <Grid>
+                            <StackPanel>
+                                <Grid>
 
-                                <Image Width="900" Height="1100" Margin="-100,-400,0,0" Source="Assets/Images/instruct_placeholder.png"></Image>
-                                <Button x:Name="instruct_return" Click="instruct_return_Click"  Style="{StaticResource StartMenuStyle}" Margin="-70,100,0,0">Return</Button>
-                            </Grid>
-                        </StackPanel>
-                    </Popup>
-                    <Popup x:Name="CreditPopup"  
+                                    <Image Width="900" Height="1100" Margin="-100,-400,0,0" Source="Assets/Images/instruct_placeholder.png"></Image>
+                                    <Button x:Name="instruct_return" Click="instruct_return_Click"  Style="{StaticResource StartMenuStyle}" Margin="-70,100,0,0">Return</Button>
+                                </Grid>
+                            </StackPanel>
+                        </Popup>
+                        <Popup x:Name="CreditPopup"  
                            IsOpen="False" 
                            Width="200" Height="300" 
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            IsLightDismissEnabled="True">
-                        <StackPanel>
-                            <Grid>
-                                <Image Width="900" Height="1100" Margin="-100,-400,0,0" Source="Assets/Images/Credits.png"></Image>
-                                <Button x:Name="credit_return" Click="credit_return_Click"  Style="{StaticResource StartMenuStyle}" Margin="-70,100,0,0">Return</Button>
-                            </Grid>
-                        </StackPanel>
-                    </Popup>
+                            <StackPanel>
+                                <Grid>
+                                    <Image Width="900" Height="1100" Margin="-100,-400,0,0" Source="Assets/Images/Credits.png"></Image>
+                                    <Button Content="Return" x:Name="credit_return" Click="credit_return_Click"  Style="{StaticResource StartMenuStyle}" Margin="-70,100,0,0">
+                                    </Button>
+                                </Grid>
+                            </StackPanel>
+                        </Popup>
+                    </Grid>
                 </Grid>
+                
             </Popup>
             <Button x:Name="BtnDebug" Click="BtnDebug_Click" Content="D" FontSize="13" FontWeight="ExtraBold"
                 Background="#161616"
