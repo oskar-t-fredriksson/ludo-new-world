@@ -218,5 +218,20 @@ namespace LudoNewWorld.Classes
         {
             return gameActive;
         }
+        public static void CheckWin()
+        {
+            foreach (var player in Player.playerList)
+            {
+                if (player.rowBoats.Count == 0)
+                {
+                   
+                    Debug.WriteLine($"{player} won the game uuuuuuuuuuuuuuu");
+                }
+                else
+                {
+                    Debug.WriteLine("no player has won the game yet");
+                }
+            }
+        }
     }
 }
