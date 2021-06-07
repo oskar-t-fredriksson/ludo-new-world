@@ -121,13 +121,13 @@ namespace LudoNewWorld.Classes
         /// </summary>
         public void MoveRowBoat()
         {
-            var ship = GameEngine.lastPressedBoat;
-            var tile = GameEngine.lastPressedGameTile;
-            var diceRoll = GameEngine.lastDiceRoll;
+            var ship = GameEngine.LastPressedBoat;
+            var tile = GameEngine.LastPressedGameTile;
+            var diceRoll = GameEngine.LastDiceRoll;
 
             if (!ship.active) ship.active = true;
 
-            if(GameEngine.lastPressedGameTile == null || GameEngine.lastPressedGameTile.GameTileVector != tile.GameTileVector)
+            if(GameEngine.LastPressedGameTile == null || GameEngine.LastPressedGameTile.GameTileVector != tile.GameTileVector)
             {
                 // If a player clicks on the wrong area when picking the tile to move (not a highlighted one) its should set all
                 // the targetable ships of the faction back to targetable = true again so the round doesnt end
@@ -166,7 +166,7 @@ namespace LudoNewWorld.Classes
         /// <returns>True or False</returns>
         public bool CheckIfMovable(Player.RowBoat ship, int dicenr)
         {
-            if (GameEngine.gameActive)
+            if (GameEngine.GetGameActive())
             {
                 var shipTile = ship.CurrentTile;
                 Debug.WriteLine("=================================");
