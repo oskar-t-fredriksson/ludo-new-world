@@ -140,6 +140,7 @@ namespace LudoNewWorld.Classes
                     }
                     else
                     {
+                        LastPressedBoat = null;
                         Debug.WriteLine("Waiting for user to press the correct tile!");
                     }
                 }
