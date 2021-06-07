@@ -25,8 +25,16 @@ namespace LudoNewWorld
             }
             else if (MainPage.gameState == 2)
             {
+                
                 ResetGame();
             }
+            else if (MainPage.gameState == 3)
+            {
+
+              
+            }
+
+
         }
         /// <summary>
         /// Clears all objects on the board
