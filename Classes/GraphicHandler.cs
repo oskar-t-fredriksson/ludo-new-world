@@ -570,7 +570,19 @@ namespace LudoNewWorld
         }
         public static GameTile GetTile(int index)
         {
-            return orderedTiles[index];
+            try
+            {
+                if (index > 43)
+                {
+                    index = 0;
+                }
+                return orderedTiles[index];
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                throw e;
+            }
         }
     }
 }
