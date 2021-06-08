@@ -12,6 +12,7 @@ namespace LudoNewWorld.Classes
     {
         
         public Faction playerFaction;
+        public int ID { get; }
         public bool IsHuman { get; }
         public bool isMyTurn = false;
         public int rowBoatOut = 4;
@@ -20,8 +21,9 @@ namespace LudoNewWorld.Classes
         public static List<Player.RowBoat> targetableRowBoats = new List<Player.RowBoat>();
         public List<RowBoat> rowBoats = new List<RowBoat>();
 
-        public Player(Faction playerFaction, bool isHuman)
+        public Player(int ID, Faction playerFaction, bool isHuman)
         {
+            this.ID = ID;
             this.playerFaction = playerFaction;
             this.IsHuman = isHuman;
             
@@ -172,7 +174,7 @@ namespace LudoNewWorld.Classes
                 Debug.WriteLine("=================================");
                 Debug.WriteLine($"Loop for ship {ship.Id} started: ");
                 for (int i = shipTile + 1; i < shipTile + dicenr + 1; i++)
-                {   
+                {
                     Debug.Write("Tile: " + i);
                     if (i <= 43)
                     {

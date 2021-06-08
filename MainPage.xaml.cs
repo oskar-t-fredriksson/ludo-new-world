@@ -49,6 +49,7 @@ namespace LudoNewWorld
         public static double currentVolume = 0.5;
         public static int volumeLevel = 5;
         public static bool volumeMute = false;
+        public static bool nextRoundAvailable = true;
         private static bool debugMenuActive = false;
         private static int gameTickCounter = 0;
         public Vector3 scaleVector3Variable = new Vector3(DesignWidth, DesignHeight, 1);
@@ -105,15 +106,24 @@ namespace LudoNewWorld
         private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
         {
             gameTickCounter++;
+            GameEngine.moveAITick++;
             if(GameEngine.GetGameActive())
             {
-                gameEngine.NextRound();
-                if (debugMenuActive && gameTickCounter >= 60)
+                if (gameTickCounter >= 60)
                 {
-                    SetDebugMenu();
+                    if(debugMenuActive)
+                    {
+                        SetDebugMenu();
+                    }
+                    TriggerRollButton();
                     gameTickCounter = 0;
                 }
+                if(nextRoundAvailable)
+                {
+                    gameEngine.NextRound();
+                }
             }
+            if (GameEngine.moveAITick > 200) GameEngine.moveAITick = 0;
         }
         private void GameCanvas_Loaded(object sender, RoutedEventArgs e) { }
 
@@ -131,11 +141,35 @@ namespace LudoNewWorld
             }
         }
 
-        public void btnRoll_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Will enable or disable the Roll button in the game based on <see cref="GameEngine.PlayerTurn"/> has as value
+        /// Anything else than 1 will disable the button
+        /// </summary>
+        private async void TriggerRollButton()
+        {
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                if(GameEngine.diceRolled)
+                {
+                    Dice.Visibility = Visibility.Collapsed;
+                }
+                else if (GameEngine.PlayerTurn != 1 && Dice.Visibility == Visibility.Visible)
+                {
+                    Dice.Visibility = Visibility.Collapsed;
+                }
+                else if (GameEngine.PlayerTurn == 1 && !GameEngine.diceRolled)
+                {
+                    Dice.Visibility = Visibility.Visible;
+                }
+            }).AsTask();
+        }
+
+        private void btnRoll_Click(object sender, RoutedEventArgs e)
         {
             Sound.DiceSound();
             GameEngine.LastDiceRoll = GraphicHandler.scrambleDice(GameEngine.PlayerTurn);
             GameEngine.diceRolled = true;
+            Dice.Visibility = Visibility.Collapsed;
         }
 
         private async void btnStart_Click(object sender, RoutedEventArgs e)
