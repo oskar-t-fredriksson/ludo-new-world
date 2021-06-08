@@ -95,7 +95,7 @@ namespace LudoNewWorld.Classes
                 default:
                     break;
             }
-            foreach (var boat in GraphicHandler.rowBoatList)
+            foreach (var boat in rowBoats)
             {
                 rowboatVector.Add(boat, boat.Vector);
             }
@@ -196,12 +196,12 @@ namespace LudoNewWorld.Classes
                                     Debug.WriteLine(" Found own ship in the way, cant move!");
                                     return false;
                                 }
-                                else if (i == targetShip.CurrentTile && i + 1 == dicenr)
+                                else if (i == targetShip.CurrentTile && i + 1 == dicenr && targetShip.active)
                                 {
                                     Debug.WriteLine($" Found {targetShip.Faction} ship on last tile!, Should destroy!");
 
                                 }
-                                else if (i == targetShip.CurrentTile)
+                                else if (i == targetShip.CurrentTile && targetShip.active)
                                 {
                                     Debug.WriteLine($" Found {targetShip.Faction} ship!");
                                 }                                                                
