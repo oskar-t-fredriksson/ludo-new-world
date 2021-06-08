@@ -325,5 +325,7 @@
                 <RowDefinition Height="39*"/>
             </Grid.RowDefinitions>
         </Grid>
+        <TextBlock x:Name="xcord" HorizontalAlignment="Left" Margin="10,0,0,0" Text="" FontSize="40" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock x:Name="ycord" HorizontalAlignment="Left" Margin="10,35,0,0" Text="" FontSize="40" TextWrapping="Wrap" VerticalAlignment="Top"/>
     </Grid>
 </Page>
