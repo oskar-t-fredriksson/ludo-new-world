@@ -50,6 +50,7 @@ namespace LudoNewWorld
         public static int volumeLevel = 5;
         public static bool volumeMute = false;
         public static bool nextRoundAvailable = true;
+        public static bool showDice = true;
         private static bool debugMenuActive = false;
         private static int gameTickCounter = 0;
         public Vector3 scaleVector3Variable = new Vector3(DesignWidth, DesignHeight, 1);
@@ -109,15 +110,16 @@ namespace LudoNewWorld
         {
             gameTickCounter++;
             GameEngine.moveAITick++;
+
             if(GameEngine.GetGameActive())
             {
                 if (gameTickCounter >= 60)
                 {
-                    if(debugMenuActive)
+                    TriggerRollButton();
+                    if (debugMenuActive)
                     {
                         SetDebugMenu();
                     }
-                    TriggerRollButton();
                     gameTickCounter = 0;
                 }
                 if(nextRoundAvailable)
@@ -147,21 +149,17 @@ namespace LudoNewWorld
         /// Will enable or disable the Roll button in the game based on <see cref="GameEngine.PlayerTurn"/> has as value
         /// Anything else than 1 will disable the button
         /// </summary>
-        private async void TriggerRollButton()
+        public async void TriggerRollButton()
         {
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                if(GameEngine.diceRolled)
-                {
-                    Dice.Visibility = Visibility.Collapsed;
-                }
-                else if (GameEngine.PlayerTurn != 1 && Dice.Visibility == Visibility.Visible)
-                {
-                    Dice.Visibility = Visibility.Collapsed;
-                }
-                else if (GameEngine.PlayerTurn == 1 && !GameEngine.diceRolled)
+                if (showDice)
                 {
                     Dice.Visibility = Visibility.Visible;
+                }
+                else if(!showDice)
+                {
+                    Dice.Visibility = Visibility.Collapsed;
                 }
             }).AsTask();
         }
@@ -171,6 +169,7 @@ namespace LudoNewWorld
             Sound.DiceSound();
             GameEngine.LastDiceRoll = GraphicHandler.scrambleDice(GameEngine.PlayerTurn);
             GameEngine.diceRolled = true;
+            showDice = false;
             Dice.Visibility = Visibility.Collapsed;
         }
 

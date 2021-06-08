@@ -12,17 +12,13 @@ namespace LudoNewWorld.Classes
     {
         public static Player.RowBoat LastPressedBoat { get; set; }
         public static GameTile LastPressedGameTile { get; set; }
-
-        private Player ActivePlayer { get; set; }
+        private static Player ActivePlayer { get; set; }
         public static int LastDiceRoll { get; set; }
         public static int Tick { get; set; }
         public static int moveAITick { get; set; }
         public static int PlayerTurn { get; set; }
 
         private static bool gameActive = false;
-
-
-
         public static bool diceRolled = false;
         public static bool playerCanMove = false;
         public static bool playerRoundCompleted = false;
@@ -32,7 +28,6 @@ namespace LudoNewWorld.Classes
         public Player p1, p2, p3, p4;
 
         public static List<Faction> factionList = new List<Faction>();
-
         private static readonly Random _random = new Random();
 
         /// <summary>
@@ -215,6 +210,7 @@ namespace LudoNewWorld.Classes
                 diceRolled = false;
                 Player.targetableRowBoats.Clear();
                 if(moveAITick >= 60) PlayerTurn = 1;
+                MainPage.showDice = true;
             }
         }
 
