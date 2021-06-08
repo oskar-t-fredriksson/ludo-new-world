@@ -174,7 +174,8 @@ namespace LudoNewWorld.Classes
                 var forLoopShipTileLengthI = ship.CurrentTile;
                 Debug.WriteLine("=================================");
                 Debug.WriteLine($"Loop for ship {ship.Id} started: ");
-                for (int i = shipTile + 1; i < shipTile + dicenr + 1; i++)
+
+                for (int i = shipTileI + 1; i < forLoopShipTileLengthI + dicenr + 1; i++)
                 {   
                     Debug.Write("Tile: " + i);
                     if (i <= 43)
