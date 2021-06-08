@@ -118,7 +118,7 @@ namespace LudoNewWorld.Classes
                     {
                         tileIndex += LastDiceRoll;
                     }
-                    Vector2 highlightoffset = new Vector2(GraphicHandler.GetTile(tileIndex).GameTileVector.X - 12, GraphicHandler.GetTile(tileIndex).GameTileVector.Y - 12);
+                    Vector2 highlightoffset = new Vector2(GraphicHandler.GetOrderTile(tileIndex).GameTileVector.X - 12, GraphicHandler.GetOrderTile(tileIndex).GameTileVector.Y - 12);
                     GraphicHandler.highlighter.GameTileVector = highlightoffset;
                 }
                 if (LastPressedBoat != null && LastPressedBoat.targetable)
@@ -181,8 +181,8 @@ namespace LudoNewWorld.Classes
                 int currentTileIndex = boat.CurrentTile;
 
                 // Now we need to get the target game tile index & game tile object based on currentTileIndex + dice roll
-                int targetTileIndex = GraphicHandler.GetOrderedTiles().IndexOf(GraphicHandler.GetTile(currentTileIndex + LastDiceRoll));
-                GameTile targetTile = GraphicHandler.GetTile(targetTileIndex);
+                int targetTileIndex = GraphicHandler.GetOrderedTiles().IndexOf(GraphicHandler.GetOrderTile(currentTileIndex + LastDiceRoll));
+                GameTile targetTile = GraphicHandler.GetOrderTile(targetTileIndex);
 
                 // Move ship to target tile
                 float shipX = targetTile.GameTileVector.X - 10;

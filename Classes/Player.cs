@@ -158,7 +158,7 @@ namespace LudoNewWorld.Classes
                 {
                     ship.CurrentTile += diceRoll;
                 }                
-                GraphicHandler.GetTile(ship.CurrentTile).IsPlayerOnTile = false;
+                GraphicHandler.GetOrderTile(ship.CurrentTile).IsPlayerOnTile = false;
                 tile.IsPlayerOnTile = true;
                 DestroyRowBoat(ship, tile);
                 GameEngine.moveConfirmed = false;
@@ -187,7 +187,7 @@ namespace LudoNewWorld.Classes
                     Debug.Write("Tile: " + i);
                     if (i <= 43)
                     {
-                        if (GraphicHandler.GetTile(i).IsPlayerOnTile)
+                        if (GraphicHandler.GetOrderTile(i).IsPlayerOnTile)
                         {
                             foreach (var targetShip in GraphicHandler.rowBoatList)
                             {                                

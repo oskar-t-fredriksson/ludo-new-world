@@ -568,7 +568,7 @@ namespace LudoNewWorld
         {
             return orderedTiles;
         }
-        public static GameTile GetTile(int index)
+        public static GameTile GetOrderTile(int index)
         {
             try
             {
