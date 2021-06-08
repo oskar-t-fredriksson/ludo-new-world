@@ -286,8 +286,12 @@ namespace LudoNewWorld.Classes
             {
                 if (player.rowBoats.Count == 0)
                 {
-                   
+                    MainPage mainpage = new MainPage();
+                    MainPage.winner = true;
                     Debug.WriteLine($"{player} won the game uuuuuuuuuuuuuuu");
+                    mainpage.winnerPOP.IsOpen = true;
+                    mainpage.WinnerTextBlock.Text=$"{player.playerFaction} won the game ";
+                    
                 }
                 else
                 {

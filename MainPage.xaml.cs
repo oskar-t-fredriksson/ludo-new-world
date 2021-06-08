@@ -53,8 +53,8 @@ namespace LudoNewWorld
         private static bool debugMenuActive = false;
         private static int gameTickCounter = 0;
         public Vector3 scaleVector3Variable = new Vector3(DesignWidth, DesignHeight, 1);
-
         GameEngine gameEngine = new GameEngine();
+
 
         Dice dice = new Dice();
         
@@ -459,7 +459,15 @@ namespace LudoNewWorld
                 }).AsTask();
             }
         }
+        public Popup winnerPOP
+        {
+            get { return winnerPop ; }
 
+        }
+        public TextBlock WinnerTextBlock
+        {
+            get { return winnerText; }
+        }
        
     }
 }

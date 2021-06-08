@@ -54,10 +54,11 @@ namespace LudoNewWorld
         /// <returns></returns>
         public static int scrambleDice(int playerID)
         {
-            ///TESTING PURPOSE.
-            //Player.playerList[0].rowBoats.Clear();
+            //// TESTING PURPOSE.
+            // Player.playerList[0].rowBoats.Clear();
             //Debug.WriteLine($"{Player.playerList[0].rowBoats.Count()} finns i listan nu");
             //GameEngine.CheckWin();
+
             Sound.DiceSound();
             Dice dice = new Dice();
             int trueNumber = dice.Roll();
