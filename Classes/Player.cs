@@ -168,10 +168,11 @@ namespace LudoNewWorld.Classes
         {
             if (GameEngine.GetGameActive())
             {
-                var shipTile = ship.CurrentTile;
+                var shipTileI = ship.CurrentTile;
+                var forLoopShipTileLengthI = ship.CurrentTile;
                 Debug.WriteLine("=================================");
                 Debug.WriteLine($"Loop for ship {ship.Id} started: ");
-                for (int i = shipTile + 1; i < shipTile + dicenr + 1; i++)
+                for (int i = shipTileI + 1; i < forLoopShipTileLengthI + dicenr + 1; i++)
                 {   
                     Debug.Write("Tile: " + i);
                     if (i <= 43)
@@ -179,7 +180,7 @@ namespace LudoNewWorld.Classes
                         if (GraphicHandler.GetTile(i).IsPlayerOnTile)
                         {
                             foreach (var targetShip in GraphicHandler.rowBoatList)
-                            {
+                            {                                
                                 if (ship.Id != targetShip.Id && i == targetShip.CurrentTile && ship.Faction == targetShip.Faction)
                                 {
                                     Debug.WriteLine(" Found own ship in the way, cant move!");
@@ -193,7 +194,7 @@ namespace LudoNewWorld.Classes
                                 else if (i == targetShip.CurrentTile)
                                 {
                                     Debug.WriteLine($" Found {targetShip.Faction} ship!");
-                                }
+                                }                                                                
                             }
                         }
                         else
@@ -204,10 +205,10 @@ namespace LudoNewWorld.Classes
                     else
                     {
                         i = -1;
-                        shipTile = shipTile - 43 + dicenr - 1;
-                    }   
-                }               
-            }
+                        forLoopShipTileLengthI = shipTileI - 43 - 1;
+                    }  
+                }                
+            }            
             ship.targetable = true;
             if(targetableRowBoats.Count < 4) targetableRowBoats.Add(ship);
             return true;
