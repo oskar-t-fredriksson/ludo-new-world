@@ -309,22 +309,21 @@
                     Background="#161616"
                     Style="{StaticResource OwnButtonStyle}"
                     Height="64" Width="117" Margin="30,179,0,0" VerticalAlignment="Top"/>
-
-            <Grid x:Name="DebugMenu" Visibility="Collapsed" Height="480" Width="320"
-                 Background="Black" Opacity="0.5" Margin="1635,300,0,300">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="67*"/>
-                    <ColumnDefinition Width="13*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="11*"/>
-                    <RowDefinition Height="39*"/>
-                </Grid.RowDefinitions>
-                <TextBlock TextAlignment="Center" HorizontalAlignment="Left" Text="Debug Menu" TextWrapping="Wrap" VerticalAlignment="Top" Height="39" Width="114" FontSize="16" Margin="80,0,0,0"/>
-                <TextBlock x:Name="debugMenuTextLeft" Foreground="white" TextAlignment="Left" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="450" Width="170" FontSize="10" Margin="20,10,0,0" Grid.RowSpan="2" Opacity="1"/>
-                <TextBlock x:Name="debugMenuTextRight" Foreground="white" TextAlignment="Left" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="430" Width="200" FontSize="10" Margin="150,10,0,0" Grid.RowSpan="2" Opacity="1"/>
-                <TextBlock x:Name="warningTextArea" Foreground="white" TextAlignment="Left" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="42" Width="252" FontSize="14" Margin="23,340,0,0" Opacity="1" Grid.Row="1" Grid.ColumnSpan="2"/>
-            </Grid>
+        </Grid>
+        <Grid x:Name="DebugMenu" Visibility="Collapsed" Height="480" Width="320"
+            Background="Black" Opacity="0.5" Margin="1635,300,0,300">
+            <TextBlock TextAlignment="Center" HorizontalAlignment="Left" Text="Debug Menu" TextWrapping="Wrap" VerticalAlignment="Top" Height="39" Width="114" FontSize="16" Margin="80,0,0,0"/>
+            <TextBlock x:Name="debugMenuTextLeft" Foreground="white" TextAlignment="Left" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="450" Width="170" FontSize="10" Margin="20,10,0,0" Grid.RowSpan="2" Opacity="1"/>
+            <TextBlock x:Name="debugMenuTextRight" Foreground="white" TextAlignment="Left" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="430" Width="200" FontSize="10" Margin="150,10,0,0" Grid.RowSpan="2" Opacity="1"/>
+            <TextBlock x:Name="warningTextArea" Foreground="white" TextAlignment="Left" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="42" Width="252" FontSize="14" Margin="23,340,0,0" Opacity="1" Grid.Row="1" Grid.ColumnSpan="2"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="67*"/>
+                <ColumnDefinition Width="13*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="11*"/>
+                <RowDefinition Height="39*"/>
+            </Grid.RowDefinitions>
         </Grid>
         <Grid x:Name="WinnerGrid" Visibility="Collapsed">
             <Popup x:Name="winnerPop" 
@@ -341,6 +340,6 @@
             
         </Grid>
         <TextBlock x:Name="xcord" HorizontalAlignment="Left" Margin="10,0,0,0" Text="" FontSize="40" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock x:Name="ycord" HorizontalAlignment="Left" Margin="10,35,0,0" Text="" FontSize="40" TextWrapping="Wrap" VerticalAlignment="Top"/>
+    <TextBlock x:Name="ycord" HorizontalAlignment="Left" Margin="10,35,0,0" Text="" FontSize="40" TextWrapping="Wrap" VerticalAlignment="Top"/>
     </Grid>
 </Page>

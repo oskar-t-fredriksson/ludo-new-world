@@ -12,8 +12,11 @@ namespace LudoNewWorld.Classes
     {
         public static Player.RowBoat LastPressedBoat { get; set; }
         public static GameTile LastPressedGameTile { get; set; }
+
+        private Player ActivePlayer { get; set; }
         public static int LastDiceRoll { get; set; }
         public static int Tick { get; set; }
+        public static int moveAITick { get; set; }
         public static int PlayerTurn { get; set; }
 
         private static bool gameActive = false;
@@ -45,10 +48,10 @@ namespace LudoNewWorld.Classes
             factionList.Add(Faction.France);
             factionList.Remove(faction);
 
-            Player.playerList.Add(p1 = new Player(faction, true));
-            Player.playerList.Add(p2 = new Player(factionList[0], false));
-            Player.playerList.Add(p3 = new Player(factionList[1], false));
-            Player.playerList.Add(p4 = new Player(factionList[2], false));            
+            Player.playerList.Add(p1 = new Player(1,faction, true));
+            Player.playerList.Add(p2 = new Player(2,factionList[0], false));
+            Player.playerList.Add(p3 = new Player(3,factionList[1], false));
+            Player.playerList.Add(p4 = new Player(4,factionList[2], false));            
         }
 
         /// <summary>
@@ -81,13 +84,26 @@ namespace LudoNewWorld.Classes
         /// </summary>
         public void NextRound()
         {
-            if (gameActive)
+            switch (PlayerTurn)
+            {
+                case 1: ActivePlayer = p1; break;
+                case 2: ActivePlayer = p2; break;
+                case 3: ActivePlayer = p3; break;
+                case 4: ActivePlayer = p4; break;
+            }
+            if(gameActive && !ActivePlayer.IsHuman)
+            {
+                if(!diceRolled) LastDiceRoll = GraphicHandler.scrambleDice(ActivePlayer.ID);
+                diceRolled = true;
+                MoveAI();
+            }
+            else if(gameActive && ActivePlayer.IsHuman)
             {
                 if (diceRolled)
                 {
-                    foreach (var boat in p1.rowBoats)
+                    foreach (var boat in ActivePlayer.rowBoats)
                     {
-                        Debug.WriteLine(p1.CheckIfMovable(boat, LastDiceRoll));
+                        Debug.WriteLine(ActivePlayer.CheckIfMovable(boat, LastDiceRoll));
                     }
                     diceRolled = false;
                 }
@@ -126,7 +142,7 @@ namespace LudoNewWorld.Classes
                     }
                     if (moveConfirmed)
                     {
-                        p1.MoveRowBoat();
+                        ActivePlayer.MoveRowBoat();
                         GraphicHandler.highlighter.GameTileVector = new Vector2(2000, 2000);
                         playerRoundCompleted = true;
                         LastPressedBoat = null;
@@ -137,12 +153,68 @@ namespace LudoNewWorld.Classes
                             boat.targetable = false;
                         }
                         Debug.WriteLine("Moved ship to new tile, ending round");
+                        PlayerTurn = 2;
+                        Player.targetableRowBoats.Clear();
                     }
                     else
                     {
+                        // In the case a user press the incorrect tile/anywhere else on the map that isnt the correct tile
+                        LastPressedBoat = null;
                         Debug.WriteLine("Waiting for user to press the correct tile!");
                     }
                 }
+            }
+        }
+
+        private void MoveAI()
+        {
+            if(moveAITick >= 80)
+            {
+                foreach (var ship in ActivePlayer.rowBoats)
+                {
+                    ActivePlayer.CheckIfMovable(ship, LastDiceRoll);
+                }
+                foreach (var ship in Player.targetableRowBoats)
+                {
+                    ship.targetable = true;
+                }
+                // Generate a random number between 0 and the amount of ships in the player objects rowboat list
+                int boatNumber = _random.Next(0, Player.targetableRowBoats.Count);
+                Player.RowBoat boat = Player.targetableRowBoats[boatNumber];
+
+                // Get the GameTile index of the ship we just generated a random index for
+                int currentTileIndex = boat.CurrentTile;
+                //for (int i = 0; i < ActivePlayer.rowBoats.Count; i++)
+                //{
+                //    for (int j = 0; j < Player.targetableRowBoats.Count; j++)
+                //    {
+                //        if(ActivePlayer.rowBoats[i].Id == Player.targetableRowBoats[j].Id)
+                //        {
+                //            currentTileIndex = ActivePlayer.rowBoats[i].CurrentTile;
+                //        }
+                //    }
+                //    Debug.WriteLine("currentTileIndex " + currentTileIndex);
+                //}
+
+                // Now we need to get the target game tile index & game tile object based on currentTileIndex + dice roll
+                int targetTileIndex = GraphicHandler.GetOrderedTiles().IndexOf(GraphicHandler.GetTile(currentTileIndex + LastDiceRoll));
+                GameTile targetTile = GraphicHandler.GetTile(targetTileIndex);
+
+                // Move ship to target tile
+                float shipX = targetTile.GameTileVector.X - 10;
+                float shipY = targetTile.GameTileVector.Y - 25;
+                boat.Vector = new Vector2(shipX, shipY);
+                boat.active = true;
+                boat.CurrentTile = targetTileIndex;
+                targetTile.IsPlayerOnTile = true;
+                Debug.WriteLine($"Moved ship {boat.Faction} {boat.Id} to tile {boat.CurrentTile}");
+                foreach (var ship in Player.targetableRowBoats)
+                {
+                    ship.targetable = false;
+                }
+                diceRolled = false;
+                Player.targetableRowBoats.Clear();
+                if(moveAITick >= 60) PlayerTurn = 1;
             }
         }
 
