@@ -85,12 +85,14 @@ namespace LudoNewWorld
             MenuField.Scale = scaleVector3Variable;
             FactionField.Scale = scaleVector3Variable;
             Dice.Scale = scaleVector3Variable;
+            DebugMenu.Scale = scaleVector3Variable;
             PlayingMenu.Scale = scaleVector3Variable;
 
             //Scale margin of assets based on the actual window size
             MenuField.Margin = new Thickness(1, 1, xMargin, yMargin);
             FactionField.Margin = new Thickness(1, 1, xMargin, yMargin);
             Dice.Margin = new Thickness(1, 1, xMargin, yMargin);
+            DebugMenu.Margin = new Thickness(xMargin, 0, 0, yMargin);
             PlayingMenu.Margin = new Thickness(1, 1, xMargin, yMargin);
         }
 
