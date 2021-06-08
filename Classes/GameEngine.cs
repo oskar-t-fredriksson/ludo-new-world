@@ -12,17 +12,13 @@ namespace LudoNewWorld.Classes
     {
         public static Player.RowBoat LastPressedBoat { get; set; }
         public static GameTile LastPressedGameTile { get; set; }
-
-        private Player ActivePlayer { get; set; }
+        private static Player ActivePlayer { get; set; }
         public static int LastDiceRoll { get; set; }
         public static int Tick { get; set; }
         public static int moveAITick { get; set; }
         public static int PlayerTurn { get; set; }
 
         private static bool gameActive = false;
-
-
-
         public static bool diceRolled = false;
         public static bool playerCanMove = false;
         public static bool playerRoundCompleted = false;
@@ -32,7 +28,6 @@ namespace LudoNewWorld.Classes
         public Player p1, p2, p3, p4;
 
         public static List<Faction> factionList = new List<Faction>();
-
         private static readonly Random _random = new Random();
 
         /// <summary>
@@ -123,7 +118,7 @@ namespace LudoNewWorld.Classes
                     {
                         tileIndex += LastDiceRoll;
                     }
-                    Vector2 highlightoffset = new Vector2(GraphicHandler.GetTile(tileIndex).GameTileVector.X - 12, GraphicHandler.GetTile(tileIndex).GameTileVector.Y - 12);
+                    Vector2 highlightoffset = new Vector2(GraphicHandler.GetOrderTile(tileIndex).GameTileVector.X - 12, GraphicHandler.GetOrderTile(tileIndex).GameTileVector.Y - 12);
                     GraphicHandler.highlighter.GameTileVector = highlightoffset;
                 }
                 if (LastPressedBoat != null && LastPressedBoat.targetable)
@@ -186,8 +181,8 @@ namespace LudoNewWorld.Classes
                 int currentTileIndex = boat.CurrentTile;
 
                 // Now we need to get the target game tile index & game tile object based on currentTileIndex + dice roll
-                int targetTileIndex = GraphicHandler.GetOrderedTiles().IndexOf(GraphicHandler.GetTile(currentTileIndex + LastDiceRoll));
-                GameTile targetTile = GraphicHandler.GetTile(targetTileIndex);
+                int targetTileIndex = GraphicHandler.GetOrderedTiles().IndexOf(GraphicHandler.GetOrderTile(currentTileIndex + LastDiceRoll));
+                GameTile targetTile = GraphicHandler.GetOrderTile(targetTileIndex);
 
                 // Move ship to target tile
                 float shipX = targetTile.GameTileVector.X - 10;
@@ -205,6 +200,7 @@ namespace LudoNewWorld.Classes
                 diceRolled = false;
                 Player.targetableRowBoats.Clear();
                 if(moveAITick >= 60) PlayerTurn = 1;
+                MainPage.showDice = true;
             }
         }
 
@@ -287,7 +283,7 @@ namespace LudoNewWorld.Classes
                 if (player.rowBoats.Count == 0)
                 {
                     MainPage mainpage = new MainPage();
-                    MainPage.winner = true;
+                    //MainPage.Wi = true;
                     Debug.WriteLine($"{player} won the game uuuuuuuuuuuuuuu");
                     mainpage.winnerPOP.IsOpen = true;
                     mainpage.WinnerTextBlock.Text=$"{player.playerFaction} won the game ";
