@@ -28,11 +28,7 @@ namespace LudoNewWorld
                 
                 ResetGame();
             }
-            else if (MainPage.gameState == 3)
-            {
-
-              
-            }
+          
 
 
         }
