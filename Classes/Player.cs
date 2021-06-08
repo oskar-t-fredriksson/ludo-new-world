@@ -19,7 +19,10 @@ namespace LudoNewWorld.Classes
 
         public static List<Player> playerList = new List<Player>();
         public static List<Player.RowBoat> targetableRowBoats = new List<Player.RowBoat>();
+        public static IDictionary<Player.RowBoat, Vector2> rowboatVector = new Dictionary<Player.RowBoat, Vector2>();
         public List<RowBoat> rowBoats = new List<RowBoat>();
+
+        
 
         public Player(int ID, Faction playerFaction, bool isHuman)
         {
@@ -91,6 +94,10 @@ namespace LudoNewWorld.Classes
                     break;
                 default:
                     break;
+            }
+            foreach (var boat in GraphicHandler.rowBoatList)
+            {
+                rowboatVector.Add(boat, boat.Vector);
             }
         }
         public class RowBoat
