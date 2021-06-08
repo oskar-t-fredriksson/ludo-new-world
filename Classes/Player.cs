@@ -95,9 +95,9 @@ namespace LudoNewWorld.Classes
                 default:
                     break;
             }
-            foreach (var boat in GraphicHandler.rowBoatList)
+            foreach (var boat in rowBoats)
             {
-                rowboatVector.Add(boat, boat.Vector);
+                rowboatVector.Add(boat, boat.Vector);                
             }
         }
         public class RowBoat
@@ -157,10 +157,10 @@ namespace LudoNewWorld.Classes
                 else
                 {
                     ship.CurrentTile += diceRoll;
-                }
-                
+                }                
                 GraphicHandler.GetTile(ship.CurrentTile).IsPlayerOnTile = false;
                 tile.IsPlayerOnTile = true;
+                DestroyRowBoat(ship, tile);
                 GameEngine.moveConfirmed = false;
             }
         }
@@ -222,6 +222,53 @@ namespace LudoNewWorld.Classes
             ship.targetable = true;
             if(targetableRowBoats.Count < 4) targetableRowBoats.Add(ship);
             return true;
-        }       
+        }
+
+        /// <summary>
+        /// Resets vector of Rowboat on selected tile if player choose to move his own Rowboat to that tile
+        /// </summary>
+        /// <param name="ship"></param>
+        /// <param name="tile"></param>
+        public static void DestroyRowBoat(Player.RowBoat ship, GameTile tile)
+        {
+            foreach (var targetShip in GraphicHandler.rowBoatList)
+            {
+                
+                foreach (var item in rowboatVector)
+                {
+                    if (item.Key.Id == targetShip.Id && item.Key.Faction == targetShip.Faction && targetShip.CurrentTile == GraphicHandler.GetOrderedTiles().IndexOf(tile))
+                    {
+                        if (targetShip.Faction != ship.Faction && targetShip.Faction == Faction.Britain)
+                        {
+                            targetShip.CurrentTile = -1;
+                            targetShip.Vector = new Vector2(item.Value.X, item.Value.Y);
+                            targetShip.active = false;
+                            Debug.WriteLine("DESTROY " + targetShip.Id + " " + targetShip.Faction);
+                        }
+                        else if (targetShip.Faction != ship.Faction && targetShip.Faction == Faction.Dutch)
+                        {
+                            targetShip.CurrentTile = 10;
+                            targetShip.Vector = new Vector2(item.Value.X, item.Value.Y);
+                            targetShip.active = false;
+                            Debug.WriteLine("DESTROY " + targetShip.Id + " " + targetShip.Faction);
+                        }
+                        else if (targetShip.Faction != ship.Faction && targetShip.Faction == Faction.Spain)
+                        {
+                            targetShip.CurrentTile = 21;
+                            targetShip.Vector = new Vector2(item.Value.X, item.Value.Y);
+                            targetShip.active = false;
+                            Debug.WriteLine("DESTROY " + targetShip.Id + " " + targetShip.Faction);
+                        }
+                        else if (targetShip.Faction != ship.Faction && targetShip.Faction == Faction.France)
+                        {
+                            targetShip.CurrentTile = 32;
+                            targetShip.Vector = new Vector2(item.Value.X, item.Value.Y);
+                            targetShip.active = false;
+                            Debug.WriteLine("DESTROY " + targetShip.Id + " " + targetShip.Faction);
+                        }                        
+                    }
+                }               
+            }            
+        }
     }
 }

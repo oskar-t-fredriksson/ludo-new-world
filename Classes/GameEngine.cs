@@ -184,17 +184,6 @@ namespace LudoNewWorld.Classes
 
                 // Get the GameTile index of the ship we just generated a random index for
                 int currentTileIndex = boat.CurrentTile;
-                //for (int i = 0; i < ActivePlayer.rowBoats.Count; i++)
-                //{
-                //    for (int j = 0; j < Player.targetableRowBoats.Count; j++)
-                //    {
-                //        if(ActivePlayer.rowBoats[i].Id == Player.targetableRowBoats[j].Id)
-                //        {
-                //            currentTileIndex = ActivePlayer.rowBoats[i].CurrentTile;
-                //        }
-                //    }
-                //    Debug.WriteLine("currentTileIndex " + currentTileIndex);
-                //}
 
                 // Now we need to get the target game tile index & game tile object based on currentTileIndex + dice roll
                 int targetTileIndex = GraphicHandler.GetOrderedTiles().IndexOf(GraphicHandler.GetTile(currentTileIndex + LastDiceRoll));
@@ -207,6 +196,7 @@ namespace LudoNewWorld.Classes
                 boat.active = true;
                 boat.CurrentTile = targetTileIndex;
                 targetTile.IsPlayerOnTile = true;
+                Player.DestroyRowBoat(boat, targetTile);
                 Debug.WriteLine($"Moved ship {boat.Faction} {boat.Id} to tile {boat.CurrentTile}");
                 foreach (var ship in Player.targetableRowBoats)
                 {
