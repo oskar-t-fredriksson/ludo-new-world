@@ -105,6 +105,7 @@ namespace LudoNewWorld.Classes
             public Vector2 Vector { get; set; }
             public Vector2 scaledVector { get; set; }
             public int CurrentTile = -1;
+            public int CurrentGoalTile = -1;
             public Faction Faction { get; }
             public int Id { get; }
             public bool active = false;
@@ -147,9 +148,7 @@ namespace LudoNewWorld.Classes
             }
             else
             {
-                float shipX = tile.GameTileVector.X - 10;
-                float shipY = tile.GameTileVector.Y - 25;
-                ship.Vector = new Vector2(shipX, shipY);
+                ship.Vector = GetMoveBoatVector();
                 if (ship.CurrentTile + diceRoll > 43)
                 {
                     ship.CurrentTile = ship.CurrentTile - 43 + diceRoll - 1;
@@ -158,7 +157,7 @@ namespace LudoNewWorld.Classes
                 {
                     ship.CurrentTile += diceRoll;
                 }                
-                GraphicHandler.GetTile(ship.CurrentTile).IsPlayerOnTile = false;
+                GraphicHandler.GetOrderdTile(ship.CurrentTile).IsPlayerOnTile = false;
                 tile.IsPlayerOnTile = true;
                 DestroyRowBoat(ship, tile);
                 GameEngine.moveConfirmed = false;
@@ -179,15 +178,18 @@ namespace LudoNewWorld.Classes
             {
                 var shipTileI = ship.CurrentTile;
                 var forLoopShipTileLengthI = ship.CurrentTile;
+                bool isPlayerOnTileCheck;
+
                 Debug.WriteLine("=================================");
                 Debug.WriteLine($"Loop for ship {ship.Id} started: ");
 
                 for (int i = shipTileI + 1; i < forLoopShipTileLengthI + dicenr + 1; i++)
-                {   
+                {
+                    isPlayerOnTileCheck = GraphicHandler.GetOrderdTile(i).IsPlayerOnTile;
                     Debug.Write("Tile: " + i);
                     if (i <= 43)
                     {
-                        if (GraphicHandler.GetTile(i).IsPlayerOnTile)
+                        if (isPlayerOnTileCheck)
                         {
                             foreach (var targetShip in GraphicHandler.rowBoatList)
                             {                                
@@ -212,16 +214,68 @@ namespace LudoNewWorld.Classes
                             Debug.WriteLine($" Found zero ship on tile!");
                         }
                     }
-                    else
+                    //else if (GraphicHandler.GetOrderdTile(i).FactionType == ship.Faction
+                    //    && GraphicHandler.GetOrderdTile(i).FactionType == ship.Faction)
+                    //{
+                        
+                    //    foreach (var goalTiles in GraphicHandler.GetAllGoalTiles())
+                    //    {
+                    //        for (int j = 0; j < goalTiles.Count; j++)
+                    //        {
+                    //            isPlayerOnTileCheck = goalTiles[j].IsPlayerOnTile;
+                    //            if (isPlayerOnTileCheck)
+                    //            {
+                    //                foreach (var targetShip in GraphicHandler.rowBoatList)
+                    //                {
+                    //                    switch (ship.Faction)
+                    //                    {
+                    //                        case Faction.Britain:
+                    //                            if (ship.Id != targetShip.Id && j == targetShip.CurrentTile && ship.Faction == targetShip.Faction)
+                    //                            {
+                    //                                Debug.WriteLine(" Found own ship in the way, cant move!");
+                    //                                return false;
+                    //                            }
+                    //                            break;
+                    //                        case Faction.Dutch:
+                    //                            break;
+                    //                        case Faction.Spain:
+                    //                            break;
+                    //                        case Faction.France:
+                    //                            break;
+                    //                        default:
+                    //                            break;
+                    //                    }
+                    //                }
+                    //            }
+                    //        }
+                    //    }
+                        
+                    //}
+                    else if (ship.Faction != Faction.Britain)
                     {
                         i = -1;
                         forLoopShipTileLengthI = shipTileI - 43 - 1;
-                    }  
+                    }
                 }                
             }            
             ship.targetable = true;
             if(targetableRowBoats.Count < 4) targetableRowBoats.Add(ship);
             return true;
+        }
+
+        /// <summary>
+        /// Finds the vector of last pressed gametile and applies offset for the image
+        /// </summary>
+        /// <returns></returns>
+        private static Vector2 GetMoveBoatVector()
+        {
+            float shipX, shipY;            
+            Vector2 moveBoatVector;
+
+            shipX = GameEngine.LastPressedGameTile.GameTileVector.X - 10;
+            shipY = GameEngine.LastPressedGameTile.GameTileVector.Y - 25;
+            moveBoatVector = new Vector2(shipX, shipY);
+            return moveBoatVector;            
         }
 
         /// <summary>
@@ -269,6 +323,10 @@ namespace LudoNewWorld.Classes
                     }
                 }               
             }            
+        }
+        public static void CheckGoalTiles()
+        {
+
         }
     }
 }

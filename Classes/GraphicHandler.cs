@@ -567,9 +567,45 @@ namespace LudoNewWorld
         {
             return orderedTiles;
         }
-        public static GameTile GetTile(int index)
+        public static GameTile GetOrderdTile(int index)
         {
-            return orderedTiles[index];
+            try
+            {
+                if (index > 43)
+                {
+                    index = 0;
+                }
+                return orderedTiles[index];
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                throw e;
+            }
+        }
+        public static List<List<GameTile>> GetAllGoalTiles()
+        {
+            return allGoalTiles;
+        }
+        public static GameTile GetBritainGoalTile(int index)
+        {
+
+            return britainGoalTiles[index];
+        }
+        public static GameTile GetDutchGoalTile(int index)
+        {
+
+            return dutchGoalTiles[index];
+        }
+        public static GameTile GetSpainGoalTile(int index)
+        {
+
+            return spainGoalTiles[index];
+        }
+        public static GameTile GetFranceGoalTile(int index)
+        {
+
+            return franceGoalTiles[index];
         }
     }
 }

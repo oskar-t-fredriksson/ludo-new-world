@@ -123,8 +123,7 @@ namespace LudoNewWorld.Classes
                     {
                         tileIndex += LastDiceRoll;
                     }
-                    Vector2 highlightoffset = new Vector2(GraphicHandler.GetTile(tileIndex).GameTileVector.X - 12, GraphicHandler.GetTile(tileIndex).GameTileVector.Y - 12);
-                    GraphicHandler.highlighter.GameTileVector = highlightoffset;
+                    GraphicHandler.highlighter.GameTileVector = GetHighlightVector(tileIndex);
                 }
                 if (LastPressedBoat != null && LastPressedBoat.targetable)
                 {
@@ -166,6 +165,49 @@ namespace LudoNewWorld.Classes
             }
         }
 
+        private static Vector2 GetHighlightVector(int tileIndex)
+        {
+            int tileIndexBritain = LastPressedBoat.CurrentTile + LastDiceRoll - 44;
+            int tileIndexDutch = LastPressedBoat.CurrentTile + LastDiceRoll - 10;
+            int tileIndexSpain = LastPressedBoat.CurrentTile + LastDiceRoll - 21;
+            int tileIndexFrance = LastPressedBoat.CurrentTile + LastDiceRoll - 32;
+            Vector2 highlightVector;
+                        
+            if (LastPressedBoat.active && LastPressedBoat.CurrentTile + LastDiceRoll > 43  && LastPressedBoat.Faction == Faction.Britain)
+            {
+                highlightVector = new Vector2(GraphicHandler.GetBritainGoalTile(tileIndexBritain).GameTileVector.X - 12, 
+                    GraphicHandler.GetBritainGoalTile(tileIndexBritain).GameTileVector.Y - 12);
+                return highlightVector;
+            }
+            else if (LastPressedBoat.active && LastPressedBoat.CurrentTile <= 10 
+                && LastPressedBoat.CurrentTile + LastDiceRoll > 10 && LastPressedBoat.Faction == Faction.Dutch)
+            {
+                highlightVector = new Vector2(GraphicHandler.GetDutchGoalTile(tileIndexDutch).GameTileVector.X - 12, 
+                    GraphicHandler.GetDutchGoalTile(tileIndexDutch).GameTileVector.Y - 12);
+                return highlightVector;
+            }
+            else if (LastPressedBoat.active && LastPressedBoat.CurrentTile <= 21
+                && LastPressedBoat.CurrentTile + LastDiceRoll > 21 && LastPressedBoat.Faction == Faction.Spain)
+            {
+                highlightVector = new Vector2(GraphicHandler.GetSpainGoalTile(tileIndexSpain).GameTileVector.X - 12, 
+                    GraphicHandler.GetSpainGoalTile(tileIndexSpain).GameTileVector.Y - 12);
+                return highlightVector;
+            }
+            else if (LastPressedBoat.active && LastPressedBoat.CurrentTile <= 32
+                && LastPressedBoat.CurrentTile + LastDiceRoll > 32 && LastPressedBoat.Faction == Faction.France)
+            {
+                highlightVector = new Vector2(GraphicHandler.GetFranceGoalTile(tileIndexFrance).GameTileVector.X - 12, 
+                    GraphicHandler.GetSpainGoalTile(tileIndexFrance).GameTileVector.Y - 12);
+                return highlightVector;
+            }
+            else
+            {
+                highlightVector = new Vector2(GraphicHandler.GetOrderdTile(tileIndex).GameTileVector.X - 12, GraphicHandler.GetOrderdTile(tileIndex).GameTileVector.Y - 12);                
+                return highlightVector;
+            }
+            
+        }
+
         private void MoveAI()
         {
             if(moveAITick >= 80)
@@ -186,8 +228,8 @@ namespace LudoNewWorld.Classes
                 int currentTileIndex = boat.CurrentTile;
 
                 // Now we need to get the target game tile index & game tile object based on currentTileIndex + dice roll
-                int targetTileIndex = GraphicHandler.GetOrderedTiles().IndexOf(GraphicHandler.GetTile(currentTileIndex + LastDiceRoll));
-                GameTile targetTile = GraphicHandler.GetTile(targetTileIndex);
+                int targetTileIndex = GraphicHandler.GetOrderedTiles().IndexOf(GraphicHandler.GetOrderdTile(currentTileIndex + LastDiceRoll));
+                GameTile targetTile = GraphicHandler.GetOrderdTile(targetTileIndex);
 
                 // Move ship to target tile
                 float shipX = targetTile.GameTileVector.X - 10;
