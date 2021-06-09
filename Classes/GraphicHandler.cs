@@ -14,7 +14,7 @@ namespace LudoNewWorld
 {
     class GraphicHandler
     {
-        public static CanvasBitmap background, gameBackground, menuBackground,
+        public static CanvasBitmap background, backgroundBritainActive, backgroundDutchActive, backgroundSpainActive, backgroundFranceActive ,gameBackground, menuBackground,
         dice1, dice2, dice3, dice4, dice5, dice6, britishDisplayDice, dutchDisplayDice, spainDisplayDice, franceDisplayDice,
         dice1Inactive, dice2Inactive, dice3Inactive, dice4Inactive, dice5Inactive, dice6Inactive,
         NeutralTile, BritainTile, SpainTile, DutchTile, FranceTile, NegativeTile, PositiveTile, RandomTile,
@@ -157,8 +157,12 @@ namespace LudoNewWorld
         private static async Task CreateResourceAsync(CanvasAnimatedControl sender)
         {
             //Background
-            gameBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/bg.png"));
-            menuBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/menuBackground.png"));
+            gameBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Background/bg.png"));
+            backgroundBritainActive = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Background/bg_britain_active.png"));
+            backgroundDutchActive = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Background/bg_dutch_active.png"));
+            backgroundSpainActive = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Background/bg_spain_active.png"));
+            backgroundFranceActive = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Background/bg_france_active.png"));
+            menuBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Background/menuBackground.png"));
             helpmenuBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/helpMenuNew.png"));
             instructionsBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/instruct_placeholder.png"));
             creditsBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Credits.png"));

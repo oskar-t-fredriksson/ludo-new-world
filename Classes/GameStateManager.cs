@@ -21,16 +21,25 @@ namespace LudoNewWorld
             }
             else if (MainPage.gameState == 1)
             {
-                GraphicHandler.background = GraphicHandler.gameBackground;
+                if(GameEngine.GetGameActive())
+                {
+                    switch (GameEngine.PlayerTurn)
+                    {
+                        case 1: GraphicHandler.background = GraphicHandler.backgroundBritainActive; break;
+                        case 2: GraphicHandler.background = GraphicHandler.backgroundDutchActive; break;
+                        case 3: GraphicHandler.background = GraphicHandler.backgroundSpainActive; break;
+                        case 4: GraphicHandler.background = GraphicHandler.backgroundFranceActive; break;
+                    }
+                }
+                else
+                {
+                    GraphicHandler.background = GraphicHandler.gameBackground;
+                }
             }
             else if (MainPage.gameState == 2)
             {
-                
                 ResetGame();
             }
-          
-
-
         }
         /// <summary>
         /// Clears all objects on the board
