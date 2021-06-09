@@ -125,6 +125,7 @@ namespace LudoNewWorld.Classes
                 }
             }
         }
+
         /// <summary>
         /// Move lastPressedBoat and updates lastPressBoat.CurrentTile value
         /// </summary>
@@ -150,6 +151,7 @@ namespace LudoNewWorld.Classes
                 float shipX = tile.GameTileVector.X - 10;
                 float shipY = tile.GameTileVector.Y - 25;
                 ship.Vector = new Vector2(shipX, shipY);
+                Debug.Write(ship.Faction + $" ship {ship.Id} moved from tile {ship.CurrentTile} to tile ");
                 if (ship.CurrentTile + diceRoll > 43)
                 {
                     ship.CurrentTile = ship.CurrentTile - 43 + diceRoll - 1;
@@ -162,6 +164,7 @@ namespace LudoNewWorld.Classes
                 tile.IsPlayerOnTile = true;
                 DestroyRowBoat(ship, tile);
                 GameEngine.moveConfirmed = false;
+                Debug.WriteLine(ship.CurrentTile + "\n");
             }
         }
 
@@ -179,17 +182,17 @@ namespace LudoNewWorld.Classes
             {
                 var shipTileI = ship.CurrentTile;
                 var forLoopShipTileLengthI = ship.CurrentTile;
-                Debug.WriteLine("=================================");
-                Debug.WriteLine($"Loop for ship {ship.Id} started: ");
+                //Debug.WriteLine("=================================");
+                //Debug.WriteLine($"Loop for ship {ship.Id} started: ");
 
                 for (int i = shipTileI + 1; i < forLoopShipTileLengthI + dicenr + 1; i++)
                 {   
                     if(!ship.active && GameEngine.LastDiceRoll != 1 && GameEngine.LastDiceRoll != 6)
                     {
-                        Debug.WriteLine("Located at base, can only move at 1 or 6");
+                        //Debug.WriteLine("Located at base, can only move at 1 or 6");
                         return false;
                     }
-                    Debug.Write("Tile: " + i);
+                    //Debug.Write("Tile: " + i);
                     if (i <= 43)
                     {
                         if (GraphicHandler.GetOrderTile(i).IsPlayerOnTile)
@@ -198,23 +201,23 @@ namespace LudoNewWorld.Classes
                             {                                
                                 if (ship.Id != targetShip.Id && i == targetShip.CurrentTile && ship.Faction == targetShip.Faction)
                                 {
-                                    Debug.WriteLine(" Found own ship in the way, cant move!");
+                                    //Debug.WriteLine(" Found own ship in the way, cant move!");
                                     return false;
                                 }
                                 else if (i == targetShip.CurrentTile && i + 1 == dicenr && targetShip.active)
                                 {
-                                    Debug.WriteLine($" Found {targetShip.Faction} ship on last tile!, Should destroy!");
+                                    //Debug.WriteLine($" Found {targetShip.Faction} ship on last tile!, Should destroy!");
 
                                 }
                                 else if (i == targetShip.CurrentTile && targetShip.active)
                                 {
-                                    Debug.WriteLine($" Found {targetShip.Faction} ship!");
+                                    //Debug.WriteLine($" Found {targetShip.Faction} ship!");
                                 }                                                                
                             }
                         }
                         else
                         {
-                            Debug.WriteLine($" Found zero ship on tile!");
+                            //Debug.WriteLine($" Found zero ship on tile!");
                         }
                     }
                     else
@@ -238,7 +241,6 @@ namespace LudoNewWorld.Classes
         {
             foreach (var targetShip in GraphicHandler.rowBoatList)
             {
-                
                 foreach (var item in rowboatVector)
                 {
                     if (item.Key.Id == targetShip.Id && item.Key.Faction == targetShip.Faction && targetShip.CurrentTile == GraphicHandler.GetOrderedTiles().IndexOf(tile))
@@ -248,32 +250,45 @@ namespace LudoNewWorld.Classes
                             targetShip.CurrentTile = -1;
                             targetShip.Vector = new Vector2(item.Value.X, item.Value.Y);
                             targetShip.active = false;
-                            Debug.WriteLine("DESTROY " + targetShip.Id + " " + targetShip.Faction);
+                            //Debug.WriteLine("DESTROY " + targetShip.Id + " " + targetShip.Faction);
                         }
                         else if (targetShip.Faction != ship.Faction && targetShip.Faction == Faction.Dutch)
                         {
                             targetShip.CurrentTile = 10;
                             targetShip.Vector = new Vector2(item.Value.X, item.Value.Y);
                             targetShip.active = false;
-                            Debug.WriteLine("DESTROY " + targetShip.Id + " " + targetShip.Faction);
+                            //Debug.WriteLine("DESTROY " + targetShip.Id + " " + targetShip.Faction);
                         }
                         else if (targetShip.Faction != ship.Faction && targetShip.Faction == Faction.Spain)
                         {
                             targetShip.CurrentTile = 21;
                             targetShip.Vector = new Vector2(item.Value.X, item.Value.Y);
                             targetShip.active = false;
-                            Debug.WriteLine("DESTROY " + targetShip.Id + " " + targetShip.Faction);
+                            //Debug.WriteLine("DESTROY " + targetShip.Id + " " + targetShip.Faction);
                         }
                         else if (targetShip.Faction != ship.Faction && targetShip.Faction == Faction.France)
                         {
                             targetShip.CurrentTile = 32;
                             targetShip.Vector = new Vector2(item.Value.X, item.Value.Y);
                             targetShip.active = false;
-                            Debug.WriteLine("DESTROY " + targetShip.Id + " " + targetShip.Faction);
+                            //Debug.WriteLine("DESTROY " + targetShip.Id + " " + targetShip.Faction);
                         }                        
                     }
-                }               
+                }
             }            
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void PositiveTileEffect()
+        {
+            int lastPlayer = GameEngine.PlayerTurn;
+            if(GameEngine.GetActivePlayer().IsHuman)
+            {
+                MainPage.showDice = true;
+            }
+
         }
     }
 }
