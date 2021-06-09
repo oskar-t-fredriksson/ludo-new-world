@@ -62,7 +62,7 @@ namespace LudoNewWorld
             Sound.DiceSound();
             Dice dice = new Dice();
             int trueNumber = dice.Roll();
-            Debug.WriteLine("Dice rolled: " + trueNumber);
+            Debug.WriteLine(GameEngine.GetActivePlayer().playerFaction + " rolled: " + trueNumber);
            
            
             switch (playerID)

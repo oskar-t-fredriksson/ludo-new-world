@@ -18,7 +18,11 @@ namespace LudoNewWorld.Classes
         public static int moveAITick { get; set; }
         public static int PlayerTurn { get; set; }
 
+        private static int round = 1;
+
+        private static bool newRound = true;
         private static bool gameActive = false;
+
         public static bool diceRolled = false;
         public static bool playerCanMove = false;
         public static bool playerRoundCompleted = false;
@@ -79,12 +83,20 @@ namespace LudoNewWorld.Classes
         /// </summary>
         public void NextRound()
         {
+            if(newRound)
+            {
+                Debug.WriteLine("===========================");
+                Debug.WriteLine("Round: " + GameEngine.round);
+                round++;
+                newRound = false;
+            }
             switch (PlayerTurn)
             {
                 case 1: ActivePlayer = p1; break;
                 case 2: ActivePlayer = p2; break;
                 case 3: ActivePlayer = p3; break;
                 case 4: ActivePlayer = p4; break;
+                case 0: ActivePlayer = ActivePlayer; break;
             }
             if(gameActive && !ActivePlayer.IsHuman)
             {
@@ -98,7 +110,7 @@ namespace LudoNewWorld.Classes
                 {
                     foreach (var boat in ActivePlayer.rowBoats)
                     {
-                        Debug.WriteLine(ActivePlayer.CheckIfMovable(boat, LastDiceRoll));
+                        ActivePlayer.CheckIfMovable(boat, LastDiceRoll);
                     }
                     if (Player.targetableRowBoats.Count <= 0) SwitchPlayer();
                 }
@@ -127,13 +139,13 @@ namespace LudoNewWorld.Classes
                     GraphicHandler.highlighter.GameTileVector = new Vector2(2000, 2000);
                     if (GraphicHandler.GetOrderedTiles().IndexOf(LastPressedGameTile) == LastPressedBoat.CurrentTile + LastDiceRoll)
                     {
-                        Debug.WriteLine("Right tile was clicked, calling to move tile");
+                        //Debug.WriteLine("Right tile was clicked, calling to move tile");
                         moveConfirmed = true;
                     }
                     else if ((LastPressedBoat.CurrentTile + LastDiceRoll - 1) >= 43)
                     {
-                        Debug.WriteLine("Right tile was clicked, calling to move tile");
-                        Debug.WriteLine("Test else if moveConfirmed");
+                        //Debug.WriteLine("Right tile was clicked, calling to move tile");
+                        //Debug.WriteLine("Test else if moveConfirmed");
                         moveConfirmed = true;
                     }
                     if (moveConfirmed)
@@ -148,15 +160,23 @@ namespace LudoNewWorld.Classes
                         {
                             boat.targetable = false;
                         }
-                        Debug.WriteLine("Moved ship to new tile, ending round");
-                        SwitchPlayer();
-                        Player.targetableRowBoats.Clear();
+                        //Debug.WriteLine("Moved ship to new tile, ending round");
+                        if (LastDiceRoll == 6)
+                        {
+                            //Debug.WriteLine($"{ActivePlayer.playerFaction} {ActivePlayer.ID} rolled a 6's. Trigger reroll");
+                            Player.PositiveTileEffect();
+                        }
+                        else
+                        {
+                            SwitchPlayer();
+                            Player.targetableRowBoats.Clear();
+                        }
                     }
                     else
                     {
                         // In the case a user press the incorrect tile/anywhere else on the map that isnt the correct tile
                         LastPressedBoat = null;
-                        Debug.WriteLine("Waiting for user to press the correct tile!");
+                        //Debug.WriteLine("Waiting for user to press the correct tile!");
                     }
                 }
             }
@@ -175,6 +195,7 @@ namespace LudoNewWorld.Classes
             {
                 SwitchPlayer();
                 diceRolled = false;
+                MainPage.showDice = true;
                 MainPage.showDice = true;
             }
             else if(Player.targetableRowBoats.Count > 0 && moveAITick >= 80)
@@ -197,14 +218,16 @@ namespace LudoNewWorld.Classes
                     GameTile targetTile = GraphicHandler.GetOrderTile(targetTileIndex);
 
                     // Move ship to target tile
+                    Debug.Write(boat.Faction + $" ship {boat.Id} moved from tile {boat.CurrentTile} to tile ");
                     float shipX = targetTile.GameTileVector.X - 10;
                     float shipY = targetTile.GameTileVector.Y - 25;
                     boat.Vector = new Vector2(shipX, shipY);
                     boat.active = true;
                     boat.CurrentTile = targetTileIndex;
+                    Debug.WriteLine(boat.CurrentTile + "\n");
                     targetTile.IsPlayerOnTile = true;
                     Player.DestroyRowBoat(boat, targetTile);
-                    Debug.WriteLine($"Moved ship {boat.Faction} {boat.Id} to tile {boat.CurrentTile}");
+                    //Debug.WriteLine($"Moved ship {boat.Faction} {boat.Id} to tile {boat.CurrentTile}");
                     foreach (var ship in Player.targetableRowBoats)
                     {
                         ship.targetable = false;
@@ -253,7 +276,7 @@ namespace LudoNewWorld.Classes
                                 ship.pressedByMouse = true;
                                 LastPressedBoat = ship;
                             }
-                            Debug.WriteLine("User has pressed a targetable click, waiting for user to click a tile!");
+                            //Debug.WriteLine("User has pressed a targetable click, waiting for user to click a tile!");
                             return ship;
                         }
                     }
@@ -323,8 +346,12 @@ namespace LudoNewWorld.Classes
                 case 1: PlayerTurn = 2; break;
                 case 2: PlayerTurn = 3; break;
                 case 3: PlayerTurn = 4; break;
-                case 4: PlayerTurn = 1; break;
+                case 4: PlayerTurn = 1; newRound = true; break;
             }
+        }
+        public static Player GetActivePlayer()
+        {
+            return ActivePlayer;
         }
     }
 }

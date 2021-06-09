@@ -12,6 +12,7 @@ namespace LudoNewWorld
     {
         /// <summary>
         /// Changes background view depending on the current game state
+        /// <para>Will change background with highlighted bases based on the current <see cref="GameEngine.PlayerTurn"/></para>
         /// </summary>
         public static void BackgroundManager()
         {
