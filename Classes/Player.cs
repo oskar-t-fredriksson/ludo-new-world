@@ -179,7 +179,8 @@ namespace LudoNewWorld.Classes
             if (GameEngine.GetGameActive())
             {
                 var shipTileI = ship.CurrentTile;
-                var forLoopShipTileLengthI = ship.CurrentTile;                
+                var forLoopShipTileLengthI = ship.CurrentTile;
+                int forLoopShipTileLengthJ;
 
                 Debug.WriteLine("=================================");
                 Debug.WriteLine($"Loop for ship {ship.Id} started: ");
@@ -188,22 +189,50 @@ namespace LudoNewWorld.Classes
                 {
                     isPlayerOnTileCheck = GraphicHandler.GetOrderdTile(i).IsPlayerOnTile;
                     Debug.Write("Tile: " + i);
-                    if (i > 0 && GraphicHandler.GetOrderdTile(i).FactionType == ship.Faction && GraphicHandler.GetOrderdTile(i).TileType != Tile.StartTile && ship.active
-                         || ship.CurrentTile > 0 && GraphicHandler.GetOrderdTile(ship.CurrentTile).FactionType == ship.Faction && GraphicHandler.GetOrderdTile(ship.CurrentTile).TileType != Tile.StartTile
-                         && GraphicHandler.GetOrderdTile(ship.CurrentTile).TileType != Tile.BaseTile && ship.active)
+                    if (ship.IsOnGoalTile || ship.Faction == GraphicHandler.GetOrderdTile(i).FactionType && GraphicHandler.GetOrderdTile(i).TileType != Tile.StartTile)
                     {
-                        if (isPlayerOnTileCheck)
+                        if (GraphicHandler.GetOrderdTile(i - 1).IsPlayerOnTile)
                         {
                             Debug.WriteLine("Checking goal tiles");
-                            return CheckGoalTilesMove(ship, dicenr);
+                            //return CheckGoalTilesMove(ship, dicenr);
+                            switch (ship.Faction)
+                            {
+                                case Faction.Britain:
+                                    forLoopShipTileLengthJ = ship.CurrentTile + dicenr - 43;
+
+                                    foreach (var goalTiles in GraphicHandler.GetAllGoalTiles())
+                                    {
+                                        for (int j = 0; j < forLoopShipTileLengthJ; j++)
+                                        {
+                                            isPlayerOnTileCheck = goalTiles[j].IsPlayerOnTile;
+                                            Debug.Write("GoalTile: " + j);
+                                            foreach (var targetShip in GraphicHandler.rowBoatList)
+                                            {
+                                                if (ship.Id != targetShip.Id && j == targetShip.CurrentTile && ship.Faction == targetShip.Faction)
+                                                {
+                                                    Debug.WriteLine(" Found own ship in the way, cant move!");
+                                                    return false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    break;
+                                case Faction.Dutch:
+                                    break;
+                                case Faction.Spain:
+                                    break;
+                                case Faction.France:
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                         else
                         {
                             Debug.WriteLine($" Found zero ship on tile!");
                         }
-
                     }
-                    else if (i <= 43)
+                    else if (i <= 43 && !ship.IsOnGoalTile)
                     {
                         if (isPlayerOnTileCheck)
                         {
@@ -252,46 +281,46 @@ namespace LudoNewWorld.Classes
         private static bool CheckGoalTilesMove(RowBoat ship, int dicenr)
         {
             int forLoopShipTileLengthI;
-            int goalCurrentTile;
 
             Debug.WriteLine("=================================");
             Debug.WriteLine($"Loop for ship GOAL TILES {ship.Id} started: ");
-                        
+
+            if (true)
+            {
+
+            }
           
-                switch (ship.Faction)
-                {
-                    case Faction.Britain:
-                        forLoopShipTileLengthI = ship.CurrentTile + dicenr - 43;
+            switch (ship.Faction)
+            {
+                case Faction.Britain:
+                    forLoopShipTileLengthI = ship.CurrentTile + dicenr - 43;
                         
-                        foreach (var goalTiles in GraphicHandler.GetAllGoalTiles())
+                    foreach (var goalTiles in GraphicHandler.GetAllGoalTiles())
+                    {
+                        for (int i = 0; i < forLoopShipTileLengthI; i++)
                         {
-                            for (int i = 0; i < forLoopShipTileLengthI; i++)
+                            isPlayerOnTileCheck = goalTiles[i].IsPlayerOnTile;
+                            Debug.Write("GoalTile: " + i);
+                            foreach (var targetShip in GraphicHandler.rowBoatList)
                             {
-                                isPlayerOnTileCheck = goalTiles[i].IsPlayerOnTile;
-                                Debug.Write("GoalTile: " + i);
-                                foreach (var targetShip in GraphicHandler.rowBoatList)
+                                if (ship.Id != targetShip.Id && i == targetShip.CurrentTile && ship.Faction == targetShip.Faction)
                                 {
-                                    if (ship.Id != targetShip.Id && i == targetShip.CurrentTile && ship.Faction == targetShip.Faction)
-                                    {
-                                        Debug.WriteLine(" Found own ship in the way, cant move!");
-                                        return false;
-                                    }
-                                }                                
-                            }
-                        }                                               
-                        break;
-                    case Faction.Dutch:
-                        break;
-                    case Faction.Spain:
-                        break;
-                    case Faction.France:
-                        break;
-                    default:
-                        break;
-                }
-                                                                       
-                
-            
+                                    Debug.WriteLine(" Found own ship in the way, cant move!");
+                                    return false;
+                                }
+                            }                                
+                        }
+                    }                                               
+                    break;
+                case Faction.Dutch:
+                    break;
+                case Faction.Spain:
+                    break;
+                case Faction.France:
+                    break;
+                default:
+                    break;
+            }                                                                                                   
             return true;
         }
 

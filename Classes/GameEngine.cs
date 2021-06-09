@@ -315,6 +315,10 @@ namespace LudoNewWorld.Classes
                         && clickCords.Y >= tile.ScaledVector.Y - 50 && clickCords.Y <= tile.ScaledVector.Y)
                         {
                             LastPressedGameTile = tile;
+                            if (LastPressedBoat.Faction == tile.FactionType && tile.TileType != Tile.StartTile)
+                            {
+                                LastPressedBoat.IsOnGoalTile = true;
+                            }
                             return tile;
                         }
                     }
