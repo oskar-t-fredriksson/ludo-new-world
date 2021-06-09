@@ -148,7 +148,13 @@ namespace LudoNewWorld.Classes
                             boat.targetable = false;
                         }
                         Debug.WriteLine("Moved ship to new tile, ending round");
-                        PlayerTurn = 2;
+                        switch (PlayerTurn)
+                        {
+                            case 1: PlayerTurn = 2; break;
+                            case 2: PlayerTurn = 3; break;
+                            case 3: PlayerTurn = 4; break;
+                            case 4: PlayerTurn = 1; break;
+                        }
                         Player.targetableRowBoats.Clear();
                     }
                     else
@@ -199,7 +205,16 @@ namespace LudoNewWorld.Classes
                 }
                 diceRolled = false;
                 Player.targetableRowBoats.Clear();
-                if(moveAITick >= 60) PlayerTurn = 1;
+                if(moveAITick >= 60)
+                {
+                    switch (PlayerTurn)
+                    {
+                        case 1: PlayerTurn = 2; break;
+                        case 2: PlayerTurn = 3; break;
+                        case 3: PlayerTurn = 4; break;
+                        case 4: PlayerTurn = 1; break;
+                    }
+                }
                 MainPage.showDice = true;
             }
         }
