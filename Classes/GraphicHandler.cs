@@ -589,23 +589,35 @@ namespace LudoNewWorld
         }
         public static GameTile GetBritainGoalTile(int index)
         {
-
             return britainGoalTiles[index];
+        }
+        public static List<GameTile> GetBritainGoalTiles()
+        {
+            return britainGoalTiles;
         }
         public static GameTile GetDutchGoalTile(int index)
         {
-
             return dutchGoalTiles[index];
+        }
+        public static List<GameTile> GetDutchGoalTiles()
+        {
+            return dutchGoalTiles;
         }
         public static GameTile GetSpainGoalTile(int index)
         {
-
             return spainGoalTiles[index];
+        }
+        public static List<GameTile> GetSpainGoalTiles()
+        {
+            return spainGoalTiles;
         }
         public static GameTile GetFranceGoalTile(int index)
         {
-
             return franceGoalTiles[index];
+        }
+        public static List<GameTile> GetFranceGoalTiles()
+        {
+            return franceGoalTiles;
         }
     }
 }

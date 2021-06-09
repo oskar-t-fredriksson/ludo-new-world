@@ -131,12 +131,13 @@ namespace LudoNewWorld.Classes
                     if (GraphicHandler.GetOrderedTiles().IndexOf(LastPressedGameTile) == LastPressedBoat.CurrentTile + LastDiceRoll)
                     {
                         Debug.WriteLine("Right tile was clicked, calling to move tile");
+                        Debug.WriteLine("Is on goal tile: " + LastPressedBoat.IsOnGoalTile);
                         moveConfirmed = true;
                     }
                     else if ((LastPressedBoat.CurrentTile + LastDiceRoll - 1) >= 43)
                     {
                         Debug.WriteLine("Right tile was clicked, calling to move tile");
-                        Debug.WriteLine("Test else if moveConfirmed");
+                        Debug.WriteLine("Is on goal tile: " + LastPressedBoat.IsOnGoalTile);
                         moveConfirmed = true;
                     }
                     if (moveConfirmed)
@@ -152,7 +153,7 @@ namespace LudoNewWorld.Classes
                             boat.targetable = false;
                         }
                         Debug.WriteLine("Moved ship to new tile, ending round");
-                        PlayerTurn = 2;
+                        //PlayerTurn = 2;
                         Player.targetableRowBoats.Clear();
                     }
                     else
@@ -164,7 +165,11 @@ namespace LudoNewWorld.Classes
                 }
             }
         }
-
+        /// <summary>
+        /// Recieves the tile index of current tile + dice roll and returns the vector of that tile index
+        /// </summary>
+        /// <param name="tileIndex"></param>
+        /// <returns></returns>
         private static Vector2 GetHighlightVector(int tileIndex)
         {
             int tileIndexBritain = LastPressedBoat.CurrentTile + LastDiceRoll - 44;
@@ -314,6 +319,19 @@ namespace LudoNewWorld.Classes
                         }
                     }
                 }
+
+                foreach (var tile in GraphicHandler.GetBritainGoalTiles())
+                {
+                    if (clickCords.X >= tile.ScaledVector.X - 50 && clickCords.X <= tile.ScaledVector.X
+                    && clickCords.Y >= tile.ScaledVector.Y - 50 && clickCords.Y <= tile.ScaledVector.Y)
+                    {
+                        LastPressedGameTile = tile;
+                        LastPressedBoat.IsOnGoalTile = true;
+                        return tile;
+                    }
+                }
+
+                
             }
             return null;
         }
