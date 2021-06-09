@@ -288,7 +288,10 @@ namespace LudoNewWorld.Classes
             {
                 MainPage.showDice = true;
             }
-
+            else
+            {
+                GameEngine.diceRolled = false;
+            }
         }
     }
 }

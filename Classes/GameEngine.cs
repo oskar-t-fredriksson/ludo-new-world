@@ -234,10 +234,15 @@ namespace LudoNewWorld.Classes
                     }
                     diceRolled = false;
                     Player.targetableRowBoats.Clear();
-                    if (moveAITick >= 60)
+                    if (LastDiceRoll == 6)
                     {
+                        Player.PositiveTileEffect();
+                    }
+                    else if (LastDiceRoll != 6 && moveAITick >= 60)
+                    {                       
                         SwitchPlayer();
                     }
+                    
                     MainPage.showDice = true;
                 }
             }
