@@ -184,6 +184,11 @@ namespace LudoNewWorld.Classes
 
                 for (int i = shipTileI + 1; i < forLoopShipTileLengthI + dicenr + 1; i++)
                 {   
+                    if(!ship.active && GameEngine.LastDiceRoll != 1 && GameEngine.LastDiceRoll != 6)
+                    {
+                        Debug.WriteLine("Located at base, can only move at 1 or 6");
+                        return false;
+                    }
                     Debug.Write("Tile: " + i);
                     if (i <= 43)
                     {

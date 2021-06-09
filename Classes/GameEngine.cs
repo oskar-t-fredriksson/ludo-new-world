@@ -100,8 +100,9 @@ namespace LudoNewWorld.Classes
                     {
                         Debug.WriteLine(ActivePlayer.CheckIfMovable(boat, LastDiceRoll));
                     }
-                    diceRolled = false;
+                    if (Player.targetableRowBoats.Count <= 0) SwitchPlayer();
                 }
+                diceRolled = false;
                 if (LastPressedBoat == null)
                 {
                     GraphicHandler.highlighter.GameTileVector = new Vector2(2000, 2000);
@@ -148,13 +149,7 @@ namespace LudoNewWorld.Classes
                             boat.targetable = false;
                         }
                         Debug.WriteLine("Moved ship to new tile, ending round");
-                        switch (PlayerTurn)
-                        {
-                            case 1: PlayerTurn = 2; break;
-                            case 2: PlayerTurn = 3; break;
-                            case 3: PlayerTurn = 4; break;
-                            case 4: PlayerTurn = 1; break;
-                        }
+                        SwitchPlayer();
                         Player.targetableRowBoats.Clear();
                     }
                     else
@@ -169,53 +164,60 @@ namespace LudoNewWorld.Classes
 
         private void MoveAI()
         {
-            if(moveAITick >= 80)
+            foreach (var ship in ActivePlayer.rowBoats)
             {
-                foreach (var ship in ActivePlayer.rowBoats)
-                {
-                    ActivePlayer.CheckIfMovable(ship, LastDiceRoll);
-                }
-                foreach (var ship in Player.targetableRowBoats)
-                {
-                    ship.targetable = true;
-                }
-                // Generate a random number between 0 and the amount of ships in the player objects rowboat list
-                int boatNumber = _random.Next(0, Player.targetableRowBoats.Count);
-                Player.RowBoat boat = Player.targetableRowBoats[boatNumber];
-
-                // Get the GameTile index of the ship we just generated a random index for
-                int currentTileIndex = boat.CurrentTile;
-
-                // Now we need to get the target game tile index & game tile object based on currentTileIndex + dice roll
-                int targetTileIndex = GraphicHandler.GetOrderedTiles().IndexOf(GraphicHandler.GetOrderTile(currentTileIndex + LastDiceRoll));
-                GameTile targetTile = GraphicHandler.GetOrderTile(targetTileIndex);
-
-                // Move ship to target tile
-                float shipX = targetTile.GameTileVector.X - 10;
-                float shipY = targetTile.GameTileVector.Y - 25;
-                boat.Vector = new Vector2(shipX, shipY);
-                boat.active = true;
-                boat.CurrentTile = targetTileIndex;
-                targetTile.IsPlayerOnTile = true;
-                Player.DestroyRowBoat(boat, targetTile);
-                Debug.WriteLine($"Moved ship {boat.Faction} {boat.Id} to tile {boat.CurrentTile}");
-                foreach (var ship in Player.targetableRowBoats)
-                {
-                    ship.targetable = false;
-                }
+                ActivePlayer.CheckIfMovable(ship, LastDiceRoll);
+            }
+            if (Player.targetableRowBoats.Count <= 0)
+            {
+                SwitchPlayer();
                 diceRolled = false;
-                Player.targetableRowBoats.Clear();
-                if(moveAITick >= 60)
-                {
-                    switch (PlayerTurn)
-                    {
-                        case 1: PlayerTurn = 2; break;
-                        case 2: PlayerTurn = 3; break;
-                        case 3: PlayerTurn = 4; break;
-                        case 4: PlayerTurn = 1; break;
-                    }
-                }
                 MainPage.showDice = true;
+            }
+            else if(Player.targetableRowBoats.Count > 0 && moveAITick >= 80)
+            {
+                //foreach (var ship in Player.targetableRowBoats)
+                //{
+                //    ship.targetable = true;
+                //}
+                if(Player.targetableRowBoats.Count <= 0)
+                {
+                    SwitchPlayer();
+                }
+                else
+                {
+                    // Generate a random number between 0 and the amount of ships in the player objects rowboat list
+                    int boatNumber = _random.Next(0, Player.targetableRowBoats.Count);
+                    Player.RowBoat boat = Player.targetableRowBoats[boatNumber];
+
+                    // Get the GameTile index of the ship we just generated a random index for
+                    int currentTileIndex = boat.CurrentTile;
+
+                    // Now we need to get the target game tile index & game tile object based on currentTileIndex + dice roll
+                    int targetTileIndex = GraphicHandler.GetOrderedTiles().IndexOf(GraphicHandler.GetOrderTile(currentTileIndex + LastDiceRoll));
+                    GameTile targetTile = GraphicHandler.GetOrderTile(targetTileIndex);
+
+                    // Move ship to target tile
+                    float shipX = targetTile.GameTileVector.X - 10;
+                    float shipY = targetTile.GameTileVector.Y - 25;
+                    boat.Vector = new Vector2(shipX, shipY);
+                    boat.active = true;
+                    boat.CurrentTile = targetTileIndex;
+                    targetTile.IsPlayerOnTile = true;
+                    Player.DestroyRowBoat(boat, targetTile);
+                    Debug.WriteLine($"Moved ship {boat.Faction} {boat.Id} to tile {boat.CurrentTile}");
+                    foreach (var ship in Player.targetableRowBoats)
+                    {
+                        ship.targetable = false;
+                    }
+                    diceRolled = false;
+                    Player.targetableRowBoats.Clear();
+                    if (moveAITick >= 60)
+                    {
+                        SwitchPlayer();
+                    }
+                    MainPage.showDice = true;
+                }
             }
         }
 
@@ -308,6 +310,21 @@ namespace LudoNewWorld.Classes
                 {
                     Debug.WriteLine("no player has won the game yet");
                 }
+            }
+        }
+
+        /// <summary>
+        /// Switch the current player playing
+        /// <para>Checks what value <see cref="GameEngine.PlayerTurn"/> and change the current player</para>
+        /// </summary>
+        private static void SwitchPlayer()
+        {
+            switch (PlayerTurn)
+            {
+                case 1: PlayerTurn = 2; break;
+                case 2: PlayerTurn = 3; break;
+                case 3: PlayerTurn = 4; break;
+                case 4: PlayerTurn = 1; break;
             }
         }
     }
