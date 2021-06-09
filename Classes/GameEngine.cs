@@ -164,10 +164,13 @@ namespace LudoNewWorld.Classes
 
         private void MoveAI()
         {
+            // Send all of the current players ships into CheckIfMovable to make sure they follow the logic rules
+            // CheckIfMovable fills a list of "targetable" boats that we later then use to move AI ships.
             foreach (var ship in ActivePlayer.rowBoats)
             {
                 ActivePlayer.CheckIfMovable(ship, LastDiceRoll);
             }
+            // If the list targetableRowBoats comes back empty, the game should change player as the current player cant make a move
             if (Player.targetableRowBoats.Count <= 0)
             {
                 SwitchPlayer();
@@ -176,10 +179,6 @@ namespace LudoNewWorld.Classes
             }
             else if(Player.targetableRowBoats.Count > 0 && moveAITick >= 80)
             {
-                //foreach (var ship in Player.targetableRowBoats)
-                //{
-                //    ship.targetable = true;
-                //}
                 if(Player.targetableRowBoats.Count <= 0)
                 {
                     SwitchPlayer();
