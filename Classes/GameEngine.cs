@@ -19,6 +19,7 @@ namespace LudoNewWorld.Classes
         public static int moveAITick { get; set; }
         public static int PlayerTurn { get; set; }
 
+        private static int currentTileIndex;
         private static int round = 1;
         private static bool newRound = true;
         private static bool gameActive = false;
@@ -83,8 +84,8 @@ namespace LudoNewWorld.Classes
         /// <para><see cref="gameActive"/> needs to be set True</para>
         /// </summary>
         public void NextRound()
-        {
-            if(newRound)
+        {            
+            if (newRound)
             {
                 SwitchPlayerTimer = 0;
                 Debug.WriteLine("===========================");
@@ -124,16 +125,16 @@ namespace LudoNewWorld.Classes
                 if (LastPressedBoat != null)
                 {
                     playerCanMove = true;
-                    var tileIndex = LastPressedBoat.CurrentTile;
+                    currentTileIndex = LastPressedBoat.CurrentTile;
                     if (LastPressedBoat.CurrentTile + LastDiceRoll > 43)
                     {
-                        tileIndex = tileIndex - 43 + LastDiceRoll - 1;
+                        currentTileIndex = currentTileIndex - 43 + LastDiceRoll - 1;
                     }
                     else
                     {
-                        tileIndex += LastDiceRoll;
+                        currentTileIndex += LastDiceRoll;
                     }
-                    Vector2 highlightoffset = new Vector2(GraphicHandler.GetOrderTile(tileIndex).GameTileVector.X - 12, GraphicHandler.GetOrderTile(tileIndex).GameTileVector.Y - 12);
+                    Vector2 highlightoffset = new Vector2(GraphicHandler.GetOrderTile(currentTileIndex).GameTileVector.X - 12, GraphicHandler.GetOrderTile(currentTileIndex).GameTileVector.Y - 12);
                     GraphicHandler.highlighter.GameTileVector = highlightoffset;
                 }
                 if (LastPressedBoat != null && LastPressedBoat.targetable)
@@ -163,16 +164,17 @@ namespace LudoNewWorld.Classes
                             boat.targetable = false;
                         }
                         //Debug.WriteLine("Moved ship to new tile, ending round");
-                        if (LastDiceRoll == 6)
+                        if (LastDiceRoll == 6 || GraphicHandler.GetOrderTile(currentTileIndex).TileType == Tile.PositiveTile)
                         {
                             //Debug.WriteLine($"{ActivePlayer.playerFaction} {ActivePlayer.ID} rolled a 6's. Trigger reroll");
                             Player.PositiveTileEffect();
-                        }
+                        }                        
                         else
                         {
                             SwitchPlayer();
                             Player.targetableRowBoats.Clear();
                         }
+                        //Debug.WriteLine("LAST PRESSED TILE + 1: " + GraphicHandler.GetOrderTile(LastPressedBoat.CurrentTile + LastDiceRoll) + 1);
                     }
                     else
                     {
@@ -236,7 +238,7 @@ namespace LudoNewWorld.Classes
                     }
                     diceRolled = false;
                     Player.targetableRowBoats.Clear();
-                    if (LastDiceRoll == 6)
+                    if (LastDiceRoll == 6 || GraphicHandler.GetOrderTile(targetTileIndex).TileType == Tile.PositiveTile)
                     {
                         Player.PositiveTileEffect();
                     }
