@@ -286,10 +286,13 @@ namespace LudoNewWorld.Classes
             int lastPlayer = GameEngine.PlayerTurn;
             if(GameEngine.GetActivePlayer().IsHuman)
             {
+                Debug.WriteLine("REROLL");
+                GameEngine.diceRolled = false;
                 MainPage.showDice = true;
             }
             else
             {
+                Debug.WriteLine("REROLL");
                 GameEngine.diceRolled = false;
             }
         }
