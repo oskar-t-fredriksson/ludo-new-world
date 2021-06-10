@@ -110,8 +110,9 @@ namespace LudoNewWorld
         {
             gameTickCounter++;
             GameEngine.moveAITick++;
+            GameEngine.SwitchPlayerTimer++;
 
-            if(GameEngine.GetGameActive())
+            if (GameEngine.GetGameActive())
             {
                 if (gameTickCounter >= 60)
                 {

@@ -15,13 +15,14 @@ namespace LudoNewWorld.Classes
         private static Player ActivePlayer { get; set; }
         public static int LastDiceRoll { get; set; }
         public static int Tick { get; set; }
+        public static int SwitchPlayerTimer { get; set; }
         public static int moveAITick { get; set; }
         public static int PlayerTurn { get; set; }
 
         private static int round = 1;
-
         private static bool newRound = true;
         private static bool gameActive = false;
+        private static bool switchPlayerEnabled = false;
 
         public static bool diceRolled = false;
         public static bool playerCanMove = false;
@@ -85,6 +86,7 @@ namespace LudoNewWorld.Classes
         {
             if(newRound)
             {
+                SwitchPlayerTimer = 0;
                 Debug.WriteLine("===========================");
                 Debug.WriteLine("Round: " + GameEngine.round);
                 round++;
@@ -224,7 +226,7 @@ namespace LudoNewWorld.Classes
                     boat.Vector = new Vector2(shipX, shipY);
                     boat.active = true;
                     boat.CurrentTile = targetTileIndex;
-                    Debug.WriteLine(boat.CurrentTile + "\n");
+                    Debug.WriteLine(boat.CurrentTile);
                     targetTile.IsPlayerOnTile = true;
                     Player.DestroyRowBoat(boat, targetTile);
                     //Debug.WriteLine($"Moved ship {boat.Faction} {boat.Id} to tile {boat.CurrentTile}");
@@ -346,6 +348,15 @@ namespace LudoNewWorld.Classes
         /// </summary>
         private static void SwitchPlayer()
         {
+            // Clean up before switching player
+            foreach (var boat in Player.targetableRowBoats)
+            {
+                boat.targetable = false;
+            }
+            Player.targetableRowBoats.Clear();
+            LastPressedBoat = null;
+            LastPressedGameTile = null;
+            // Switch to next player clockwise
             switch (PlayerTurn)
             {
                 case 1: PlayerTurn = 2; break;

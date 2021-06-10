@@ -164,7 +164,7 @@ namespace LudoNewWorld.Classes
                 tile.IsPlayerOnTile = true;
                 DestroyRowBoat(ship, tile);
                 GameEngine.moveConfirmed = false;
-                Debug.WriteLine(ship.CurrentTile + "\n");
+                Debug.WriteLine(ship.CurrentTile);
             }
         }
 
