@@ -245,41 +245,46 @@ namespace LudoNewWorld.Classes
                 {
                     if (item.Key.Id == targetShip.Id && item.Key.Faction == targetShip.Faction && targetShip.CurrentTile == GraphicHandler.GetOrderedTiles().IndexOf(tile))
                     {
-                        if (targetShip.Faction != ship.Faction && targetShip.Faction == Faction.Britain)
+                        if (targetShip.Faction != ship.Faction && targetShip.Faction == Faction.Britain 
+                            || ship.Faction == Faction.Britain && GraphicHandler.GetOrderTile(ship.CurrentTile).TileType == Tile.NegativeTile)
                         {
                             targetShip.CurrentTile = -1;
                             targetShip.Vector = new Vector2(item.Value.X, item.Value.Y);
                             targetShip.active = false;
                             //Debug.WriteLine("DESTROY " + targetShip.Id + " " + targetShip.Faction);
                         }
-                        else if (targetShip.Faction != ship.Faction && targetShip.Faction == Faction.Dutch)
+                        else if (targetShip.Faction != ship.Faction && targetShip.Faction == Faction.Dutch
+                            || ship.Faction == Faction.Dutch && GraphicHandler.GetOrderTile(ship.CurrentTile).TileType == Tile.NegativeTile)
                         {
                             targetShip.CurrentTile = 10;
                             targetShip.Vector = new Vector2(item.Value.X, item.Value.Y);
                             targetShip.active = false;
                             //Debug.WriteLine("DESTROY " + targetShip.Id + " " + targetShip.Faction);
                         }
-                        else if (targetShip.Faction != ship.Faction && targetShip.Faction == Faction.Spain)
+                        else if (targetShip.Faction != ship.Faction && targetShip.Faction == Faction.Spain
+                            || ship.Faction == Faction.Spain && GraphicHandler.GetOrderTile(ship.CurrentTile).TileType == Tile.NegativeTile)
                         {
                             targetShip.CurrentTile = 21;
                             targetShip.Vector = new Vector2(item.Value.X, item.Value.Y);
                             targetShip.active = false;
                             //Debug.WriteLine("DESTROY " + targetShip.Id + " " + targetShip.Faction);
                         }
-                        else if (targetShip.Faction != ship.Faction && targetShip.Faction == Faction.France)
+                        else if (targetShip.Faction != ship.Faction && targetShip.Faction == Faction.France
+                            || ship.Faction == Faction.France && GraphicHandler.GetOrderTile(ship.CurrentTile).TileType == Tile.NegativeTile)
                         {
                             targetShip.CurrentTile = 32;
                             targetShip.Vector = new Vector2(item.Value.X, item.Value.Y);
                             targetShip.active = false;
                             //Debug.WriteLine("DESTROY " + targetShip.Id + " " + targetShip.Faction);
-                        }                        
+                        }
+                        Debug.WriteLine("SHIP DESTROYED ");
                     }
                 }
             }            
         }
 
         /// <summary>
-        /// 
+        /// Makes the player or AI able to roll the dice another time
         /// </summary>
         public static void PositiveTileEffect()
         {
@@ -295,6 +300,6 @@ namespace LudoNewWorld.Classes
                 Debug.WriteLine("REROLL");
                 GameEngine.diceRolled = false;
             }
-        }
+        }        
     }
 }
