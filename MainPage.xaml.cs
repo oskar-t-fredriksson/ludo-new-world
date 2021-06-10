@@ -321,10 +321,13 @@ namespace LudoNewWorld
 
         private void credit_return_Click(object sender, RoutedEventArgs e)
         {
-            CreditPopup.IsOpen = false;
-            MyPopup.IsOpen = true;
-            Popup2.IsOpen = true;
-            Sound.CrediSound(CreditPopup.IsOpen);
+
+                CreditPopup.IsOpen = false;
+                MyPopup.IsOpen = true;
+                Popup2.IsOpen = true;
+                Sound.CrediSound(CreditPopup.IsOpen);
+
+            
         }
 
         private void QuitConfirm_yes_Click(object sender, RoutedEventArgs e)
@@ -367,14 +370,18 @@ namespace LudoNewWorld
 
                 if (ParentPopup.IsOpen == true)
                 {
+                    ParentPopup_grid.Visibility = Visibility.Visible;
                     MyPopup.IsOpen = true;
                     Popup2.IsOpen = true;
                 }
                 else if (ParentPopup.IsOpen == false)
                 {
-                    MyPopup.IsOpen = false;
+                    ParentPopup_grid.Visibility = Visibility.Collapsed;
                     Popup2.IsOpen = false;
+                    MyPopup.IsOpen = false;
+
                 }
+
             }
         }
         private async void SetDebugMenu()
