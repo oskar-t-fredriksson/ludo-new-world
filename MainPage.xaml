@@ -275,7 +275,7 @@
                             <StackPanel>
                                 <Grid>
 
-                                    <Image Width="900" Height="1100" Margin="-100,-400,0,0" Source="Assets/Images/instruct_placeholder.png"></Image>
+                                    <Image Width="900" Height="1100" Margin="-100,-400,0,0" Source="Assets/Images/instruct_tab.png"></Image>
                                     <Button x:Name="instruct_return" Click="instruct_return_Click"  Style="{StaticResource StartMenuStyle}" Margin="-70,100,0,0">Return</Button>
                                 </Grid>
                             </StackPanel>
