@@ -194,6 +194,7 @@ namespace LudoNewWorld.Classes
                             //Debug.WriteLine($"{ActivePlayer.playerFaction} {ActivePlayer.ID} rolled a 6's. Trigger reroll");
                             Player.PositiveTileEffect();
                             LastPressedBoat = null;
+                            Player.targetableRowBoats.Clear();
                         }
                         else if (GraphicHandler.GetOrderTile(currentTileIndex).TileType == Tile.RandomTile)
                         {
@@ -202,6 +203,7 @@ namespace LudoNewWorld.Classes
                             {
                                 Player.PositiveTileEffect();
                                 LastPressedBoat = null;
+                                Player.targetableRowBoats.Clear();
                             }
                             else
                             {
