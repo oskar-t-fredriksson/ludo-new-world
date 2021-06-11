@@ -164,7 +164,7 @@ namespace LudoNewWorld
             backgroundFranceActive = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Background/bg_france_active.png"));
             menuBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Background/menuBackground.png"));
             helpmenuBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/helpMenuNew.png"));
-            instructionsBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/instruct_placeholder.png"));
+            instructionsBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/instruct_tab.png"));
             creditsBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Credits.png"));
 
             //Tiles

@@ -49,10 +49,35 @@ namespace LudoNewWorld.Classes
             factionList.Add(Faction.France);
             factionList.Remove(faction);
 
-            Player.playerList.Add(p1 = new Player(1,faction, true));
-            Player.playerList.Add(p2 = new Player(2,factionList[0], false));
-            Player.playerList.Add(p3 = new Player(3,factionList[1], false));
-            Player.playerList.Add(p4 = new Player(4,factionList[2], false));            
+            if (faction == Faction.Britain)
+            {
+                Player.playerList.Add(p1 = new Player(1, faction, true));
+                Player.playerList.Add(p2 = new Player(2, factionList[0], false));
+                Player.playerList.Add(p3 = new Player(3, factionList[1], false));
+                Player.playerList.Add(p4 = new Player(4, factionList[2], false));
+            }
+            else if (faction == Faction.Dutch)
+            {
+                Player.playerList.Add(p1 = new Player(1, factionList[0], false));
+                Player.playerList.Add(p2 = new Player(2, faction, true));
+                Player.playerList.Add(p3 = new Player(3, factionList[1], false));
+                Player.playerList.Add(p4 = new Player(4, factionList[2], false));
+            }
+            else if (faction == Faction.Spain)
+            {
+                Player.playerList.Add(p1 = new Player(1, factionList[0], false));
+                Player.playerList.Add(p2 = new Player(2, factionList[1], false));
+                Player.playerList.Add(p3 = new Player(3, faction, true));
+                Player.playerList.Add(p4 = new Player(4, factionList[2], false));
+            }
+            else if (faction == Faction.France)
+            {
+                Player.playerList.Add(p1 = new Player(1, factionList[0], false));
+                Player.playerList.Add(p2 = new Player(2, factionList[1], false));
+                Player.playerList.Add(p3 = new Player(3, factionList[2], false));
+                Player.playerList.Add(p4 = new Player(4, faction, true));
+            }
+
         }
 
         /// <summary>
@@ -170,6 +195,7 @@ namespace LudoNewWorld.Classes
                             //Debug.WriteLine($"{ActivePlayer.playerFaction} {ActivePlayer.ID} rolled a 6's. Trigger reroll");
                             Player.PositiveTileEffect();
                             LastPressedBoat = null;
+                            Player.targetableRowBoats.Clear();
                         }
                         else if (GraphicHandler.GetOrderTile(currentTileIndex).TileType == Tile.RandomTile)
                         {
@@ -178,6 +204,7 @@ namespace LudoNewWorld.Classes
                             {
                                 Player.PositiveTileEffect();
                                 LastPressedBoat = null;
+                                Player.targetableRowBoats.Clear();
                             }
                             else
                             {
@@ -347,29 +374,111 @@ namespace LudoNewWorld.Classes
                     LastPressedBoat.pressedByMouse = false;
                     LastPressedBoat.targetable = true;
                 }
-                foreach (var ship in p1.rowBoats)
+                if (p1.IsHuman)
                 {
-                    if (ship.targetable)
+                    foreach (var ship in p1.rowBoats)
                     {
-                        if (clickCords.X >= ship.scaledVector.X - 30 && clickCords.X <= ship.scaledVector.X + 30
-                        && clickCords.Y >= ship.scaledVector.Y - 30 && clickCords.Y <= ship.scaledVector.Y + 30)
+                        if (ship.targetable)
                         {
-                            if (ship.pressedByMouse)
+                            if (clickCords.X >= ship.scaledVector.X - 30 && clickCords.X <= ship.scaledVector.X + 30
+                            && clickCords.Y >= ship.scaledVector.Y - 30 && clickCords.Y <= ship.scaledVector.Y + 30)
                             {
-                                ship.targetable = true;
-                                ship.pressedByMouse = false;
+                                if (ship.pressedByMouse)
+                                {
+                                    ship.targetable = true;
+                                    ship.pressedByMouse = false;
+                                }
+                                else
+                                {
+                                    ship.targetable = false;
+                                    ship.pressedByMouse = true;
+                                    LastPressedBoat = ship;
+                                }
+                                //Debug.WriteLine("User has pressed a targetable click, waiting for user to click a tile!");
+                                return ship;
                             }
-                            else
-                            {
-                                ship.targetable = false;
-                                ship.pressedByMouse = true;
-                                LastPressedBoat = ship;
-                            }
-                            //Debug.WriteLine("User has pressed a targetable click, waiting for user to click a tile!");
-                            return ship;
                         }
                     }
                 }
+                else if (p2.IsHuman)
+                {
+                    foreach (var ship in p2.rowBoats)
+                    {
+                        if (ship.targetable)
+                        {
+                            if (clickCords.X >= ship.scaledVector.X - 30 && clickCords.X <= ship.scaledVector.X + 30
+                            && clickCords.Y >= ship.scaledVector.Y - 30 && clickCords.Y <= ship.scaledVector.Y + 30)
+                            {
+                                if (ship.pressedByMouse)
+                                {
+                                    ship.targetable = true;
+                                    ship.pressedByMouse = false;
+                                }
+                                else
+                                {
+                                    ship.targetable = false;
+                                    ship.pressedByMouse = true;
+                                    LastPressedBoat = ship;
+                                }
+                                //Debug.WriteLine("User has pressed a targetable click, waiting for user to click a tile!");
+                                return ship;
+                            }
+                        }
+                    }
+                }
+                else if (p3.IsHuman)
+                {
+                    foreach (var ship in p3.rowBoats)
+                    {
+                        if (ship.targetable)
+                        {
+                            if (clickCords.X >= ship.scaledVector.X - 30 && clickCords.X <= ship.scaledVector.X + 30
+                            && clickCords.Y >= ship.scaledVector.Y - 30 && clickCords.Y <= ship.scaledVector.Y + 30)
+                            {
+                                if (ship.pressedByMouse)
+                                {
+                                    ship.targetable = true;
+                                    ship.pressedByMouse = false;
+                                }
+                                else
+                                {
+                                    ship.targetable = false;
+                                    ship.pressedByMouse = true;
+                                    LastPressedBoat = ship;
+                                }
+                                //Debug.WriteLine("User has pressed a targetable click, waiting for user to click a tile!");
+                                return ship;
+                            }
+                        }
+                    }
+                }
+                else if (p4.IsHuman)
+                {
+                    foreach (var ship in p4.rowBoats)
+                    {
+                        if (ship.targetable)
+                        {
+                            if (clickCords.X >= ship.scaledVector.X - 30 && clickCords.X <= ship.scaledVector.X + 30
+                            && clickCords.Y >= ship.scaledVector.Y - 30 && clickCords.Y <= ship.scaledVector.Y + 30)
+                            {
+                                if (ship.pressedByMouse)
+                                {
+                                    ship.targetable = true;
+                                    ship.pressedByMouse = false;
+                                }
+                                else
+                                {
+                                    ship.targetable = false;
+                                    ship.pressedByMouse = true;
+                                    LastPressedBoat = ship;
+                                }
+                                //Debug.WriteLine("User has pressed a targetable click, waiting for user to click a tile!");
+                                return ship;
+                            }
+                        }
+                    }
+                }
+
             }
             return null;
         }
