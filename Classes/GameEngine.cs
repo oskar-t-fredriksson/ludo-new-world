@@ -159,8 +159,9 @@ namespace LudoNewWorld.Classes
                     {
                         currentTileIndex += LastDiceRoll;
                     }
-                    Vector2 highlightoffset = new Vector2(GraphicHandler.GetOrderTile(currentTileIndex).GameTileVector.X - 12, GraphicHandler.GetOrderTile(currentTileIndex).GameTileVector.Y - 12);
-                    GraphicHandler.highlighter.GameTileVector = highlightoffset;
+                    GraphicHandler.highlighter.GameTileVector = GetHighlightVector(currentTileIndex);
+                    //Vector2 highlightoffset = new Vector2(GraphicHandler.GetOrderTile(currentTileIndex).GameTileVector.X - 12, GraphicHandler.GetOrderTile(currentTileIndex).GameTileVector.Y - 12);
+                    //GraphicHandler.highlighter.GameTileVector = highlightoffset;
                 }
                 if (LastPressedBoat != null && LastPressedBoat.targetable)
                 {
@@ -311,6 +312,54 @@ namespace LudoNewWorld.Classes
         }
 
         /// <summary>
+        /// Recieves the tile index of current tile + dice roll and returns the vector of that tile index
+        /// </summary>
+        /// <param name="tileIndex"></param>
+        /// <returns></returns>
+        private static Vector2 GetHighlightVector(int tileIndex)
+        {
+            int tileIndexBritain = LastPressedBoat.CurrentTile + LastDiceRoll - 44;
+            int tileIndexDutch = LastPressedBoat.CurrentTile + LastDiceRoll - 10;
+            int tileIndexSpain = LastPressedBoat.CurrentTile + LastDiceRoll - 21;
+            int tileIndexFrance = LastPressedBoat.CurrentTile + LastDiceRoll - 32;
+            Vector2 highlightVector;
+
+            if (LastPressedBoat.active && LastPressedBoat.CurrentTile + LastDiceRoll > 43 && LastPressedBoat.Faction == Faction.Britain)
+            {
+                highlightVector = new Vector2(GraphicHandler.GetBritainGoalTile(tileIndexBritain).GameTileVector.X - 12,
+                    GraphicHandler.GetBritainGoalTile(tileIndexBritain).GameTileVector.Y - 12);
+                return highlightVector;
+            }
+            else if (LastPressedBoat.active && LastPressedBoat.CurrentTile <= 10
+                && LastPressedBoat.CurrentTile + LastDiceRoll > 10 && LastPressedBoat.Faction == Faction.Dutch)
+            {
+                highlightVector = new Vector2(GraphicHandler.GetDutchGoalTile(tileIndexDutch).GameTileVector.X - 12,
+                    GraphicHandler.GetDutchGoalTile(tileIndexDutch).GameTileVector.Y - 12);
+                return highlightVector;
+            }
+            else if (LastPressedBoat.active && LastPressedBoat.CurrentTile <= 21
+                && LastPressedBoat.CurrentTile + LastDiceRoll > 21 && LastPressedBoat.Faction == Faction.Spain)
+            {
+                highlightVector = new Vector2(GraphicHandler.GetSpainGoalTile(tileIndexSpain).GameTileVector.X - 12,
+                    GraphicHandler.GetSpainGoalTile(tileIndexSpain).GameTileVector.Y - 12);
+                return highlightVector;
+            }
+            else if (LastPressedBoat.active && LastPressedBoat.CurrentTile <= 32
+                && LastPressedBoat.CurrentTile + LastDiceRoll > 32 && LastPressedBoat.Faction == Faction.France)
+            {
+                highlightVector = new Vector2(GraphicHandler.GetFranceGoalTile(tileIndexFrance).GameTileVector.X - 12,
+                    GraphicHandler.GetSpainGoalTile(tileIndexFrance).GameTileVector.Y - 12);
+                return highlightVector;
+            }
+            else
+            {
+                highlightVector = new Vector2(GraphicHandler.GetOrderTile(tileIndex).GameTileVector.X - 12, GraphicHandler.GetOrderTile(tileIndex).GameTileVector.Y - 12);
+                return highlightVector;
+            }
+
+        }
+
+        /// <summary>
         /// Takes in the latest mouse click coordinates in the form of a Vector2 value
         /// <para>Check if any ship is on that position of the screen</para>
         /// </summary>
@@ -456,6 +505,19 @@ namespace LudoNewWorld.Classes
                         }
                     }
                 }
+
+                foreach (var tile in GraphicHandler.GetBritainGoalTiles())
+                {
+                    if (clickCords.X >= tile.ScaledVector.X - 50 && clickCords.X <= tile.ScaledVector.X
+                    && clickCords.Y >= tile.ScaledVector.Y - 50 && clickCords.Y <= tile.ScaledVector.Y)
+                    {
+                        LastPressedGameTile = tile;
+                        LastPressedBoat.isOnGoalTile = true;
+                        return tile;
+                    }
+                }
+
+
             }
             return null;
         }
