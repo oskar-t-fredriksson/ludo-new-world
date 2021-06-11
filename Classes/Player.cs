@@ -251,7 +251,6 @@ namespace LudoNewWorld.Classes
                             targetShip.CurrentTile = -1;
                             targetShip.Vector = new Vector2(item.Value.X, item.Value.Y);
                             targetShip.active = false;
-                            //Debug.WriteLine("DESTROY " + targetShip.Id + " " + targetShip.Faction);
                         }
                         else if (targetShip.Faction != ship.Faction && targetShip.Faction == Faction.Dutch
                             || ship.Faction == Faction.Dutch && GraphicHandler.GetOrderTile(ship.CurrentTile).TileType == Tile.NegativeTile)
@@ -259,7 +258,6 @@ namespace LudoNewWorld.Classes
                             targetShip.CurrentTile = 10;
                             targetShip.Vector = new Vector2(item.Value.X, item.Value.Y);
                             targetShip.active = false;
-                            //Debug.WriteLine("DESTROY " + targetShip.Id + " " + targetShip.Faction);
                         }
                         else if (targetShip.Faction != ship.Faction && targetShip.Faction == Faction.Spain
                             || ship.Faction == Faction.Spain && GraphicHandler.GetOrderTile(ship.CurrentTile).TileType == Tile.NegativeTile)
@@ -267,7 +265,6 @@ namespace LudoNewWorld.Classes
                             targetShip.CurrentTile = 21;
                             targetShip.Vector = new Vector2(item.Value.X, item.Value.Y);
                             targetShip.active = false;
-                            //Debug.WriteLine("DESTROY " + targetShip.Id + " " + targetShip.Faction);
                         }
                         else if (targetShip.Faction != ship.Faction && targetShip.Faction == Faction.France
                             || ship.Faction == Faction.France && GraphicHandler.GetOrderTile(ship.CurrentTile).TileType == Tile.NegativeTile)
@@ -275,12 +272,10 @@ namespace LudoNewWorld.Classes
                             targetShip.CurrentTile = 32;
                             targetShip.Vector = new Vector2(item.Value.X, item.Value.Y);
                             targetShip.active = false;
-                            //Debug.WriteLine("DESTROY " + targetShip.Id + " " + targetShip.Faction);
                         }
-                        Debug.WriteLine("SHIP DESTROYED ");
                     }
                 }
-            }            
+            }           
         }
 
         /// <summary>
@@ -288,18 +283,58 @@ namespace LudoNewWorld.Classes
         /// </summary>
         public static void PositiveTileEffect()
         {
-            int lastPlayer = GameEngine.PlayerTurn;
             if(GameEngine.GetActivePlayer().IsHuman)
             {
-                Debug.WriteLine("REROLL");
                 GameEngine.diceRolled = false;
                 MainPage.showDice = true;
             }
             else
             {
-                Debug.WriteLine("REROLL");
                 GameEngine.diceRolled = false;
             }
-        }        
+        }
+        /// <summary>
+        /// Upon walking on random tile this negative effect might happen, reset vector to start position and set IsPlayerOnTile to false
+        /// </summary>
+        /// <param name="ship"></param>
+        public static void RandomNegativeTile(Player.RowBoat ship)
+        {
+            foreach (var item in rowboatVector)
+            {
+                if (item.Key.Id == ship.Id && item.Key.Faction == ship.Faction && ship.CurrentTile >= 0)
+                {
+                    if (ship.Faction == Faction.Britain && GraphicHandler.GetOrderTile(ship.CurrentTile).TileType == Tile.RandomTile)
+                    {
+                        GraphicHandler.GetOrderTile(ship.CurrentTile).IsPlayerOnTile = false;
+                        ship.CurrentTile = -1;
+                        ship.Vector = new Vector2(item.Value.X, item.Value.Y);
+                        ship.active = false;
+                    }
+                    else if (ship.Faction == Faction.Dutch && GraphicHandler.GetOrderTile(ship.CurrentTile).TileType == Tile.RandomTile)
+                    {
+                        GraphicHandler.GetOrderTile(ship.CurrentTile).IsPlayerOnTile = false;
+                        ship.CurrentTile = 10;
+                        ship.Vector = new Vector2(item.Value.X, item.Value.Y);
+                        ship.active = false;
+                    }
+                    else if (ship.Faction == Faction.Spain && GraphicHandler.GetOrderTile(ship.CurrentTile).TileType == Tile.RandomTile)
+                    {
+                        GraphicHandler.GetOrderTile(ship.CurrentTile).IsPlayerOnTile = false;
+                        ship.CurrentTile = 21;
+                        ship.Vector = new Vector2(item.Value.X, item.Value.Y);
+                        ship.active = false;
+                    }
+                    else if (ship.Faction == Faction.France && GraphicHandler.GetOrderTile(ship.CurrentTile).TileType == Tile.RandomTile)
+                    {
+                        GraphicHandler.GetOrderTile(ship.CurrentTile).IsPlayerOnTile = false;
+                        ship.CurrentTile = 32;
+                        ship.Vector = new Vector2(item.Value.X, item.Value.Y);
+                        ship.active = false;
+                    }
+                }
+            }
+
+        }
+
     }
 }
