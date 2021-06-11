@@ -182,6 +182,7 @@ namespace LudoNewWorld.Classes
             {
                 var shipTileI = ship.CurrentTile;
                 var forLoopShipTileLengthI = ship.CurrentTile;
+                int stepsTaken = 1;
                 //Debug.WriteLine("=================================");
                 //Debug.WriteLine($"Loop for ship {ship.Id} started: ");
 
@@ -192,9 +193,45 @@ namespace LudoNewWorld.Classes
                         //Debug.WriteLine("Located at base, can only move at 1 or 6");
                         return false;
                     }
-                    //Debug.Write("Tile: " + i);
+                    // Detect if ship is currently standing on a goal tile
+                    if (ship.active && ship.Faction == GraphicHandler.GetOrderTile(ship.CurrentTile).FactionType && GraphicHandler.GetOrderTile(ship.CurrentTile).TileType == Tile.GoalTile)
+                    {
+                        Debug.WriteLine("Ship is standing on a goal tile right now");
+                    }
                     if (i <= 43)
                     {
+                        Debug.WriteLine($"i: {i} | Steps taken: {stepsTaken} | {ship.Faction} {ship.Id} ");
+                        // Detect if the method are passing a "faction arrow" that indicate that the boat should turn into the goal tiles
+                        if(GraphicHandler.GetOrderTile(i).FactionType == ship.Faction && GraphicHandler.GetOrderTile(i).TileType == Tile.NeutralTile)
+                        {
+                            Debug.WriteLine($"Found british arrow on tile {i} after {stepsTaken} steps");
+                            // How many steps there are left into the goal tiles
+                            int RemaingStepsToTake = GameEngine.LastDiceRoll - stepsTaken;
+                            switch (ship.Faction)
+                            {
+                                case Faction.Britain:
+                                    var list = GraphicHandler.GetBritishGoalTiles();
+                                    for (int j = 0; j < RemaingStepsToTake; j++)
+                                    {
+                                        for (int k = 0; k < GraphicHandler.GetBritishGoalTiles().Count; k++)
+                                        {
+                                            if (list[k].IsPlayerOnTile && ship.Faction == list[k].FactionType)
+                                            {
+                                                Debug.WriteLine($"Found own player on goal tile {list[k]}");
+                                                return false;
+                                            }
+                                        }
+                                    }
+                                    break;
+                                case Faction.Dutch:
+                                    break;
+                                case Faction.Spain:
+                                    break;
+                                case Faction.France:
+                                    break;
+                            }
+
+                        }
                         if (GraphicHandler.GetOrderTile(i).IsPlayerOnTile)
                         {
                             foreach (var targetShip in GraphicHandler.rowBoatList)
@@ -224,7 +261,8 @@ namespace LudoNewWorld.Classes
                     {
                         i = -1;
                         forLoopShipTileLengthI = shipTileI - 43 - 1;
-                    }  
+                    }
+                    stepsTaken++;
                 }                
             }            
             ship.targetable = true;
@@ -277,7 +315,6 @@ namespace LudoNewWorld.Classes
                             targetShip.active = false;
                             //Debug.WriteLine("DESTROY " + targetShip.Id + " " + targetShip.Faction);
                         }
-                        Debug.WriteLine("SHIP DESTROYED ");
                     }
                 }
             }            

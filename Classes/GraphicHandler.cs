@@ -588,5 +588,13 @@ namespace LudoNewWorld
                 throw e;
             }
         }
+        public static List<GameTile> GetBritishGoalTiles()
+        {
+            return britainGoalTiles;
+        }
+        public static List<List<GameTile>> GetAllGoalTiles()
+        {
+            return allGoalTiles;
+        }
     }
 }
