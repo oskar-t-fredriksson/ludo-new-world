@@ -50,6 +50,10 @@ namespace LudoNewWorld
             Player.playerList.Clear();
             GameEngine.factionList.Clear();
             GraphicHandler.rowBoatList.Clear();
+            foreach (var tile in GraphicHandler.GetOrderedTiles())
+            {
+                tile.IsPlayerOnTile = false;
+            }
             MainPage.gameState = 0;
         }
     }
