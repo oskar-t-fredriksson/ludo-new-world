@@ -110,6 +110,7 @@ namespace LudoNewWorld.Classes
             public bool active = false;
             public bool targetable = false;
             public bool pressedByMouse = false;
+            public bool isOnGoalTile = false;
 
             public RowBoat(int id, Vector2 vector, Faction faction)
             {
@@ -183,20 +184,36 @@ namespace LudoNewWorld.Classes
                 var shipTileI = ship.CurrentTile;
                 var forLoopShipTileLengthI = ship.CurrentTile;
                 int stepsTaken = 1;
-                //Debug.WriteLine("=================================");
-                //Debug.WriteLine($"Loop for ship {ship.Id} started: ");
 
+                // Detect if ship is currently standing on a goal tile
+                if (ship.isOnGoalTile && ship.active && ship.CurrentTile <= 4 && ship.Faction == GraphicHandler.GetGoalTileByShipFactor(ship).FactionType &&
+                    GraphicHandler.GetGoalTileByShipFactor(ship).TileType == Tile.GoalTile)
+                {
+                    Debug.WriteLine("Ship is standing on a goal tile right now");
+                    if (GameEngine.LastDiceRoll + ship.CurrentTile > 4) return false;
+                    else if (GameEngine.LastDiceRoll + ship.CurrentTile == 4)
+                    {
+                        Debug.WriteLine($"ship can move to goal: {GameEngine.LastDiceRoll} + {ship.CurrentTile}");
+                        return true;
+                    }
+                    else
+                    {
+                        for (int i = ship.CurrentTile + 1; i < 4; i++)
+                        {
+                            if(GraphicHandler.GetGoalTileByShipFactor(ship,i).IsPlayerOnTile)
+                            {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                }
                 for (int i = shipTileI + 1; i < forLoopShipTileLengthI + dicenr + 1; i++)
                 {   
                     if(!ship.active && GameEngine.LastDiceRoll != 1 && GameEngine.LastDiceRoll != 6)
                     {
                         //Debug.WriteLine("Located at base, can only move at 1 or 6");
                         return false;
-                    }
-                    // Detect if ship is currently standing on a goal tile
-                    if (ship.active && ship.Faction == GraphicHandler.GetOrderTile(ship.CurrentTile).FactionType && GraphicHandler.GetOrderTile(ship.CurrentTile).TileType == Tile.GoalTile)
-                    {
-                        Debug.WriteLine("Ship is standing on a goal tile right now");
                     }
                     if (i <= 43)
                     {
@@ -210,25 +227,49 @@ namespace LudoNewWorld.Classes
                             switch (ship.Faction)
                             {
                                 case Faction.Britain:
-                                    var list = GraphicHandler.GetBritishGoalTiles();
+                                    var britishList = GraphicHandler.GetBritainGoalTiles();
                                     for (int j = 0; j < RemaingStepsToTake; j++)
                                     {
-                                        for (int k = 0; k < GraphicHandler.GetBritishGoalTiles().Count; k++)
+                                        Debug.WriteLine($"Inside goal tiles, checking tile {GraphicHandler.GetBritainGoalTiles().IndexOf(britishList[j])}");
+                                        if (britishList[j].IsPlayerOnTile && ship.Faction == britishList[j].FactionType)
                                         {
-                                            if (list[k].IsPlayerOnTile && ship.Faction == list[k].FactionType)
-                                            {
-                                                Debug.WriteLine($"Found own player on goal tile {list[k]}");
-                                                return false;
-                                            }
+                                            Debug.WriteLine($"Found own player on goal tile {GraphicHandler.GetBritainGoalTiles().IndexOf(britishList[j])}");
+                                            return false;
                                         }
-                                    }
-                                    break;
+                                    } break;
                                 case Faction.Dutch:
-                                    break;
+                                    var dutchList = GraphicHandler.GetDutchGoalTiles();
+                                    for (int j = 0; j < RemaingStepsToTake; j++)
+                                    {
+                                        Debug.WriteLine($"Inside goal tiles, checking tile {GraphicHandler.GetDutchGoalTiles().IndexOf(dutchList[j])}");
+                                        if (dutchList[j].IsPlayerOnTile && ship.Faction == dutchList[j].FactionType)
+                                        {
+                                            Debug.WriteLine($"Found own player on goal tile {GraphicHandler.GetDutchGoalTiles().IndexOf(dutchList[j])}");
+                                            return false;
+                                        }
+                                    } break;
                                 case Faction.Spain:
-                                    break;
+                                    var spainList = GraphicHandler.GetSpainGoalTiles();
+                                    for (int j = 0; j < RemaingStepsToTake; j++)
+                                    {
+                                        Debug.WriteLine($"Inside goal tiles, checking tile {GraphicHandler.GetSpainGoalTiles().IndexOf(spainList[j])}");
+                                        if (spainList[j].IsPlayerOnTile && ship.Faction == spainList[j].FactionType)
+                                        {
+                                            Debug.WriteLine($"Found own player on goal tile {GraphicHandler.GetSpainGoalTiles().IndexOf(spainList[j])}");
+                                            return false;
+                                        }
+                                    } break;
                                 case Faction.France:
-                                    break;
+                                    var franceList = GraphicHandler.GetFranceGoalTiles();
+                                    for (int j = 0; j < RemaingStepsToTake; j++)
+                                    {
+                                        Debug.WriteLine($"Inside goal tiles, checking tile {GraphicHandler.GetFranceGoalTiles().IndexOf(franceList[j])}");
+                                        if (franceList[j].IsPlayerOnTile && ship.Faction == franceList[j].FactionType)
+                                        {
+                                            Debug.WriteLine($"Found own player on goal tile {GraphicHandler.GetFranceGoalTiles().IndexOf(franceList[j])}");
+                                            return false;
+                                        }
+                                    } break;
                             }
 
                         }
@@ -257,7 +298,7 @@ namespace LudoNewWorld.Classes
                             //Debug.WriteLine($" Found zero ship on tile!");
                         }
                     }
-                    else
+                    else if(ship.Faction != Faction.Britain)
                     {
                         i = -1;
                         forLoopShipTileLengthI = shipTileI - 43 - 1;

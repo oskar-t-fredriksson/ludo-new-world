@@ -588,13 +588,59 @@ namespace LudoNewWorld
                 throw e;
             }
         }
-        public static List<GameTile> GetBritishGoalTiles()
+        public static GameTile GetGoalTileByShipFactor(Player.RowBoat ship)
+        {
+            switch (ship.Faction)
+            {
+                case Faction.Britain: return britainGoalTiles[ship.CurrentTile];
+                case Faction.Dutch: return dutchGoalTiles[ship.CurrentTile];
+                case Faction.Spain: return spainGoalTiles[ship.CurrentTile];
+                case Faction.France: return franceGoalTiles[ship.CurrentTile];
+            }
+            return null;
+        }
+        public static GameTile GetGoalTileByShipFactor(Player.RowBoat ship, int index)
+        {
+            switch (ship.Faction)
+            {
+                case Faction.Britain: return britainGoalTiles[index];
+                case Faction.Dutch: return dutchGoalTiles[index];
+                case Faction.Spain: return spainGoalTiles[index];
+                case Faction.France: return franceGoalTiles[index];
+            }
+            return null;
+        }
+        public static GameTile GetBritainGoalTile(int index)
+        {
+            return britainGoalTiles[index];
+        }
+        public static List<GameTile> GetBritainGoalTiles()
         {
             return britainGoalTiles;
         }
-        public static List<List<GameTile>> GetAllGoalTiles()
+        public static GameTile GetDutchGoalTile(int index)
         {
-            return allGoalTiles;
+            return dutchGoalTiles[index];
+        }
+        public static List<GameTile> GetDutchGoalTiles()
+        {
+            return dutchGoalTiles;
+        }
+        public static GameTile GetSpainGoalTile(int index)
+        {
+            return spainGoalTiles[index];
+        }
+        public static List<GameTile> GetSpainGoalTiles()
+        {
+            return spainGoalTiles;
+        }
+        public static GameTile GetFranceGoalTile(int index)
+        {
+            return franceGoalTiles[index];
+        }
+        public static List<GameTile> GetFranceGoalTiles()
+        {
+            return franceGoalTiles;
         }
     }
 }
