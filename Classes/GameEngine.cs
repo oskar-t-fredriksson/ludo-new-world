@@ -156,19 +156,35 @@ namespace LudoNewWorld.Classes
                         ActivePlayer.MoveRowBoat();
                         GraphicHandler.highlighter.GameTileVector = new Vector2(2000, 2000);
                         playerRoundCompleted = true;
-                        LastPressedBoat = null;
-                        LastPressedGameTile = null;
                         playerCanMove = false;
                         foreach (var boat in Player.targetableRowBoats)
                         {
                             boat.targetable = false;
                         }
                         //Debug.WriteLine("Moved ship to new tile, ending round");
-                        if (LastDiceRoll == 6 || GraphicHandler.GetOrderTile(currentTileIndex).TileType == Tile.PositiveTile)
+                        if (LastDiceRoll == 6 && GraphicHandler.GetOrderTile(currentTileIndex).TileType != Tile.NegativeTile 
+                            && GraphicHandler.GetOrderTile(currentTileIndex).TileType != Tile.RandomTile
+                            || GraphicHandler.GetOrderTile(currentTileIndex).TileType == Tile.PositiveTile)
                         {
                             //Debug.WriteLine($"{ActivePlayer.playerFaction} {ActivePlayer.ID} rolled a 6's. Trigger reroll");
                             Player.PositiveTileEffect();
-                        }                        
+                            LastPressedBoat = null;
+                        }
+                        else if (GraphicHandler.GetOrderTile(currentTileIndex).TileType == Tile.RandomTile)
+                        {
+                            int randomNumber = _random.Next(1, 3);
+                            if (randomNumber == 1)
+                            {
+                                Player.PositiveTileEffect();
+                                LastPressedBoat = null;
+                            }
+                            else
+                            {
+                                Player.RandomNegativeTile(LastPressedBoat);
+                                SwitchPlayer();
+                                Player.targetableRowBoats.Clear();
+                            }
+                        }
                         else
                         {
                             SwitchPlayer();
@@ -238,9 +254,24 @@ namespace LudoNewWorld.Classes
                     }
                     diceRolled = false;
                     Player.targetableRowBoats.Clear();
-                    if (LastDiceRoll == 6 || GraphicHandler.GetOrderTile(targetTileIndex).TileType == Tile.PositiveTile)
+                    if (LastDiceRoll == 6 && GraphicHandler.GetOrderTile(targetTileIndex).TileType != Tile.NegativeTile 
+                        && GraphicHandler.GetOrderTile(targetTileIndex).TileType != Tile.RandomTile
+                        || GraphicHandler.GetOrderTile(targetTileIndex).TileType == Tile.PositiveTile)
                     {
                         Player.PositiveTileEffect();
+                    }
+                    else if (GraphicHandler.GetOrderTile(targetTileIndex).TileType == Tile.RandomTile)
+                    {
+                        int randomNumber = _random.Next(1, 3);
+                        if (randomNumber == 1)
+                        {
+                            Player.PositiveTileEffect();
+                        }
+                        else
+                        {
+                            Player.RandomNegativeTile(boat);
+                            SwitchPlayer();
+                        }
                     }
                     else if (LastDiceRoll != 6 && moveAITick >= 60)
                     {                       
