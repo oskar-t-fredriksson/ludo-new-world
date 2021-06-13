@@ -14,14 +14,14 @@ namespace LudoNewWorld
 {
     class GraphicHandler
     {
-        public static CanvasBitmap background, backgroundBritainActive, backgroundDutchActive, backgroundSpainActive, backgroundFranceActive ,gameBackground, menuBackground,
+        public static CanvasBitmap background, backgroundBritainActive, backgroundDutchActive, backgroundSpainActive, backgroundFranceActive, gameBackground, menuBackground,
         dice1, dice2, dice3, dice4, dice5, dice6, britishDisplayDice, dutchDisplayDice, spainDisplayDice, franceDisplayDice,
         dice1Inactive, dice2Inactive, dice3Inactive, dice4Inactive, dice5Inactive, dice6Inactive,
         NeutralTile, BritainTile, SpainTile, DutchTile, FranceTile, NegativeTile, PositiveTile, RandomTile,
         BritainGoalTile, DutchGoalTile, FranceGoalTile, SpainGoalTile,
         BritainSmallShip, BritainSmallShipActive, BritainSmallShipTarget, DutchSmallShip, DutchSmallShipActive, DutchSmallShipTarget,
         SpainSmallShip, SpainSmallShipActive, SpainSmallShipTarget, FranceSmallShip, FranceSmallShipActive, FranceSmallShipTarget,
-        helpmenuBackground, instructionsBackground, creditsBackground, MoveableTile;
+        helpmenuBackground, instructionsBackground, creditsBackground, MoveableTile, bgMapHighlighted;
 
         // List GameTile
         private static List<GameTile> orderedTiles = new List<GameTile>();
@@ -48,10 +48,10 @@ namespace LudoNewWorld
         public static GameTile highlighter = new GameTile(Tile.HighlightTile, new Vector2(2000, 2000));
 
         /// <summary>
-        /// 
+        /// Trigger the dice scramble animation for the <param name="playerID"></param>
         /// </summary>
-        /// <param name="playerID"></param>
-        /// <returns></returns>
+        /// <param name="playerID">Current player</param>
+        /// <returns>int value between 1-6</returns>
         public static int scrambleDice(int playerID)
         {
             //// TESTING PURPOSE.
@@ -166,6 +166,7 @@ namespace LudoNewWorld
             helpmenuBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/helpMenuNew.png"));
             instructionsBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/instruct_tab.png"));
             creditsBackground = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Credits.png"));
+            bgMapHighlighted = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Background/bg_map_highlighted.png"));
 
             //Tiles
             MoveableTile = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameTiles/MovableTilePlaceholder.png"));
@@ -261,6 +262,10 @@ namespace LudoNewWorld
                         case Faction.France:
                             DrawShipStates(args, ship, FranceSmallShipActive, FranceSmallShipTarget, FranceSmallShip); break;
                     }
+                }
+                if(MainPage.rowboatCanReachGoal)
+                {
+                    args.DrawingSession.DrawImage(Scaler.Fit(bgMapHighlighted));
                 }
             }
         }

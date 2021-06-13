@@ -51,6 +51,7 @@ namespace LudoNewWorld
         public static bool volumeMute = false;
         public static bool nextRoundAvailable = true;
         public static bool showDice = true;
+        public static bool rowboatCanReachGoal = false;
         private static bool debugMenuActive = false;
         private static int gameTickCounter = 0;
         public Vector3 scaleVector3Variable = new Vector3(DesignWidth, DesignHeight, 1);

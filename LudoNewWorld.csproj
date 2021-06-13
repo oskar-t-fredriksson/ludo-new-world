@@ -144,6 +144,7 @@
     <Content Include="Assets\Images\Background\bg_britain_active.png" />
     <Content Include="Assets\Images\Background\bg_dutch_active.png" />
     <Content Include="Assets\Images\Background\bg_france_active.png" />
+    <Content Include="Assets\Images\Background\bg_map_highlighted.png" />
     <Content Include="Assets\Images\Background\bg_spain_active.png" />
     <Content Include="Assets\Images\Background\menuBackground.png" />
     <Content Include="Assets\Images\Credits.png" />

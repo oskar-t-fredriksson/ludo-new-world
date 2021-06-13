@@ -10,7 +10,6 @@ namespace LudoNewWorld.Classes
 {
     class Player
     {
-        
         public Faction playerFaction;
         public int ID { get; }
         public bool IsHuman { get; }
@@ -23,7 +22,12 @@ namespace LudoNewWorld.Classes
         public List<RowBoat> rowBoats = new List<RowBoat>();
 
         
-
+        /// <summary>
+        /// Constructor for a player object
+        /// </summary>
+        /// <param name="ID">Between 1-4</param>
+        /// <param name="playerFaction">What faction should the object have</param>
+        /// <param name="isHuman">Is the object connected to a player or AI</param>
         public Player(int ID, Faction playerFaction, bool isHuman)
         {
             this.ID = ID;
@@ -100,6 +104,10 @@ namespace LudoNewWorld.Classes
                 rowboatVector.Add(boat, boat.Vector);                
             }
         }
+
+        /// <summary>
+        /// Constructor for a rowboat/ship object
+        /// </summary>
         public class RowBoat
         {
             public Vector2 Vector { get; set; }
@@ -200,6 +208,7 @@ namespace LudoNewWorld.Classes
                         Player.targetableRowBoats.Add(ship);
                         // SHOULD NOT HIGHLIGHT ANY ORDERTILES
                         // SHOULD HIGHLIGHT AMERICA AND MAKE IT CLICKABLE TO CONFIRM MOVE
+                        MainPage.rowboatCanReachGoal = true;
                         return true;
                     }
                     else
