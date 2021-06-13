@@ -189,11 +189,17 @@ namespace LudoNewWorld.Classes
                 if (ship.isOnGoalTile && ship.active && ship.CurrentTile <= 4 && ship.Faction == GraphicHandler.GetGoalTileByShipFactor(ship).FactionType &&
                     GraphicHandler.GetGoalTileByShipFactor(ship).TileType == Tile.GoalTile)
                 {
+                    // In the case a ship is standing on a goal tile, We want to check if
+                    // the current tile index + last rolled dice value is equal to the steps to goal
                     Debug.WriteLine("Ship is standing on a goal tile right now");
                     if (GameEngine.LastDiceRoll + ship.CurrentTile > 4) return false;
                     else if (GameEngine.LastDiceRoll + ship.CurrentTile == 4)
                     {
                         Debug.WriteLine($"ship can move to goal: {GameEngine.LastDiceRoll} + {ship.CurrentTile}");
+                        ship.targetable = true;
+                        Player.targetableRowBoats.Add(ship);
+                        // SHOULD NOT HIGHLIGHT ANY ORDERTILES
+                        // SHOULD HIGHLIGHT AMERICA AND MAKE IT CLICKABLE TO CONFIRM MOVE
                         return true;
                     }
                     else
