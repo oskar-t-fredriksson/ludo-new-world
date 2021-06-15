@@ -54,6 +54,7 @@ namespace LudoNewWorld
             {
                 tile.IsPlayerOnTile = false;
             }
+            MainPage.showDice = true;
             MainPage.gameState = 0;
         }
     }
