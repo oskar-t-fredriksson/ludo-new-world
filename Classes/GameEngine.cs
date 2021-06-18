@@ -88,6 +88,7 @@ namespace LudoNewWorld.Classes
         public void StartGame(Faction faction)
         {
             CreatePlayers(faction);
+            MainPage.showDice = true;
             switch (faction)
             {
                 case Faction.Britain:

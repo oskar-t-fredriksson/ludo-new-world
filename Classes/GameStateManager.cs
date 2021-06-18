@@ -47,14 +47,14 @@ namespace LudoNewWorld
         /// </summary>
         private static void ResetGame()
         {
+            MainPage.showDice = false;
             Player.playerList.Clear();
             GameEngine.factionList.Clear();
             GraphicHandler.rowBoatList.Clear();
             foreach (var tile in GraphicHandler.GetOrderedTiles())
             {
                 tile.IsPlayerOnTile = false;
-            }
-            MainPage.showDice = true;
+            }            
             MainPage.gameState = 0;
         }
     }
