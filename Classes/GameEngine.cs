@@ -126,7 +126,7 @@ namespace LudoNewWorld.Classes
             if(gameActive && !ActivePlayer.IsHuman)
             {
                 // Send all rowboat objects from the AI player into the MoveAI method
-                if (!diceRolled) LastDiceRoll = GraphicHandler.scrambleDice(ActivePlayer.ID);
+                if (!diceRolled) LastDiceRoll = GraphicHandler.ScrambleDice(ActivePlayer.ID);
                 diceRolled = true;
                 MoveAI();
             }

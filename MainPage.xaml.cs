@@ -169,7 +169,7 @@ namespace LudoNewWorld
         private void btnRoll_Click(object sender, RoutedEventArgs e)
         {
             Sound.DiceSound();
-            GameEngine.LastDiceRoll = GraphicHandler.scrambleDice(GameEngine.PlayerTurn);
+            GameEngine.LastDiceRoll = GraphicHandler.ScrambleDice(GameEngine.PlayerTurn);
             GameEngine.diceRolled = true;
             showDice = false;
             Dice.Visibility = Visibility.Collapsed;

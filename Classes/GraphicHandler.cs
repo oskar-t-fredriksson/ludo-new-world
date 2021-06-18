@@ -47,23 +47,17 @@ namespace LudoNewWorld
         private readonly Random _random = new Random();
         public static GameTile highlighter = new GameTile(Tile.HighlightTile, new Vector2(2000, 2000));
 
+
         /// <summary>
-        /// 
+        /// Causes an animation in form of a dice "scrambling" and calls for a number between 1-6 from <see cref="Dice.Roll"/>
         /// </summary>
         /// <param name="playerID"></param>
-        /// <returns></returns>
-        public static int scrambleDice(int playerID)
+        /// <returns>Returns a int between 1-6</returns>
+        public static int ScrambleDice(int playerID)
         {
-            //// TESTING PURPOSE.
-            // Player.playerList[0].rowBoats.Clear();
-            //Debug.WriteLine($"{Player.playerList[0].rowBoats.Count()} finns i listan nu");
-            //GameEngine.CheckWin();
-
             Sound.DiceSound();
             Dice dice = new Dice();
             int trueNumber = dice.Roll();
-            Debug.WriteLine(GameEngine.GetActivePlayer().playerFaction + " rolled: " + trueNumber);
-           
            
             switch (playerID)
             {
@@ -130,8 +124,8 @@ namespace LudoNewWorld
                 default: break;
             }
             return trueNumber;
-           
         }
+
 
         /// <summary>
         /// Adds all tile objects to appointed lists
@@ -154,6 +148,12 @@ namespace LudoNewWorld
             args.TrackAsyncAction(CreateResourceAsync(sender).AsAsyncAction());
         }
 
+
+        /// <summary>
+        /// Create a CanvasBitmap from a picture
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <returns></returns>
         private static async Task CreateResourceAsync(CanvasAnimatedControl sender)
         {
             //Background
@@ -219,6 +219,12 @@ namespace LudoNewWorld
             FranceSmallShipTarget = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Ships/FranceSmallShipTarget.png"));
         }
 
+
+        /// <summary>
+        /// Draw event, draws to the canvas once per update
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         public static void Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
             GameEngine.Tick++;
@@ -265,6 +271,7 @@ namespace LudoNewWorld
             }
         }
 
+
         /// <summary>
         /// Draws the different states of the ship
         /// </summary>
@@ -297,8 +304,9 @@ namespace LudoNewWorld
             args.DrawingSession.DrawImage(Scaler.Fit(franceDisplayDice), Scaler.Cords(new Vector2(362, 885)));
         }
 
+
         /// <summary>
-        /// Draws the 4 last tiles before finish
+        /// Draws the four last tiles before finish
         /// </summary>
         /// <param name="args"></param>
         /// <param name="list"></param>
@@ -328,6 +336,7 @@ namespace LudoNewWorld
                 }
             }
         }
+
 
         /// <summary>
         /// Draws all base tiles where each player Rowboat nest
@@ -360,6 +369,7 @@ namespace LudoNewWorld
                 }
             }
         }
+
 
         /// <summary>
         /// Draws all the game tiles to form the circle around the goal tiles
@@ -433,6 +443,7 @@ namespace LudoNewWorld
             }
         }
 
+
         /// <summary>
         /// Adds all tile objects in correct order to List<GameTiles> orderTiles
         /// </summary>
@@ -498,9 +509,9 @@ namespace LudoNewWorld
             //Britain last tile 
             orderedTiles.Add(new GameTile(Tile.NeutralTile, Faction.Britain, new Vector2(340, 540)));
         }
-        /// <summary>
-        /// Adds all goal tiles to respective faction goal tile list
-        /// </summary>
+
+
+        // Adds all goal tiles to respective faction goal tile list
         private static void BritainGoalTilesToList()
         {
             britainGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Britain, new Vector2(420, 540)));
@@ -509,6 +520,8 @@ namespace LudoNewWorld
             britainGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Britain, new Vector2(660, 540)));
             allGoalTiles.Add(britainGoalTiles);
         }
+
+
         private static void DutchGoalTilesToList()
         {
             dutchGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Dutch, new Vector2(960, 150)));
@@ -517,6 +530,8 @@ namespace LudoNewWorld
             dutchGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Dutch, new Vector2(960, 390)));
             allGoalTiles.Add(dutchGoalTiles);
         }
+
+
         private static void SpainGoalTilesToList()
         {
             spainGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Spain, new Vector2(1500, 540)));
@@ -525,6 +540,8 @@ namespace LudoNewWorld
             spainGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.Spain, new Vector2(1260, 540)));
             allGoalTiles.Add(spainGoalTiles);
         }
+
+
         private static void FranceGoalTilesToList()
         {
             franceGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.France, new Vector2(960, 930)));
@@ -533,6 +550,8 @@ namespace LudoNewWorld
             franceGoalTiles.Add(new GameTile(Tile.GoalTile, Faction.France, new Vector2(960, 690)));
             allGoalTiles.Add(franceGoalTiles);
         }
+
+
         /// <summary>
         /// Adds all base tiles to respective faction base tile list
         /// </summary>
@@ -544,6 +563,8 @@ namespace LudoNewWorld
             britainBaseTiles.Add(new GameTile(Tile.BaseTile, Faction.Britain, new Vector2(270, 230)));
             allBaseTiles.Add(britainBaseTiles);
         }
+
+
         private static void DutchBaseTilesToList()
         {
             dutchBaseTiles.Add(new GameTile(Tile.BaseTile, Faction.Dutch, new Vector2(1730, 150)));
@@ -552,6 +573,8 @@ namespace LudoNewWorld
             dutchBaseTiles.Add(new GameTile(Tile.BaseTile, Faction.Dutch, new Vector2(1650, 230)));
             allBaseTiles.Add(dutchBaseTiles);
         }
+
+
         private static void SpainBaseTilesToList()
         {
             spainBaseTiles.Add(new GameTile(Tile.BaseTile, Faction.Spain, new Vector2(1730, 930)));
@@ -560,6 +583,8 @@ namespace LudoNewWorld
             spainBaseTiles.Add(new GameTile(Tile.BaseTile, Faction.Spain, new Vector2(1650, 850)));
             allBaseTiles.Add(spainBaseTiles);
         }
+
+
         private static void FranceBaseTilesToList()
         {
             franceBaseTiles.Add(new GameTile(Tile.BaseTile, Faction.France, new Vector2(190, 930)));
@@ -568,10 +593,23 @@ namespace LudoNewWorld
             franceBaseTiles.Add(new GameTile(Tile.BaseTile, Faction.France, new Vector2(270, 850)));
             allBaseTiles.Add(franceBaseTiles);
         }
+
+
+        /// <summary>
+        /// Return a list of all <see cref="GetOrderedTiles"/>
+        /// </summary>
+        /// <returns><see cref="GetOrderedTiles"/></returns>
         public static List<GameTile> GetOrderedTiles()
         {
             return orderedTiles;
         }
+
+
+        /// <summary>
+        /// Get a specific <see cref="GameTile"/> object by index
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns><see cref="GameTile"/> by index</returns>
         public static GameTile GetOrderTile(int index)
         {
             try
@@ -588,6 +626,13 @@ namespace LudoNewWorld
                 throw e;
             }
         }
+
+
+        /// <summary>
+        /// Get a specific <see cref="GameTile"/> object by <see cref="Faction"/> of a <see cref="Player.RowBoat"/> object
+        /// </summary>
+        /// <param name="ship"></param>
+        /// <returns><see cref="GameTile"/> by <see cref="Faction"/></returns>
         public static GameTile GetGoalTileByShipFactor(Player.RowBoat ship)
         {
             switch (ship.Faction)
@@ -599,6 +644,13 @@ namespace LudoNewWorld
             }
             return null;
         }
+
+
+        /// <summary>
+        /// Get a specific <see cref="GameTile"/> object by <see cref="Faction"/> of a <see cref="Player.RowBoat"/> object and index
+        /// </summary>
+        /// <param name="ship"></param>
+        /// <returns><see cref="GameTile"/> by <see cref="Faction"/> and index</returns>
         public static GameTile GetGoalTileByShipFactor(Player.RowBoat ship, int index)
         {
             switch (ship.Faction)
@@ -610,34 +662,82 @@ namespace LudoNewWorld
             }
             return null;
         }
+
+
+        /// <summary>
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns>a specific <see cref="Faction.Britain"/> <see cref="GameTile"/> by index</returns>
         public static GameTile GetBritainGoalTile(int index)
         {
             return britainGoalTiles[index];
         }
+
+
+        /// <summary>
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns>a list of <see cref="Faction.Britain"/> <see cref="GameTile"/></returns>
         public static List<GameTile> GetBritainGoalTiles()
         {
             return britainGoalTiles;
         }
+
+
+        /// <summary>
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns>a specific <see cref="Faction.Dutch"/> <see cref="GameTile"/> by index</returns>
         public static GameTile GetDutchGoalTile(int index)
         {
             return dutchGoalTiles[index];
         }
+
+
+        /// <summary>
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns>a list of <see cref="Faction.Dutch"/> <see cref="GameTile"/></returns>
         public static List<GameTile> GetDutchGoalTiles()
         {
             return dutchGoalTiles;
         }
+
+
+        /// <summary>
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns>a specific <see cref="Faction.Spain"/> <see cref="GameTile"/> by index</returns>
         public static GameTile GetSpainGoalTile(int index)
         {
             return spainGoalTiles[index];
         }
+
+
+        /// <summary>
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns>a list of <see cref="Faction.Spain"/> <see cref="GameTile"/></returns>
         public static List<GameTile> GetSpainGoalTiles()
         {
             return spainGoalTiles;
         }
+
+
+        /// <summary>
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns>a specific <see cref="Faction.France"/> <see cref="GameTile"/> by index</returns>
         public static GameTile GetFranceGoalTile(int index)
         {
             return franceGoalTiles[index];
         }
+
+
+        /// <summary>
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns>a list of <see cref="Faction.France"/> <see cref="GameTile"/></returns>
         public static List<GameTile> GetFranceGoalTiles()
         {
             return franceGoalTiles;
