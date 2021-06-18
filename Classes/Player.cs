@@ -224,54 +224,61 @@ namespace LudoNewWorld.Classes
                             Debug.WriteLine($"Found british arrow on tile {i} after {stepsTaken} steps");
                             // How many steps there are left into the goal tiles
                             int RemaingStepsToTake = GameEngine.LastDiceRoll - stepsTaken;
-                            switch (ship.Faction)
+                            if (RemaingStepsToTake > 3) return false;
+                            else
                             {
-                                case Faction.Britain:
-                                    var britishList = GraphicHandler.GetBritainGoalTiles();
-                                    for (int j = 0; j < RemaingStepsToTake; j++)
-                                    {
-                                        Debug.WriteLine($"Inside goal tiles, checking tile {GraphicHandler.GetBritainGoalTiles().IndexOf(britishList[j])}");
-                                        if (britishList[j].IsPlayerOnTile && ship.Faction == britishList[j].FactionType)
+                                switch (ship.Faction)
+                                {
+                                    case Faction.Britain:
+                                        var britishList = GraphicHandler.GetBritainGoalTiles();
+                                        for (int j = 0; j < RemaingStepsToTake; j++)
                                         {
-                                            Debug.WriteLine($"Found own player on goal tile {GraphicHandler.GetBritainGoalTiles().IndexOf(britishList[j])}");
-                                            return false;
+                                            Debug.WriteLine($"Inside goal tiles, checking tile {GraphicHandler.GetBritainGoalTiles().IndexOf(britishList[j])}");
+                                            if (britishList[j].IsPlayerOnTile && ship.Faction == britishList[j].FactionType)
+                                            {
+                                                Debug.WriteLine($"Found own player on goal tile {GraphicHandler.GetBritainGoalTiles().IndexOf(britishList[j])}");
+                                                return false;
+                                            }
                                         }
-                                    } break;
-                                case Faction.Dutch:
-                                    var dutchList = GraphicHandler.GetDutchGoalTiles();
-                                    for (int j = 0; j < RemaingStepsToTake; j++)
-                                    {
-                                        Debug.WriteLine($"Inside goal tiles, checking tile {GraphicHandler.GetDutchGoalTiles().IndexOf(dutchList[j])}");
-                                        if (dutchList[j].IsPlayerOnTile && ship.Faction == dutchList[j].FactionType)
+                                        break;
+                                    case Faction.Dutch:
+                                        var dutchList = GraphicHandler.GetDutchGoalTiles();
+                                        for (int j = 0; j < RemaingStepsToTake; j++)
                                         {
-                                            Debug.WriteLine($"Found own player on goal tile {GraphicHandler.GetDutchGoalTiles().IndexOf(dutchList[j])}");
-                                            return false;
+                                            Debug.WriteLine($"Inside goal tiles, checking tile {GraphicHandler.GetDutchGoalTiles().IndexOf(dutchList[j])}");
+                                            if (dutchList[j].IsPlayerOnTile && ship.Faction == dutchList[j].FactionType)
+                                            {
+                                                Debug.WriteLine($"Found own player on goal tile {GraphicHandler.GetDutchGoalTiles().IndexOf(dutchList[j])}");
+                                                return false;
+                                            }
                                         }
-                                    } break;
-                                case Faction.Spain:
-                                    var spainList = GraphicHandler.GetSpainGoalTiles();
-                                    for (int j = 0; j < RemaingStepsToTake; j++)
-                                    {
-                                        Debug.WriteLine($"Inside goal tiles, checking tile {GraphicHandler.GetSpainGoalTiles().IndexOf(spainList[j])}");
-                                        if (spainList[j].IsPlayerOnTile && ship.Faction == spainList[j].FactionType)
+                                        break;
+                                    case Faction.Spain:
+                                        var spainList = GraphicHandler.GetSpainGoalTiles();
+                                        for (int j = 0; j < RemaingStepsToTake; j++)
                                         {
-                                            Debug.WriteLine($"Found own player on goal tile {GraphicHandler.GetSpainGoalTiles().IndexOf(spainList[j])}");
-                                            return false;
+                                            Debug.WriteLine($"Inside goal tiles, checking tile {GraphicHandler.GetSpainGoalTiles().IndexOf(spainList[j])}");
+                                            if (spainList[j].IsPlayerOnTile && ship.Faction == spainList[j].FactionType)
+                                            {
+                                                Debug.WriteLine($"Found own player on goal tile {GraphicHandler.GetSpainGoalTiles().IndexOf(spainList[j])}");
+                                                return false;
+                                            }
                                         }
-                                    } break;
-                                case Faction.France:
-                                    var franceList = GraphicHandler.GetFranceGoalTiles();
-                                    for (int j = 0; j < RemaingStepsToTake; j++)
-                                    {
-                                        Debug.WriteLine($"Inside goal tiles, checking tile {GraphicHandler.GetFranceGoalTiles().IndexOf(franceList[j])}");
-                                        if (franceList[j].IsPlayerOnTile && ship.Faction == franceList[j].FactionType)
+                                        break;
+                                    case Faction.France:
+                                        var franceList = GraphicHandler.GetFranceGoalTiles();
+                                        for (int j = 0; j < RemaingStepsToTake; j++)
                                         {
-                                            Debug.WriteLine($"Found own player on goal tile {GraphicHandler.GetFranceGoalTiles().IndexOf(franceList[j])}");
-                                            return false;
+                                            Debug.WriteLine($"Inside goal tiles, checking tile {GraphicHandler.GetFranceGoalTiles().IndexOf(franceList[j])}");
+                                            if (franceList[j].IsPlayerOnTile && ship.Faction == franceList[j].FactionType)
+                                            {
+                                                Debug.WriteLine($"Found own player on goal tile {GraphicHandler.GetFranceGoalTiles().IndexOf(franceList[j])}");
+                                                return false;
+                                            }
                                         }
-                                    } break;
+                                        break;
+                                }
                             }
-
                         }
                         if (GraphicHandler.GetOrderTile(i).IsPlayerOnTile)
                         {

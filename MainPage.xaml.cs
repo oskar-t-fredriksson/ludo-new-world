@@ -57,7 +57,7 @@ namespace LudoNewWorld
         GameEngine gameEngine = new GameEngine();
 
 
-        Dice dice = new Dice();
+        //Dice dice = new Dice();
         
         public MainPage()
         {
