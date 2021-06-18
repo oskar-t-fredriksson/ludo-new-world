@@ -1,41 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using Microsoft.Graphics.Canvas.UI;
-using Microsoft.Graphics.Canvas;
-using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 using Windows.UI.Core;
 using LudoNewWorld.Classes;
-using System.Threading;
 using System.Numerics;
-using System.Diagnostics;
-using Windows.Storage;
 using Windows.Media.Playback;
-using Windows.Media.Core;
 using Windows.UI.Xaml.Media.Imaging;
-using System.ServiceModel.Channels;
-
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace LudoNewWorld
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+    /// ***********************************************************************************
+    /// In the case the buttons at start isnt visible, try to adjust the window size a bit
+    /// ***********************************************************************************
+
     public sealed partial class MainPage : Page
     {
         public static Rect bounds = ApplicationView.GetForCurrentView().VisibleBounds;
@@ -51,13 +34,10 @@ namespace LudoNewWorld
         public static bool volumeMute = false;
         public static bool nextRoundAvailable = true;
         public static bool showDice = true;
-        private static bool debugMenuActive = false;
         private static int gameTickCounter = 0;
         public Vector3 scaleVector3Variable = new Vector3(DesignWidth, DesignHeight, 1);
         GameEngine gameEngine = new GameEngine();
 
-
-        //Dice dice = new Dice();
         
         public MainPage()
         {
@@ -71,6 +51,12 @@ namespace LudoNewWorld
             Sound.SoundPlay();
             GraphicHandler.LoadResources();            
         }
+
+        /// <summary>
+        /// Window size change event.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Current_SizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
             bounds = ApplicationView.GetForCurrentView().VisibleBounds;
@@ -95,15 +81,31 @@ namespace LudoNewWorld
             PlayingMenu.Margin = new Thickness(1, 1, xMargin, yMargin);
         }
 
+        /// <summary>
+        /// Create event, create objects and variables to be used in Win2D
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
         {
             GraphicHandler.CreateResources(sender, args);
         }
 
+        /// <summary>
+        /// Draw event, draws to the canvas once per update
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
             GraphicHandler.Draw(sender, args);
         }
+
+        /// <summary>
+        /// Update event, happens 60 times a second
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
         {
             gameTickCounter++;
@@ -126,6 +128,11 @@ namespace LudoNewWorld
         }
         private void GameCanvas_Loaded(object sender, RoutedEventArgs e) { }
 
+        /// <summary>
+        /// Handles user pointer input, saves the X/Y coordinates in a vector2
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GameCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             Vector2 cords = new Vector2((float)e.GetCurrentPoint(GameCanvas).Position.X, (float)e.GetCurrentPoint(GameCanvas).Position.Y);
@@ -223,14 +230,12 @@ namespace LudoNewWorld
         {
             if (!volumeMute && volumeLevel > 0)
             {
-                Debug.WriteLine("Volume muted");
                 mPlayer.Volume = 0;
                 volumeMute = true;
                 muteButtonChange.Source = new BitmapImage(new Uri(base.BaseUri, @"/Assets/Images/Menu/volumemute.png"));
             }
             else if (volumeMute && volumeLevel > 0)
             {
-                Debug.WriteLine("Volume enabled");
                 mPlayer.Volume = currentVolume;
                 volumeMute = false;
                 muteButtonChange.Source = new BitmapImage(new Uri(base.BaseUri, @"/Assets/Images/Menu/volumeunmute.png"));
@@ -249,7 +254,6 @@ namespace LudoNewWorld
                     muteButtonChange.Source = new BitmapImage(new Uri(base.BaseUri, @"/Assets/Images/Menu/volumemute.png"));
                 }
             }
-            Debug.WriteLine("Volume: " + mPlayer.Volume);
         }
 
         private void BtnRaiseVolume_Click(object sender, RoutedEventArgs e)
@@ -265,23 +269,19 @@ namespace LudoNewWorld
                     muteButtonChange.Source = new BitmapImage(new Uri(base.BaseUri, @"/Assets/Images/Menu/volumeunmute.png"));
                 }
             }
-            Debug.WriteLine("Volume: " + mPlayer.Volume);
         }
 
         private void Help_Quit_Click(object sender, RoutedEventArgs e)
         {
             Popup2.IsOpen = false;
             ExitMenuConfirm_Popup.IsOpen = true;
-            
         }
 
         private void Instruct_btn_Click(object sender, RoutedEventArgs e)
         {
-
             Popup2.IsOpen = false;
             MyPopup.IsOpen = false;
             InstructPopup.IsOpen = true;
-     
         }
 
         private void Credit_btn_Click(object sender, RoutedEventArgs e)
@@ -290,7 +290,6 @@ namespace LudoNewWorld
             MyPopup.IsOpen = false;
             CreditPopup.IsOpen = true;
             Sound.CrediSound(CreditPopup.IsOpen);
-
         }
 
         private void instruct_return_Click(object sender, RoutedEventArgs e)
@@ -302,13 +301,10 @@ namespace LudoNewWorld
 
         private void credit_return_Click(object sender, RoutedEventArgs e)
         {
-
-                CreditPopup.IsOpen = false;
-                MyPopup.IsOpen = true;
-                Popup2.IsOpen = true;
-                Sound.CrediSound(CreditPopup.IsOpen);
-
-            
+            CreditPopup.IsOpen = false;
+            MyPopup.IsOpen = true;
+            Popup2.IsOpen = true;
+            Sound.CrediSound(CreditPopup.IsOpen);
         }
 
         private void QuitConfirm_yes_Click(object sender, RoutedEventArgs e)
@@ -330,7 +326,6 @@ namespace LudoNewWorld
             {
                 ParentPopup.IsOpen = false;
                 ExitMenuConfirm_Popup.IsOpen = false;
-
                 MenuField.Visibility = Visibility.Visible;
                 Dice.Visibility = Visibility.Collapsed;
             }
@@ -360,7 +355,6 @@ namespace LudoNewWorld
                     ParentPopup_grid.Visibility = Visibility.Collapsed;
                     Popup2.IsOpen = false;
                     MyPopup.IsOpen = false;
-
                 }
 
             }
@@ -369,7 +363,6 @@ namespace LudoNewWorld
         public Popup winnerPOP
         {
             get { return winnerPop ; }
-
         }
         public TextBlock WinnerTextBlock
         {
