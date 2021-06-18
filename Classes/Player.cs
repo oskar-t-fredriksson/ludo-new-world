@@ -1,29 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LudoNewWorld.Classes
 {
     class Player
     {
-        
         public Faction playerFaction;
         public int ID { get; }
         public bool IsHuman { get; }
         public bool isMyTurn = false;
         public int rowBoatOut = 4;
-
         public static List<Player> playerList = new List<Player>();
         public static List<Player.RowBoat> targetableRowBoats = new List<Player.RowBoat>();
         public static IDictionary<Player.RowBoat, Vector2> rowboatVector = new Dictionary<Player.RowBoat, Vector2>();
         public List<RowBoat> rowBoats = new List<RowBoat>();
 
-        
-
+        /// <summary>
+        /// Constructor for a <see cref="Player"/> object
+        /// Represent a player of the game, will generate four <see cref="Player.RowBoat"/> objects per <see cref="Player"/>
+        /// </summary>
+        /// <param name="ID">ID between 1-4</param>
+        /// <param name="playerFaction">What <see cref="Faction"/> is the player</param>
+        /// <param name="isHuman">Human or AI</param>
         public Player(int ID, Faction playerFaction, bool isHuman)
         {
             this.ID = ID;
@@ -100,6 +100,10 @@ namespace LudoNewWorld.Classes
                 rowboatVector.Add(boat, boat.Vector);                
             }
         }
+
+        /// <summary>
+        /// <see cref="Player.RowBoat"/> class
+        /// </summary>
         public class RowBoat
         {
             public Vector2 Vector { get; set; }
@@ -112,6 +116,13 @@ namespace LudoNewWorld.Classes
             public bool pressedByMouse = false;
             public bool isOnGoalTile = false;
 
+
+            /// <summary>
+            /// Constructor for a <see cref="Player.RowBoat"/> object
+            /// </summary>
+            /// <param name="id">ID between 1-4</param>
+            /// <param name="vector"><see cref="Vector2"/> X/Y coordinates</param>
+            /// <param name="faction">What <see cref="Faction"/> is the boat part off</param>
             public RowBoat(int id, Vector2 vector, Faction faction)
             {
                 this.Vector = vector;
@@ -126,6 +137,7 @@ namespace LudoNewWorld.Classes
                 }
             }
         }
+
 
         /// <summary>
         /// Move lastPressedBoat and updates lastPressBoat.CurrentTile value
@@ -149,10 +161,10 @@ namespace LudoNewWorld.Classes
             }
             else
             {
+                // We move the ship by changing the X and Y coordinates to the new tile
                 float shipX = tile.GameTileVector.X - 10;
                 float shipY = tile.GameTileVector.Y - 25;
                 ship.Vector = new Vector2(shipX, shipY);
-                Debug.Write(ship.Faction + $" ship {ship.Id} moved from tile {ship.CurrentTile} to tile ");
                 if (ship.CurrentTile + diceRoll > 43)
                 {
                     ship.CurrentTile = ship.CurrentTile - 43 + diceRoll - 1;
@@ -165,9 +177,9 @@ namespace LudoNewWorld.Classes
                 tile.IsPlayerOnTile = true;
                 DestroyRowBoat(ship, tile);
                 GameEngine.moveConfirmed = false;
-                Debug.WriteLine(ship.CurrentTile);
             }
         }
+
 
         /// <summary>
         /// Return true or false if a ship can move or not on the board 
@@ -189,11 +201,9 @@ namespace LudoNewWorld.Classes
                 if (ship.isOnGoalTile && ship.active && ship.CurrentTile <= 4 && ship.Faction == GraphicHandler.GetGoalTileByShipFactor(ship).FactionType &&
                     GraphicHandler.GetGoalTileByShipFactor(ship).TileType == Tile.GoalTile)
                 {
-                    Debug.WriteLine("Ship is standing on a goal tile right now");
                     if (GameEngine.LastDiceRoll + ship.CurrentTile > 4) return false;
                     else if (GameEngine.LastDiceRoll + ship.CurrentTile == 4)
                     {
-                        Debug.WriteLine($"ship can move to goal: {GameEngine.LastDiceRoll} + {ship.CurrentTile}");
                         return true;
                     }
                     else
@@ -212,16 +222,13 @@ namespace LudoNewWorld.Classes
                 {   
                     if(!ship.active && GameEngine.LastDiceRoll != 1 && GameEngine.LastDiceRoll != 6)
                     {
-                        //Debug.WriteLine("Located at base, can only move at 1 or 6");
                         return false;
                     }
                     if (i <= 43)
                     {
-                        Debug.WriteLine($"i: {i} | Steps taken: {stepsTaken} | {ship.Faction} {ship.Id} ");
                         // Detect if the method are passing a "faction arrow" that indicate that the boat should turn into the goal tiles
                         if(GraphicHandler.GetOrderTile(i).FactionType == ship.Faction && GraphicHandler.GetOrderTile(i).TileType == Tile.NeutralTile)
                         {
-                            Debug.WriteLine($"Found british arrow on tile {i} after {stepsTaken} steps");
                             // How many steps there are left into the goal tiles
                             int RemaingStepsToTake = GameEngine.LastDiceRoll - stepsTaken;
                             if (RemaingStepsToTake > 3) return false;
@@ -233,10 +240,8 @@ namespace LudoNewWorld.Classes
                                         var britishList = GraphicHandler.GetBritainGoalTiles();
                                         for (int j = 0; j < RemaingStepsToTake; j++)
                                         {
-                                            Debug.WriteLine($"Inside goal tiles, checking tile {GraphicHandler.GetBritainGoalTiles().IndexOf(britishList[j])}");
                                             if (britishList[j].IsPlayerOnTile && ship.Faction == britishList[j].FactionType)
                                             {
-                                                Debug.WriteLine($"Found own player on goal tile {GraphicHandler.GetBritainGoalTiles().IndexOf(britishList[j])}");
                                                 return false;
                                             }
                                         }
@@ -245,10 +250,8 @@ namespace LudoNewWorld.Classes
                                         var dutchList = GraphicHandler.GetDutchGoalTiles();
                                         for (int j = 0; j < RemaingStepsToTake; j++)
                                         {
-                                            Debug.WriteLine($"Inside goal tiles, checking tile {GraphicHandler.GetDutchGoalTiles().IndexOf(dutchList[j])}");
                                             if (dutchList[j].IsPlayerOnTile && ship.Faction == dutchList[j].FactionType)
                                             {
-                                                Debug.WriteLine($"Found own player on goal tile {GraphicHandler.GetDutchGoalTiles().IndexOf(dutchList[j])}");
                                                 return false;
                                             }
                                         }
@@ -257,10 +260,8 @@ namespace LudoNewWorld.Classes
                                         var spainList = GraphicHandler.GetSpainGoalTiles();
                                         for (int j = 0; j < RemaingStepsToTake; j++)
                                         {
-                                            Debug.WriteLine($"Inside goal tiles, checking tile {GraphicHandler.GetSpainGoalTiles().IndexOf(spainList[j])}");
                                             if (spainList[j].IsPlayerOnTile && ship.Faction == spainList[j].FactionType)
                                             {
-                                                Debug.WriteLine($"Found own player on goal tile {GraphicHandler.GetSpainGoalTiles().IndexOf(spainList[j])}");
                                                 return false;
                                             }
                                         }
@@ -269,10 +270,8 @@ namespace LudoNewWorld.Classes
                                         var franceList = GraphicHandler.GetFranceGoalTiles();
                                         for (int j = 0; j < RemaingStepsToTake; j++)
                                         {
-                                            Debug.WriteLine($"Inside goal tiles, checking tile {GraphicHandler.GetFranceGoalTiles().IndexOf(franceList[j])}");
                                             if (franceList[j].IsPlayerOnTile && ship.Faction == franceList[j].FactionType)
                                             {
-                                                Debug.WriteLine($"Found own player on goal tile {GraphicHandler.GetFranceGoalTiles().IndexOf(franceList[j])}");
                                                 return false;
                                             }
                                         }
@@ -280,29 +279,18 @@ namespace LudoNewWorld.Classes
                                 }
                             }
                         }
+
+                        // We check if there is a ship of the same nation in the way based on the last dice roll,
+                        // if so, we return false 
                         if (GraphicHandler.GetOrderTile(i).IsPlayerOnTile)
                         {
                             foreach (var targetShip in GraphicHandler.rowBoatList)
                             {                                
                                 if (ship.Id != targetShip.Id && i == targetShip.CurrentTile && ship.Faction == targetShip.Faction)
                                 {
-                                    //Debug.WriteLine(" Found own ship in the way, cant move!");
                                     return false;
-                                }
-                                else if (i == targetShip.CurrentTile && i + 1 == dicenr && targetShip.active)
-                                {
-                                    //Debug.WriteLine($" Found {targetShip.Faction} ship on last tile!, Should destroy!");
-
-                                }
-                                else if (i == targetShip.CurrentTile && targetShip.active)
-                                {
-                                    //Debug.WriteLine($" Found {targetShip.Faction} ship!");
-                                }                                                                
+                                }                                                              
                             }
-                        }
-                        else
-                        {
-                            //Debug.WriteLine($" Found zero ship on tile!");
                         }
                     }
                     else if(ship.Faction != Faction.Britain)
@@ -312,11 +300,15 @@ namespace LudoNewWorld.Classes
                     }
                     stepsTaken++;
                 }                
-            }            
+            } 
+            // If a ship isnt getting stuck by any of our false checks, it ends up here
+            // We set the targetable bool value on the ship to true so the player can press it
+            // Also fills a list containting all these targetable ships.
             ship.targetable = true;
             if(targetableRowBoats.Count < 4) targetableRowBoats.Add(ship);
             return true;
         }
+
 
         /// <summary>
         /// Resets vector of Rowboat on selected tile if player choose to move his own Rowboat to that tile
@@ -364,6 +356,7 @@ namespace LudoNewWorld.Classes
             }           
         }
 
+
         /// <summary>
         /// Makes the player or AI able to roll the dice another time
         /// </summary>
@@ -379,6 +372,8 @@ namespace LudoNewWorld.Classes
                 GameEngine.diceRolled = false;
             }
         }
+
+
         /// <summary>
         /// Upon walking on random tile this negative effect might happen, reset vector to start position and set IsPlayerOnTile to false
         /// </summary>
@@ -419,8 +414,6 @@ namespace LudoNewWorld.Classes
                     }
                 }
             }
-
         }
-
     }
 }

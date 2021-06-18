@@ -15,9 +15,9 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace LudoNewWorld
 {
-    /// ***********************************************************************************
-    /// In the case the buttons at start isnt visible, try to adjust the window size a bit
-    /// ***********************************************************************************
+    /// ***********************************************************************************\\\
+    /// In the case the buttons at start isnt visible, try to adjust the window size a bit \\\
+    /// ***********************************************************************************\\\
 
     public sealed partial class MainPage : Page
     {
