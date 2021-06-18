@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Media.Core;
-using LudoNewWorld.Classes;
-using Windows.UI.Xaml;
 
 namespace LudoNewWorld
 {
@@ -16,13 +11,16 @@ namespace LudoNewWorld
 
 
         /// <summary>
-        /// Play the background music of the entire game
+        /// Play the background music of the entire game, currently disabled
         /// </summary>
-        /// 
         public static async Task SoundPlay()
         {
+            //******************************************************************
+            //This is disabled as we don't have any copyright free music yet
+            //******************************************************************
+
             Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets\\Sounds");
-            Windows.Storage.StorageFile music1 = await folder.GetFileAsync(@"placeholder.mp3");
+            Windows.Storage.StorageFile music1 = await folder.GetFileAsync(@""); // Change when implementing new background sound
             RequestedMusic = music1;
 
             MainPage.mPlayer.AutoPlay = false;
@@ -32,12 +30,12 @@ namespace LudoNewWorld
             MainPage.mPlayer.Play();
         }
 
+
         /// <summary>
         /// The music of the credit in the menu
         /// </summary>
         /// <param name="play"></param>
         /// <returns></returns>
-
         public static async Task CrediSound(bool play)
         {
             Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets\\Sounds");
@@ -56,7 +54,7 @@ namespace LudoNewWorld
 
 
         /// <summary>
-        /// the sound effect of the dice
+        /// Sound effect of a dice roll
         /// </summary>
         /// <returns></returns>
         public static async Task DiceSound()
@@ -71,10 +69,10 @@ namespace LudoNewWorld
             MainPage.mPlayerr.Play();
         }
 
+
         /// <summary>
-        /// the sound of the boat
+        /// Sound effect when a boat moves
         /// </summary>
-        /// <>
         public static async Task MoveBoat()
         {
             Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets\\Sounds");
