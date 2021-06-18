@@ -43,7 +43,7 @@ namespace LudoNewWorld
         //List rowBoat obejects
         public static List<Player.RowBoat> rowBoatList = new List<Player.RowBoat>();
 
-        // Objects
+        //Objects
         private readonly Random _random = new Random();
         public static GameTile highlighter = new GameTile(Tile.HighlightTile, new Vector2(2000, 2000));
 

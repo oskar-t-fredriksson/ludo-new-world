@@ -530,11 +530,9 @@ namespace LudoNewWorld.Classes
             {
                 if (player.rowBoats.Count == 0)
                 {
-                    MainPage mainpage = new MainPage();
-                    //MainPage.Wi = true;
+                    MainPage mainpage = new MainPage();                    
                     mainpage.winnerPOP.IsOpen = true;
-                    mainpage.WinnerTextBlock.Text=$"{player.playerFaction} won the game ";
-                    
+                    mainpage.WinnerTextBlock.Text=$"{player.playerFaction} won the game ";                   
                 }
             }
         }
