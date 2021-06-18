@@ -216,9 +216,6 @@
     <Content Include="Assets\Images\Ships\SpainSmallShip.png" />
     <Content Include="Assets\Images\Ships\SpainSmallShipActive.png" />
     <Content Include="Assets\Images\Ships\SpainSmallShipTarget.png" />
-    <Content Include="Assets\Pirates Of The Caribbean Theme Song.mp3" />
-    <Content Include="Assets\Sounds\Pirates Of The Caribbean Theme Song.mp3" />
-    <Content Include="Assets\Sounds\placeholder.mp3" />
     <Content Include="Assets\Sounds\Rolling Dice - Sound Effect %28HD%29.mp3" />
     <Content Include="Assets\Sounds\SHEESH SOUND EFFECT.mp3" />
     <Content Include="Properties\Default.rd.xml" />
