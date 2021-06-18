@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LudoNewWorld.Classes
 {
@@ -106,16 +103,17 @@ namespace LudoNewWorld.Classes
         }
 
         /// <summary>
-        /// Start of a new round of the game
+        /// Round loop, Is called for each update (60 times a second)
+        /// This method is used to send the active player objects into <see cref="Player.CheckIfMovable(Player.RowBoat, int)"/>
+        /// Will also call for either <see cref="Player.MoveRowBoat"/> or <see cref="GameEngine.MoveAI"/> based on if the player is human or AI
         /// <para><see cref="gameActive"/> needs to be set True</para>
         /// </summary>
         public void NextRound()
-        {            
+        {
+            // First step, is to check if a new round is happening or not
             if (newRound)
             {
                 SwitchPlayerTimer = 0;
-                Debug.WriteLine("===========================");
-                Debug.WriteLine("Round: " + GameEngine.round);
                 round++;
                 newRound = false;
             }
@@ -127,16 +125,20 @@ namespace LudoNewWorld.Classes
                 case 4: ActivePlayer = p4; break;
                 case 0: ActivePlayer = ActivePlayer; break;
             }
+            // If the active player is AI
             if(gameActive && !ActivePlayer.IsHuman)
             {
-                if(!diceRolled) LastDiceRoll = GraphicHandler.scrambleDice(ActivePlayer.ID);
+                // Send all rowboat objects from the AI player into the MoveAI method
+                if (!diceRolled) LastDiceRoll = GraphicHandler.scrambleDice(ActivePlayer.ID);
                 diceRolled = true;
                 MoveAI();
             }
+            // If the active player is a player/human
             else if(gameActive && ActivePlayer.IsHuman)
             {
                 if (diceRolled)
                 {
+                    // Send all rowboat objects from the human player into the Player.CheckIfMovable method
                     foreach (var boat in ActivePlayer.rowBoats)
                     {
                         ActivePlayer.CheckIfMovable(boat, LastDiceRoll);
@@ -144,10 +146,14 @@ namespace LudoNewWorld.Classes
                     if (Player.targetableRowBoats.Count <= 0) SwitchPlayer();
                 }
                 diceRolled = false;
+
+                // Reset highlight effect outside the window so it isnt visible
                 if (LastPressedBoat == null)
                 {
                     GraphicHandler.highlighter.GameTileVector = new Vector2(2000, 2000);
                 }
+
+                // This segment is used to calculate the amount of steps a boat thats been targeted by the user and highlight the tile
                 if (LastPressedBoat != null)
                 {
                     playerCanMove = true;
@@ -161,21 +167,19 @@ namespace LudoNewWorld.Classes
                         currentTileIndex += LastDiceRoll;
                     }
                     GraphicHandler.highlighter.GameTileVector = GetHighlightVector(currentTileIndex);
-                    //Vector2 highlightoffset = new Vector2(GraphicHandler.GetOrderTile(currentTileIndex).GameTileVector.X - 12, GraphicHandler.GetOrderTile(currentTileIndex).GameTileVector.Y - 12);
-                    //GraphicHandler.highlighter.GameTileVector = highlightoffset;
                 }
+
+                // Logic to move a boat
+                // Require that the user has pressed both a boat and the specific tile we have checked is OK to move to
                 if (LastPressedBoat != null && LastPressedBoat.targetable)
                 {
                     GraphicHandler.highlighter.GameTileVector = new Vector2(2000, 2000);
                     if (GraphicHandler.GetOrderedTiles().IndexOf(LastPressedGameTile) == LastPressedBoat.CurrentTile + LastDiceRoll)
                     {
-                        //Debug.WriteLine("Right tile was clicked, calling to move tile");
                         moveConfirmed = true;
                     }
                     else if ((LastPressedBoat.CurrentTile + LastDiceRoll - 1) >= 43)
                     {
-                        //Debug.WriteLine("Right tile was clicked, calling to move tile");
-                        //Debug.WriteLine("Test else if moveConfirmed");
                         moveConfirmed = true;
                     }
                     if (moveConfirmed)
@@ -188,12 +192,10 @@ namespace LudoNewWorld.Classes
                         {
                             boat.targetable = false;
                         }
-                        //Debug.WriteLine("Moved ship to new tile, ending round");
                         if (LastDiceRoll == 6 && GraphicHandler.GetOrderTile(currentTileIndex).TileType != Tile.NegativeTile 
                             && GraphicHandler.GetOrderTile(currentTileIndex).TileType != Tile.RandomTile
                             || GraphicHandler.GetOrderTile(currentTileIndex).TileType == Tile.PositiveTile)
                         {
-                            //Debug.WriteLine($"{ActivePlayer.playerFaction} {ActivePlayer.ID} rolled a 6's. Trigger reroll");
                             Player.PositiveTileEffect();
                             LastPressedBoat = null;
                             Player.targetableRowBoats.Clear();
@@ -219,13 +221,11 @@ namespace LudoNewWorld.Classes
                             SwitchPlayer();
                             Player.targetableRowBoats.Clear();
                         }
-                        //Debug.WriteLine("LAST PRESSED TILE + 1: " + GraphicHandler.GetOrderTile(LastPressedBoat.CurrentTile + LastDiceRoll) + 1);
                     }
                     else
                     {
                         // In the case a user press the incorrect tile/anywhere else on the map that isnt the correct tile
                         LastPressedBoat = null;
-                        //Debug.WriteLine("Waiting for user to press the correct tile!");
                     }
                 }
             }
@@ -267,16 +267,14 @@ namespace LudoNewWorld.Classes
                     GameTile targetTile = GraphicHandler.GetOrderTile(targetTileIndex);
 
                     // Move ship to target tile
-                    Debug.Write(boat.Faction + $" ship {boat.Id} moved from tile {boat.CurrentTile} to tile ");
                     float shipX = targetTile.GameTileVector.X - 10;
                     float shipY = targetTile.GameTileVector.Y - 25;
                     boat.Vector = new Vector2(shipX, shipY);
                     boat.active = true;
                     boat.CurrentTile = targetTileIndex;
-                    Debug.WriteLine(boat.CurrentTile);
                     targetTile.IsPlayerOnTile = true;
                     Player.DestroyRowBoat(boat, targetTile);
-                    //Debug.WriteLine($"Moved ship {boat.Faction} {boat.Id} to tile {boat.CurrentTile}");
+
                     foreach (var ship in Player.targetableRowBoats)
                     {
                         ship.targetable = false;
@@ -306,7 +304,6 @@ namespace LudoNewWorld.Classes
                     {                       
                         SwitchPlayer();
                     }
-                    
                     MainPage.showDice = true;
                 }
             }
@@ -375,6 +372,8 @@ namespace LudoNewWorld.Classes
                     LastPressedBoat.pressedByMouse = false;
                     LastPressedBoat.targetable = true;
                 }
+
+                /// NYI: This should be refactored into a method as we repeat it 4 times
                 if (p1.IsHuman)
                 {
                     foreach (var ship in p1.rowBoats)
@@ -395,7 +394,6 @@ namespace LudoNewWorld.Classes
                                     ship.pressedByMouse = true;
                                     LastPressedBoat = ship;
                                 }
-                                //Debug.WriteLine("User has pressed a targetable click, waiting for user to click a tile!");
                                 return ship;
                             }
                         }
@@ -421,7 +419,6 @@ namespace LudoNewWorld.Classes
                                     ship.pressedByMouse = true;
                                     LastPressedBoat = ship;
                                 }
-                                //Debug.WriteLine("User has pressed a targetable click, waiting for user to click a tile!");
                                 return ship;
                             }
                         }
@@ -447,7 +444,6 @@ namespace LudoNewWorld.Classes
                                     ship.pressedByMouse = true;
                                     LastPressedBoat = ship;
                                 }
-                                //Debug.WriteLine("User has pressed a targetable click, waiting for user to click a tile!");
                                 return ship;
                             }
                         }
@@ -473,7 +469,6 @@ namespace LudoNewWorld.Classes
                                     ship.pressedByMouse = true;
                                     LastPressedBoat = ship;
                                 }
-                                //Debug.WriteLine("User has pressed a targetable click, waiting for user to click a tile!");
                                 return ship;
                             }
                         }
@@ -527,6 +522,11 @@ namespace LudoNewWorld.Classes
         {
             return gameActive;
         }
+
+        /// <summary>
+        /// Simple method to check all the active <see cref="Player.playerList"/> count and determine if a player has won
+        /// When a list comes back empty, that player has won.
+        /// </summary>
         public static void CheckWin()
         {
             foreach (var player in Player.playerList)
@@ -535,14 +535,9 @@ namespace LudoNewWorld.Classes
                 {
                     MainPage mainpage = new MainPage();
                     //MainPage.Wi = true;
-                    Debug.WriteLine($"{player} won the game uuuuuuuuuuuuuuu");
                     mainpage.winnerPOP.IsOpen = true;
                     mainpage.WinnerTextBlock.Text=$"{player.playerFaction} won the game ";
                     
-                }
-                else
-                {
-                    Debug.WriteLine("no player has won the game yet");
                 }
             }
         }
