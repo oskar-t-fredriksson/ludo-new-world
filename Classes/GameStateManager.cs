@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LudoNewWorld.Classes;
+﻿using LudoNewWorld.Classes;
 
 namespace LudoNewWorld
 {
@@ -42,8 +36,10 @@ namespace LudoNewWorld
                 ResetGame();
             }
         }
+
+
         /// <summary>
-        /// Clears all objects on the board
+        /// Clears all objects on the board in the case we want to reset everything (like with a game reset)
         /// </summary>
         private static void ResetGame()
         {

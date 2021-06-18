@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Numerics;
 
 namespace LudoNewWorld.Classes
@@ -20,7 +19,6 @@ namespace LudoNewWorld.Classes
         private static int round = 1;
         private static bool newRound = true;
         private static bool gameActive = false;
-        private static bool switchPlayerEnabled = false;
 
         public static bool diceRolled = false;
         public static bool playerCanMove = false;
@@ -74,7 +72,6 @@ namespace LudoNewWorld.Classes
                 Player.playerList.Add(p3 = new Player(3, factionList[2], false));
                 Player.playerList.Add(p4 = new Player(4, faction, true));
             }
-
         }
 
         /// <summary>
